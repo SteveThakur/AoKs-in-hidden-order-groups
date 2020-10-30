@@ -329,7 +329,7 @@ Finite abelian groups of hidden order have gained prominence within cryptography
 
 In this paper, we explore non-interactive arguments of knowledge in groups of hidden order. Our primary goal is to provide protocols for proofs of  disjointness of sets in accumulators. The primary use case for these AoKs is potential applications to sharded blockchains.
 
-Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of exponents involved.   
+Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of exponents (i.e. committed sets/multisets) involved. At times, this comes at the cost of a higher (but superlinear in the size of the data) computational burden on the Prover.
 
 
 
@@ -385,19 +385,30 @@ For an irreducible polynomial $f(X)\in \bz[X]$ of degree $7$ with Galois group $
 
 \begin{Def} \normalfont An argument system is \textit{non-interactive} if it consists of a single round of interaction between the Prover and the Verifier.\end{Def}
 
+\noin \textbf{This subsection needs to be completed}
+
 \subsection{\fontsize{11}{11}\selectfont Multiset notations}
 
 
-We first recall a few basic definitions and notations concerning multisets. For a multiset $\mc{M}$, we denote by $\sett(\mc{M})$ the underlying set of $\mc{M}$. For any element $x$, we denote by $\mul(\mc{M},x)$ the multiplicity of $x$ in $\mc{M}$. Thus, $\mc{M} = \{ \mult(\mc{M},x)\times x: \; x\in \sett(\mc{M})\}$. For brevity, we write \vs $$\Pi(\mc{M}):= \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)}.$$ For two multisets $\mc{M}, \mc{N}$, we have the following operations:\vspace{0.1cm}
+We first recall/introduce a few basic definitions and notations concerning multisets. For a multiset $\mc{M}$, we denote by $\sett(\mc{M})$ the underlying set of $\mc{M}$. For any element $x$, we denote by $\mul(\mc{M},x)$ the multiplicity of $x$ in $\mc{M}$. Thus, $\mc{M} = \{ \mult(\mc{M},x)\times x: \; x\in \sett(\mc{M})\}$. For brevity, we write \vs $$\Pi(\mc{M}):= \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)}.$$ For two multisets $\mc{M}, \mc{N}$, we have the following operations:\vspace{0.1cm}
 
 \noin - The sum $\mc{M}+\mc{N} := \{(\mul(\mc{M},x)+\mul(\mc{N},x))\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N}) \}$
 
 \noin - The union $\mc{M}\cup \mc{N} := \{\max(\mul(\mc{M},x),\mul(\mc{N},x))\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$
 
-\noin - The intersection $\mc{M}\cap \mc{N} := \{\min(\mul(\mc{M},x),\mul(\mc{N},x))\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$
+\noin - The intersection $\mc{M}\cap \mc{N} := \{\min(\mul(\mc{M},x),\;\mul(\mc{N},x))\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$
 
-\noin - The difference $\mc{M}\sm \mc{N} := \{\min(\mul(\mc{M},x)-\mul(\mc{N},x), 0)\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$.
+\noin - The difference $\mc{M}\sm \mc{N} := \{\min(\mul(\mc{M},x)-\mul(\mc{N},x),\; 0)\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$.\vspace{0.1cm}
 
+\noin The function $\Pi(.)$ clearly has the following properties:
+
+\noin- $\Pi(\mc{M}+\mc{N})= \Pi(\mc{M})\cdot\Pi(\mc{N})$
+
+\noin - $\Pi(\mc{M}\cup \mc{N}) = \LCM(\Pi(\mc{M}), \Pi(\mc{M}))$
+
+\noin - $\Pi(\mc{M}\cap \mc{N}) = \GCD(\Pi(\mc{M}), \Pi(\mc{M}))$
+
+\noin - $\Pi(\mc{M}\sm \mc{N}) = {\Pi(\mc{M})}/{\Pi(\mc{M}\cap \mc{N})}$
 
 \subsection{\fontsize{11}{11}\selectfont Cryptographic Accumulators }
 
@@ -407,13 +418,25 @@ A cryptographic accumulator [Bd94] is a primitive that produces a short binding 
 - pairing-based (aka bilinear) accumulators \\  
 - accumulators based on groups of unknown order, which we study in this paper. 
 
-Let $\mb{G}$ be a group of hidden order and fix an element $g \in\mb{G}$. Let $\mc{M}= \{\mfm_1\times d_1,\cdots, \mfm_m\times d_m\}$ be a multiset, where $\{d_1,\cdots, d_n \}$ is the underlyling set $\sett(\mc{M})$ of $\mc{M}$ and $\mfm_i$ is the multiplicity of $d_i$. Using an appropriate hashing algorithm, we may assume the elements $d_i$ are distinct $\lam$-bit primes. The \textbf{accumulated digest} of $\mc{M}$ is given by \vs $$\Acc(\mc{M}):= g^{\Pi(\mc{M})} ,$$ where $$\Pi(\mc{M}) = \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)} .$$
-
- Let $\mc{M}_0 = \{\mfm_{0,1}\times d_1,\cdots, \mfm_{0,m}\times d_m\}$ be a multiset contained in $\mc{M}$, so that  $\mfm_{0,i}\leq \mfm_i\;\forall\;i$. The element \vs $$w(\mc{M}_0):= g^{\pl_{i=1}^m d_i^{\mfm_i - \mfm_{0,i}}}\;\in\;\mb{G} $$ is called \textit{the membership witness} of $\mc{M}_0$. Given this element, a Verifier can verify membership of $\mc{M}_0$ in $\mc{M}$ by verifying the equation \vs $$w(\mc{M}_0)^{\Pi(\mc{M}_0)} \sta \Acc(\mc{D}).$$ When the multiset $\mc{M}_0$ is large, this verification can be sped up using Wesolowki's \textit{Proof of Exponentiation} (\verb|PoE|) protocol ([Wes18]).
+Let $\mb{G}$ be a group of hidden order and fix an element $g \in\mb{G}$. Let $\mc{M}= \{\mfm_1\times d_1,\cdots, \mfm_m\times d_m\}$ be a multiset, where $\{d_1,\cdots, d_n \}$ is the underlyling set $\sett(\mc{M})$ of $\mc{M}$ and $\mfm_i$ is the multiplicity of $d_i$. Using an appropriate hashing algorithm, we may assume the elements $d_i$ are distinct $\lam$-bit primes. The \textbf{accumulated digest} of $\mc{M}$ is given by \vs $$\Acc(\mc{M}):= g^{\Pi(\mc{M})} ,$$ where $$\Pi(\mc{M}) = \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)} .$$ Let $\mc{M}_0$ be a multiset contained in $\mc{M}$, so that  $\mfm_{0,i}\leq \mfm_i\;\forall\;i$. The element \vs $$w(\mc{M}_0):= g^{\pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)-\mult(\mc{M}_0,x)} .}\;\in\;\mb{G} $$ is called \textit{the membership witness} of $\mc{M}_0$. Given this element, a Verifier can verify membership of $\mc{M}_0$ in $\mc{M}$ by verifying the equation \vs $$w(\mc{M}_0)^{\Pi(\mc{M}_0)} \sta \Acc(\mc{D}).$$ When the multiset $\mc{M}_0$ is large, this verification can be sped up using Wesolowki's \textit{Proof of Exponentiation} (\verb|PoE|) protocol ([Wes18]).
 
 Shamir's trick allows for aggregation of membership witnesses in accumulators based on hidden order groups. This is not possible with Merkle trees, which is the primary reason other accumulators have been explored as authentication data structures for stateless blockchains. With bilinear accumulators, aggregation of membership witnesses has a linear runtime complexity, which is impractical for most use cases. Thus, accumulators based on hidden order groups have a major advantage in this regard.
 
-These accumulators also allow for non-membership proofs [LLX07]. In [BBF19], the authors used a non-interactive argument of knowledge to compress batched non-membership proofs into constant-sized proofs, i.e. independent of the number of elements involved. This yields the first known Vector Commitment with constant-sized openings as well as  constant-sized public parameters.
+These accumulators also allow for non-membership proofs [LLX07]. In [BBF19], the authors used a non-interactive argument of knowledge to compress batched non-membership proofs into constant-sized proofs, i.e. independent of the number of elements involved. This yields the first known Vector Commitment with constant-sized openings as well as  constant-sized public parameters.\vspace{0.1cm}
+
+\noin \textbf{Hashing the data to primes:} The security of cryptographic accumulators and vector\\ commitments hinges on the assumption that for disjoint data sets $\mc{D},\mc{E}$, the integers $\Pi(\mc{D}), \Pi(\mc{E})$ are relatively prime. The easiest way to ensure this is to map the sata elements to distinct $\lam$-bit primes. This is usually done by hashing the data to $\lam$-bit integers and subjecting the output to a probabilistic primality test such as the Miller-Rabin test. The prime number theorem states that the number if primes less than $n$ is $\mbf{O}(\frac{n}{\log(n)})$ and hence, implies that the expected runtime for finding a prime is $\mbf{O}(\lam)$.
+
+Dirichlet's theorem on arithmetic progressions combined with the prime number theorem implies that for relatively prime integers $k,r$ and an integer $n$, the number of primes less than $n$ that are $\equiv r\Mod{k}$ is roughly $\frac{n}{\log(n)\phi(k)}$. Thus, we can modify the hashing algorithm so that for any element inserted into the accumulator, the prime reveals the position in which it was inserted. We proceed as follows.\vspace{0.1cm}
+
+\noin 1. Fix a prime $p$ of size $\frac{\lam}{2}$. 
+
+\noin 2. For an string inserted in position $i$, we map the string to the first prime of size $\lam$ which is $\equiv i\Mod{p}$. This (pseudo-)prime obtained by subjecting the integers $p\bz+i$ to the probabilistic Miller-Rabin test. \vspace{0.1cm}
+
+The number of such primes is roughly \vs $\frac{2^{\lam}}{\lam (p-1)}$ and hence, the expected runtime is $\mbf{O}(\lam)$.
+
+
+
+
 
 
 \subsection{\fontsize{11}{11} Aggregating and disaggregating membership witnesses}
@@ -1081,7 +1104,7 @@ For a set $\mc{D}$, a Prover can use the protocol \verb|PoGCD| to demonstrate th
 
 We now use the protocols \verb|AggKE-1| and \verb|AggKE-2| to generalize the protocol \verb|RelPrimeDLog| to multiple discrete logarithms. Consider a setting where we have $n$ accumulators $\Acc_1,\cdots,\Acc_n$ instantiated in the same group $\mb{G}$ and with the common genesis state $g\in\mb{G}$. Let $\mc{D}_i$ denote the data inserted into $\Acc_i$ and let $A_i$ denote the accumulated digest of $\Acc_i$. Thus, \vs $$A_i = g^{\Pi(\mc{D}_i)} .$$ 
 
-Suppose a Prover needs to demonstrate to a Verifier (with access to the accumulated digests) that the data sets $\mc{D}_i$ are pairwise disjoint, while keeping the communication complexity to a bare minimum. In particular, the Verifier should not need to access the data sets $\mc{D}_i$. A straightforward way would be to provide the $n\choose 2$ proofs of pairwise disjointness. But this would entail $\mbf{O}(n^2)$ group elements and $\mbf{O}(n^2)$ $\lam$-bit integers. Instead, we provide a protocol whereby the Prover can demonstrate the pairwise disjointness with a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
+Suppose a Prover needs to demonstrate to a Verifier (with access to the accumulated digests) that the data sets $\mc{D}_i$ are pairwise disjoint, while keeping the communication complexity to a bare minimum. In particular, the Verifier should not need to access the data sets $\mc{D}_i$. A straightforward way would be to provide the $n\choose 2$ proofs of pairwise disjointness. But this would entail $\mbf{O}(n^2)$ group elements and $\mbf{O}(n^2)$ $\lam$-bit integers, which we would like to avoid. Instead, we provide a protocol whereby the Prover can demonstrate the pairwise disjointness with a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
 
 We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime Exponents-1} or\\ \verb|AggRelPrimeDLog-1| for short. We provide an argument of knowledge for the following relation:
 
@@ -1276,7 +1299,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \bigskip
 
-Next, we discuss a dual to the Protocol \verb|AggRelPrimeDLog-2|. Given elements $B, C\in \mb{G}$ and subsets \vspace{-0.15cm}$$\mc{B} = \{b_1,\cdots, b_m\},\;\; \mc{C} = \{c_1,\cdots, c_n\}\in \mb{G}^n,$$ an honest Prover may provide a proof that he possesses integers \vs $$\{d_1,\cdots, d_m\}\;,\; \{e_1,\cdots, e_n\}$$ such that $b_i^{d_i} = B,\; c_j^{e_j} = C$ and every pair $d_i, e_j$ is relatively prime. We call this relation the \textit{Aggregated Relatively Prime Discrete Logarithms 4} or \verb|AggRelPrimeDLog-4| for short. We provide an argument of knowledge for the following relation:
+Next, we discuss a dual to the Protocol \verb|AggRelPrimeDLog-2|. Given elements $B, C\in \mb{G}$ and subsets \vspace{-0.15cm}$$\mc{B} = \{b_1,\cdots, b_m\}\in \mb{G}^m,\;\; \mc{C} = \{c_1,\cdots, c_n\}\in \mb{G}^n,$$ an honest Prover may provide a proof that he possesses integers \vs $$\{d_1,\cdots, d_m\}\;,\; \{e_1,\cdots, e_n\}$$ such that $b_i^{d_i} = B,\; c_j^{e_j} = C$ and every pair $d_i, e_j$ is relatively prime. We call this relation the \textit{Aggregated Relatively Prime Discrete Logarithms 4} or \verb|AggRelPrimeDLog-4| for short. We provide an argument of knowledge for the following relation:
 \[
   \mc{R}_{{\protect\verb|AggRelPrimeDLog-4|}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
     ((B,C)\in\mb{G}^2,\;\\
@@ -1334,15 +1357,15 @@ Finally, the proof for \verb|RelPrimeDLog|$[(b,B),\;(c,C)]$ implies with \op, th
 
 \subsection{\fontsize{11}{11} Verifiably outsourcing storage}
 
-The protocols we have developed so far allow us to build a mechanism wherby a client can verifiably outsource data multisets to a server. The client stores constant-sized commitments to these multisets and can query the server for information regarding these data sets. The Verifier, in turn, submits this information with proofs that can  be publicly verified against the constant-sized commitments stored by the client.
+The protocols we have developed so far allow us to build a mechanism wherby a client can verifiably outsource data multisets to a server node. The client stores constant-sized commitments to these multisets and can query the server for information regarding these data sets. The server node, in turn, submits this information with proofs that can  be publicly verified against the constant-sized commitments stored by the client.
 
-As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive root and strong-RSA assumptions to hold. The (fixed) element $g\in\mb{G}$ is a randomly generated element of $\mb{G}$. For a multiset $\mc{M}$, the commitment to $\mc{M}$ is given by the element \vs $$\protect{\verb|Com|}(g, \mc{M}):= g^{\Pi(\mc{M})}\in\mb{G}$$ where $\Pi(\mc{M})$ is the product of all elements of $\mc{M}$, with the appropriate multiplicities. 
+As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive root and strong-RSA assumptions to hold. The (fixed) element $g\in\mb{G}$ is a randomly generated element of $\mb{G}$. For a multiset $\mc{M}$, the commitment to $\mc{M}$ is given by the element \vs $$\protect{\verb|Com|}(g, \mc{M}):= g^{\Pi(\mc{M})}\in\mb{G}$$ where $\Pi(\mc{M})$ is the product of all elements of $\mc{M}$, with the appropriate multiplicities. \vspace{0.1cm}
 
-To ask the server $\mP$ to prove that he is storing the data multiset $\mc{M}$, the client $\V$ can generate a random element $g_1\in\mb{G}$ and ask the server to provide the element \vs $$\protect{\verb|Com|}(g_1, \mc{M}):= g_1^{\Pi(\mc{M})}\in\mb{G}$$ along with a non-interactive proof for \verb|EqDLog|$[(g, \protect{\verb|Com|}(g, \mc{M})),\;(g_1, \protect{\verb|Com|}(g_1, \mc{M}))]$. The communcation complexity is constant and independent of the size of $\mc{M}$.
+\noin \textbf{Proof of storage:} To ask the server $\mP$ to prove that he is storing the data multiset $\mc{M}$, the client $\V$ can generate a random element $g_1\in\mb{G}$ and ask the server to provide the element \vs $$\protect{\verb|Com|}(g_1, \mc{M}):= g_1^{\Pi(\mc{M})}\in\mb{G}$$ along with a non-interactive proof for \verb|EqDLog|$[(g, \protect{\verb|Com|}(g, \mc{M})),\;(g_1, \protect{\verb|Com|}(g_1, \mc{M}))]$. The communication complexity is constant and in particular, is independent of the size of $\mc{M}$.\vspace{0.1cm}
 
-When the data mutiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. 
+\noin \textbf{Updates:} When the data mutiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. \vspace{0.1cm}
 
-Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
+Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\mr{int}})$ to the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
 
 \vspace{0.1cm}
 
@@ -1358,20 +1381,22 @@ Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protec
 
 \noin 2. $\mP$ computes $\wti{A}_i:= g^{d_ie_i} \; (i=1,\cdots,n)$ and sends $\wti{A}_1,\cdots, \wti{A}_n$ to the Verifier $\V$ along with non-interactive proofs for \verb|PoKE|$[A_i,\;\wti{A}_i]\; (i=1,\cdots,n)$.
 
-\noin 3. $\mP$ computes \vs $$A_{\mr{int}}:= g^{\GCD(d_1,\cdots,d_n)}\;\in\; \mb{G}$$ and sends $A_{\mr{int}}$ to $\V$ along with a non-interactive \verb|PoE| for this exponentiation.
+%\noin 3. $\mP$ computes \vs $$A_{\mr{int}}:= g^{\GCD(d_1,\cdots,d_n)}\;\in\; \mb{G}$$ and sends $A_{\mr{int}}$ to $\V$ along with a non-interactive \verb|PoE| for this exponentiation.
 
-\noin 4. $\mP$ computes a non-interactive proof for \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$.
+\noin 3. $\mP$ computes a non-interactive proof for \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to $\V$.
 
-\noin 5. $\V$ verifies the $n$ \verb|PoKE|s, the  \verb|PoE| and \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$. He verifies the equation \vs $$\pl_{i=1}^n \wti{A}_i\sta A_{\mr{int}}.$$ He accepts if and only if all proofs are valid and the equation holds.\end{prf1}
+\noin 4. $\V$ verifies the $n$ \verb|PoKE|s, the  \verb|PoE| and \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$. He verifies the equation \vs $$\pl_{i=1}^n \wti{A}_i\sta A_{\mr{int}}.$$ He accepts if and only if all proofs are valid and the equation holds.\end{prf1}
 
-If the client merely needs the commitment to the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than the actual multiset, the server can skip the part where he sends the client the \verb|PoE| in Step 3.
+The proof consists of $2n$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment, the server can include a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ 
 
 
-Similarly, for multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \verb|PoMultPolyDLog|. The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.
+Similarly, for multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.
 
-Using the Protocol \verb|PoLCM|, the server node can verifiably send the commitment for the union \vs $$\bigcup\limits_{i=1}^n \mc{M}_i = \{\max(\mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} .$$ The proof would consist of $n$ $\mb{G}$-elements and $n$ $\lam$-bit integers.
+Using the Protocol \verb|PoLCM|, the server node can verifiably send the commitment for the union \vs $$\bigcup\limits_{i=1}^n \mc{M}_i = \{\max(\mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} .$$ The proof would consist of $\mbf{O}(n)$ $\mb{G}$-elements and $\mbf{O}(n)$ $\lam$-bit integers.
 
-Thus, to summarize, the protocols in this paper allow the server to verifiably send the client commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds commitments. The proofs of that the commitments are the correct ones can be publicly verified against the constant-sized commitments that the client holds.
+For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\pl_{x\in\sett{\mc{M}}} x^{\mul(\mc{M},x)-\mul(\mc{M\cap \mc{N}},x)}} .$$ Thus, the Prover can use the Protocols \verb|PoGCD| and \verb|PoMultPolyDLog| to veriably send the commitment to $\mc{M}\sm \mc{N} $.
+
+So, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds commitments. The proofs that the commitments are the correct ones can be publicly verified against the succinct commitments that the client holds.
 
 \bigskip
 
@@ -1440,7 +1465,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Witnesses $w_i$ multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
+\noin \textbf{Inputs:} Witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
 
 \noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
 
@@ -1448,7 +1473,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin 2. $\mP$ computes \vs $$\what{A}:= \what{w}_1^{\pl_{x\in\mc{D}}x^{\mr{mult}(\mc{M}_1,x)}}\;,\;\what{A}^{\Pi(\mc{D})}\;\in\mb{G}$$ and sends them to $\V$ along with a non-interactive \verb|PoE| for the exponentiation $\what{A}^{\Pi(\mc{D})}$.
 
-\noin 3. $\mP$ generates \nons for \verb|PoKE|$[\what{w}_1^{\Pi(\mc{D})},\;A]$ and \verb|PoGCD|$[(w_1,A),\;(w_1, \what{A}^{\Pi(\mc{D})}),\;(w_1, \what{A})]$ and sends them to $\V$.
+\noin 3. $\mP$ generates \nons\; for \verb|PoKE|$[\what{w}_1^{\Pi(\mc{D})},\;A]$ and \verb|PoGCD|$[(w_1,A),\;(w_1, \what{A}^{\Pi(\mc{D})}),\;(w_1, \what{A})]$ and sends them to $\V$.
 
 \noin 4. $\V$ verifies the three proofs and accepts if and only if they are all valid.\end{prf1}
 
@@ -1459,7 +1484,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \subsection{\fontsize{11}{11} Sharded blockchains}
 
- Consider the setting of a stateless sharded blockchain that, instead of a Merkle tree, hinges on a cryptographic accumulator instantiated with a hidden order group $\mb{G}$ ([BBF19]). Let $g$ be a randomly selected element of $\mb{G}$ and $S_1,\cdots, S_n$ the distinct shards. Let $\mc{D}_i$ denote the data in shard $S_i$ and $\mc{D}:= \bigcup\limits_{i=1}^n \mc{D}_i$. Then the accumulated digest (the analog of the Merkle root hash) of $S_i$ is given by \vs $$A_i:= g^{\Pi(\mc{D}_i)}.$$  The accumulated digest of the blockchain is given by \vs $$A:= g^{\Pi(\mc{D})}.$$
+Consider the setting of a stateless sharded blockchain that, instead of a Merkle tree, hinges on a cryptographic accumulator instantiated with a hidden order group $\mb{G}$ ([BBF19]). Let $g$ be a randomly selected element of $\mb{G}$ and $S_1,\cdots, S_n$ the distinct shards. Let $\mc{D}_i$ denote the data in shard $S_i$ and $\mc{D}:= \bigcup\limits_{i=1}^n \mc{D}_i$. Then the accumulated digest (the analog of the Merkle root hash) of $S_i$ is given by \vs $$A_i:= g^{\Pi(\mc{D}_i)}.$$  The accumulated digest of the blockchain is given by \vs $$A:= g^{\Pi(\mc{D})}.$$
 
 In order to demonstrate that the data sets in distinct shards are pairwise disjoint, a Prover (such as a miner or an untrusted server) can provide a proof for the relation\\ $\mc{R}_{{\protect\verb|AggRelPrimeDLog-1|}}[a, \mc{A}]$ where $\mc{A} = (A_1,\cdots,A_n)$.\vspace{0.2cm}
 
@@ -1734,8 +1759,6 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 \noin 8. $\mbf{A}$ sends $\mbf{B}$ non-interactive proofs for \vs $$\protect{\verb|PoKE|}[(g_0^{\al}, \protect{\verb|Com|}(\mc{D})^{\al}]\;,\;\protect{\verb|PoEqDLog|}[(g,g^{\al}),\; (g_0, g_0^{\al})].$$ 
 
 \noin 9. $\mbf{B}$ sends $\mbf{A}$ non-interactive proofs for \vs $$\protect{\verb|PoKE|}[(g_0^{\be}, \protect{\verb|Com|}(\mc{E})^{\be}]\;,\;\protect{\verb|PoEqDLog|}[(g,g^{\be}),\; (g_0, g_0^{\be})].$$ 
-
-\bigskip
 
 
 
