@@ -122,9 +122,13 @@
 
 \newcommand{\st}{\mathrm{st}}
 
+\newcommand{\uni}{\mathrm{uni}}
+
 \newcommand{\lcm}{\mathrm{lcm}}
 
 \newcommand{\negl}{\tt{negl}}
+
+\newcommand{\pr}{\protect}
 
 \newcommand{\Acc}{\mbf{Acc}}
 
@@ -182,7 +186,7 @@
 \newcommand{\mfm}{\mathfrak{m}}
 \newcommand{\mfn}{\mathfrak{n}}
 
-\newcommand{\pro}{\prtect\verb}
+\newcommand{\pro}{\protect\verb}
 
 
 \newcommand{\mfl}{\mathfrak{l}}
@@ -228,13 +232,16 @@
 
 \newcommand{\Prob}{\mbf{Prob}}
 
+\newcommand{\bO}{\mbf{O}}
+
 \newcommand{\mP}{\mc{P}}
 
 \newcommand{\V}{\mc{V}}
 
+\newcommand{\mcM}{\mc{M}}
 
 
-\newcommand{\Com}{\protect{\verb|Com|}}
+\newcommand{\Com}{\tt{Com}}
 
 \newcommand{\vs}{\vspace{-0.15cm}}
 
@@ -256,6 +263,10 @@
 \newcommand{\LCM}{\mbf{lcm}}
 
 \newcommand{\GCD}{\mbf{gcd}}
+
+\newcommand{\intt}{\tt{int}}
+
+\newcommand{\new}{\tt{new}}
 
 
 
@@ -437,7 +448,7 @@ These accumulators also allow for non-membership proofs [LLX07]. In [BBF19], the
 
 \noin \textbf{Hashing the data to primes:} The security of cryptographic accumulators and vector\\ commitments hinges on the assumption that for disjoint data sets $\mc{D},\mc{E}$, the integers $\Pi(\mc{D}), \Pi(\mc{E})$ are relatively prime. The easiest way to ensure this is to map the data elements to distinct $\lam$-bit primes. This is usually done by hashing the data to $\lam$-bit integers and subjecting the output to a probabilistic primality test such as the Miller-Rabin test. The prime number theorem states that the number if primes less than $n$ is $\mbf{O}(\frac{n}{\log(n)})$ and hence, implies that the expected runtime for finding a prime is $\mbf{O}(\lam)$.
 
-Dirichlet's theorem on arithmetic progressions combined with the prime number theorem implies that for relatively prime integers $k,r$ and an integer $n$, the number of primes less than $n$ that are $\equiv r\Mod{k}$ is roughly $\frac{n}{\log(n)\phi(k)}$. Thus, we can modify the hashing algorithm so that for any element inserted into the accumulator, the prime reveals the position in which it was inserted. We proceed as follows.\vspace{0.1cm}
+Dirichlet's theorem on primes in arithmetic progressions combined with the prime number theorem implies that for relatively prime integers $k,r$ and an integer $n$, the number of primes less than $n$ that are $\equiv r\Mod{k}$ is roughly $\frac{n}{\log(n)\phi(k)}$. Thus, we can modify the hashing algorithm so that for any element inserted into the accumulator, the prime reveals the position in which it was inserted. We proceed as follows.\vspace{0.1cm}
 
 \noin 1. Fix a prime $p$ of size $\frac{\lam}{2}$. 
 
@@ -1039,13 +1050,13 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \begin{prf1} \normalfont 1. The Prover $\mc{P}$ computes $b_{1,2}:= a_1^{d_2}$, $b_{1,3}:= a_1^{d_3}$ and sends them to the Verifier $\V$.
 
-\noindent 2. He computes non-interactive proofs for \verb|EqDLog|$[(a_2, b_2),\; (a_1, b_{1,2})]$, \verb|EqDLog|$[(a_3, b_3),\; (a_1, b_{1,3})]$ and sends them to $\mc{V}$.
+\noindent 2. He generates non-interactive proofs for \verb|EqDLog|$[(a_2, b_2),\; (a_1, b_{1,2})]$, \verb|EqDLog|$[(a_3, b_3),\; (a_1, b_{1,3})]$ and sends them to $\mc{V}$.
 
-\noindent 3. $\mc{P}$ computes non-interactive proofs for \verb|PoKE|$[b_{1,3},\;b_1 ]$ and \verb|PoKE|$[b_{1,3},\;b_{1,2} ]$ and sends them to $\V$.
+\noindent 3. $\mc{P}$ generates non-interactive proofs for \verb|PoKE|$[b_{1,3},\;b_1 ]$ and \verb|PoKE|$[b_{1,3},\;b_{1,2} ]$ and sends them to $\V$.
 
 \noindent 4. $\mc{P}$ uses the algorithm \verb|Bezout|  to compute integers $e_1, e_2$ such that $e_1d_1 + e_2d_2 = d_3$.
 
-\noindent 5. $\mc{P}$ computes \vs $$\wti{b}_1:= b_1^{e_1},\;\; \wti{b}_{1,2}:= b_{1,2}^{e_2} $$ and sends them to $\V$. He computes non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$. He sends these proofs to $\mc{V}$.
+\noindent 5. $\mc{P}$ computes \vs $$\wti{b}_1:= b_1^{e_1},\;\; \wti{b}_{1,2}:= b_{1,2}^{e_2} $$ and sends them to $\V$. He generates non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$. He sends these proofs to $\mc{V}$.
 
 \noindent 6. $\mc{V}$ verifies all of the proofs he receives in addition to the equation $\wti{b}_1\wti{b}_{1,2}\stackrel{?}{=} b_{1,3}$. He accepts the validity of the claim if and only if all of these proofs are valid.\end{prf1}
 
@@ -1073,7 +1084,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \noin 4. $\mc{P}$ computes \vs $$\wti{b}_1:= b_1^{e_1}\;\;,\;\; \wti{b}_{1,2}:= b_{1,2}^{e_2} $$ and sends them to $\V$. 
 
-\noin 5. $\mP$ computes non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$ and sends them to $\mc{V}$.
+\noin 5. $\mP$ generates non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$ and sends them to $\mc{V}$.
 
 \noindent 6. $\mc{V}$ verifies the equation $\wti{b}_1\wti{b}_{1,2}\stackrel{?}{=} a_1$ and the proofs for \verb|EqDLog|$[(a_2, b_2),\; (a_1, b_{1,2})]$, \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$. He accepts the validity of the claim if and only if all of these proofs are valid.\end{prf1}
 
@@ -1135,7 +1146,7 @@ We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime E
 
 Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i$, $\what{D}\equiv \what{d}_i\Mod{d_i} $ and hence, $\GCD(\what{D}, d_i) = \GCD(\what{d}_i, d_i) = 1$. Thus, $\GCD(D,\what{D})$ = 1.\end{prf}
 
-\noin Recall that given integers $d_1,\cdots,d_n$ and elements $a,A\in\mb{G}$ such that \vs $$a^D = a^{\pl_{i=1}^n d_i} = A ,$$ the \textbf{RootFactor} algorithm allows us to compute elements $a_i$ such that $a_i^{d_i} = A$ in runtime $\mbf{O}(n\log(n))$. Thus, a Prover can compute the element $\what{A}:= \pl_{i=1}^n a_i$ in runtime $\mbf{O}(\log(D)\log(\log(D)))$ with the \textbf{RootFactor} algorithm followed by $n$ group multiplications.
+\noin Recall that given integers $d_1,\cdots,d_n$ and elements $a,A\in\mb{G}$ such that \vs $$a^D = a^{\pl_{i=1}^n d_i} = A ,$$ the \textbf{RootFactor} algorithm allows us to compute elements $a_i$ such that $a_i^{d_i} = A$ in runtime $\mbf{O}(n\log(n))$. Thus, a Prover can compute the element \vs $$\what{A}:= \pl_{i=1}^n a_i$$ in runtime $\mbf{O}(\log(D)\log(\log(D)))$ with the \textbf{RootFactor} algorithm followed by $n$ group multiplications.
 
 \vspace{0.2cm}
 
@@ -1211,9 +1222,9 @@ We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime E
 
 \noindent 2. $\mc{P}$ computes $B:= a_1^{d},\;\;C:= a_2^{e}\;\in\mb{G}$ and sends $B, C$ to the Verifier $\mc{V}$.
 
-\noindent 3. $\mc{P}$ computes non-interactive proofs for \verb|MultPolyDLog|$[a_1,\;(b_1,\cdots,b_m, B),\; (\pl_{i=1}^m X_i) -X_{m+1}]$, \verb|MultPolyDLog|$[a_2,\;(c_1,\cdots,c_n, C),\; (\pl_{j=1}^n X_j) -X_{n+1}]$ and sends them to $\mc{V}$.
+\noindent 3. $\mc{P}$ generates non-interactive proofs for \verb|MultPolyDLog|$[a_1,\;(b_1,\cdots,b_m, B),\; (\pl_{i=1}^m X_i) -X_{m+1}]$, \verb|MultPolyDLog|$[a_2,\;(c_1,\cdots,c_n, C),\; (\pl_{j=1}^n X_j) -X_{n+1}]$ and sends them to $\mc{V}$.
 
-\noindent 4. $\mc{P}$ computes non-interactive proofs for 
+\noindent 4. $\mc{P}$ generates non-interactive proofs for 
 \verb|AggKE-1|$[a_1,\mc{B}]$ and \verb|AggKE-1|$[a_2,\mc{C}]$ and sends them to the Verifer.
 
 \noindent 5. $\mc{P}$ computes a non-interactive proof for 
@@ -1343,9 +1354,9 @@ A straightforward approach would be to provide $mn$ distinct proofs that $\GCD(d
 
 \noindent 2. Using Shamir's trick, $\mP$ computes elements $b, c \in \mb{G}$ such that \vspace{-0.15cm}$$b^{d} = B,\;\; c^{e} = C$$ and sends $b,c$ to the Verifier $\mc{V}$.
 
-\noindent 3. $\mc{P}$ computes non-interactive proofs for \verb|AggKE-2|$[\mc{B}, B]$ and \verb|AggKE-2|$[\mc{C}, C]$ and sends them to $\mc{V}$.
+\noindent 3. $\mc{P}$ generates non-interactive proofs for \verb|AggKE-2|$[\mc{B}, B]$ and \verb|AggKE-2|$[\mc{C}, C]$ and sends them to $\mc{V}$.
 
-\noindent 4. $\mc{P}$ computes non-interactive proofs for \verb|AggKE-1|$[b,\mc{B}]$ and \verb|AggKE-1|$[c, \mc{C}]$ and sends them to $\mc{V}$.
+\noindent 4. $\mc{P}$ generates non-interactive proofs for \verb|AggKE-1|$[b,\mc{B}]$ and \verb|AggKE-1|$[c, \mc{C}]$ and sends them to $\mc{V}$.
 
 \noindent 5. $\mc{P}$ computes a non-interactive proof for \verb|RelPrime|$[(b,B),\;(c,C)]$ and sends the proof to $\mc{V}$.
 
@@ -1376,11 +1387,13 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Updates:} When the data multiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. \vspace{0.1cm}
 
-Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\mr{int}})$ to the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
+\noin \textbf{Multiset sums:} Similarly, for multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.\vspace{0.1cm}
+
+\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\mr{int}})$ to the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
 
 \vspace{0.1cm}
 
-\begin{Prot} Protocol for intersection of multisets.\end{Prot} \vspace{-0.3cm}
+\begin{Prot} Protocol for the intersection of multisets.\end{Prot} \vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
@@ -1390,20 +1403,56 @@ Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protec
 
 \begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n)$$ and integers $e_1,\cdots,e_n$ such that \vs $$\sum\limits_{i=1}^n d_ie_i = \GCD(d_1,\cdots,d_n).$$
 
-\noin 2. $\mP$ computes $\wti{A}_i:= g^{d_ie_i} \; (i=1,\cdots,n)$ and sends $\wti{A}_1,\cdots, \wti{A}_n$ to the Verifier $\V$ along with non-interactive proofs for \verb|PoKE|$[A_i,\;\wti{A}_i]\; (i=1,\cdots,n)$.
+\noin 2. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
 
-%\noin 3. $\mP$ computes \vs $$A_{\mr{int}}:= g^{\GCD(d_1,\cdots,d_n)}\;\in\; \mb{G}$$ and sends $A_{\mr{int}}$ to $\V$ along with a non-interactive \verb|PoE| for this exponentiation.
+\noin 3. $\mP$ computes the elements $\weck{A}_i=g^{e_i}\;(i=1,\cdots,n)$ and sends them to $\V$ along with a  non-interactive proof for \vs $$\pr{\ttt{AggKE-1}[g,\;(\weck{A}_1.\cdots,\weck{A}_n)]} .$$ 
 
-\noin 3. $\mP$ computes a non-interactive proof for \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to $\V$.
+\noin 4. $\mP$ generates a non-interactive proof for \vs $$\protect{\tt{MultPolyDLog} }[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\mr{int}}),\;(\slim_{i=1}^n X_iX_{n+i})-X_{2n+1}] $$ and sends it to $\V$.
 
-\noin 4. $\V$ verifies the $n$ \verb|PoKE|s, the  \verb|PoE| and \verb|PoAggKE-1|$[A_{\mr{int}},\;(A_1,\cdots,A_n)]$. He verifies the equation \vs $$\pl_{i=1}^n \wti{A}_i\sta A_{\mr{int}}.$$ He accepts if and only if all proofs are valid and the equation holds.\end{prf1}
+\noin 5. $\V$ verifies the two proofs and accepts if and only if they are both valid.\end{prf1}
 
-The proof consists of $2n$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment, the server can include a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol $\tt{PoAggRelPrimeDLog-1}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.\vspace{0.1cm} 
+The proof consists of $n+\bO(1)$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment, the server can include a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol\\ $\pr{\ttt{PoAggRelPrimeDLog-1}}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.\vspace{0.15cm} 
 
 
-\noin \textbf{Multiset sums:} Similarly, for multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.\vspace{0.1cm}
+\noin \textbf{Multiset unions:} The techniques in the last protocol also allow a server node to verifiably send over a commitment for the union of multisets $\mcM_1.\cdots,\mcM_n$. The proof that this commitment is valid can be publicly verified against the commitments $\tt{Com}(g,\mc{M}_i)\;(i=1,\cdots,n)$ which the client stores. The basic idea here is as follows.
 
-\noin \textbf{Multiset unions:} Using the Protocol \verb|PoLCM|, the server node can verifiably send the commitment for the union \vs $$\bigcup\limits_{i=1}^n \mc{M}_i = \{\max(\mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} .$$ The proof would consist of $\mbf{O}(n)$ $\mb{G}$-elements and $\mbf{O}(n)$ $\lam$-bit integers. \vspace{0.1cm}
+\begin{Lem} For integers $d_1,\cdots,d_n$, set $\what{d}_j:= (\pl_{i=1}^n d_i)/d_j$. Then we have\vs $$ \LCM(d_1,\cdots,d_n)\cdot \GCD(\what{d}_1,\cdots,\what{d}_n) = \pl_{i=1}^n d_i.$$ \end{Lem}
+
+\begin{prf} Let $p$ be a prime and let $\mr{val}_p(N)$ denote the largest integer $x$ such that $p^x$ divides $N$. Write $k_i:= \mr{val}_p(d_i)$ for brevity. Then $\mr{val}_p(\pl_{i=1}^n d_i) = \slim_{i=1}^n k_i$ and $\mr{val}_p(\what{d}_j) = (\slim_{i=1}^n k_i)-k_i$. Hence, \vs $$\mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \min\big((\slim_{i=1}^n k_i)-k_i\big)_i = \slim_{i=1}^n k_i - \max(k_1,\cdots,k_n).$$ On the other hand, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n)) = \max(k_1,\cdots,k_n).$$ Thus, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n))+ \mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \mr{val}_p(\pl_{i=1}^n d_i),$$ which completes the proof.
+\end{prf}
+
+
+
+
+Thus, the following are equivalent:\vspace{0.1cm}
+
+\noin - $\LCM(d_1,\cdots,d_n) = d$
+
+\noin - $d_i\big| d\;\forall\; i$ and there exist integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\pl_{i=1}^n d_i  =  d\cdot\slim_{i=1}^n \what{e}_i\what{d}_i.$$
+
+
+
+\begin{Prot} Protocol for the union of multisets.\end{Prot} \vspace{-0.3cm}
+
+\noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
+
+\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{uni}}\in\mb{G}$
+
+\noin \textbf{Claim:} $A_{\mr{uni}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+
+\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n)\;,\;\what{d}_i = (\pl_{i=1}^n d_i)/d_i$$ and integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\sum\limits_{i=1}^n \what{d}_i\what{e}_i = \GCD(\what{d}_1,\cdots,\what{d}_n).$$
+
+\noin 2. $\mP$ computes \vs $$\wti{A}:= g^{\pl_{i=1}^n d_i} = \ttt{Com}(g, \slim_{i=1}^n \mcM_i)$$ and sends $\wti{A}$ to the Verifier $\V$ along with a non-interactive proof for \vs $$\ttt{MultPolyDLog}[g,\;(A_1,\cdots,A_n,\wti{A}),\;(\pl_{i=1}^n X_i)-X_{n+1}].$$
+
+\noin 3. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-2}}[(A_1,\cdots,A_n),\;A_{\uni}] $ and sends it to $\V$.
+
+\noin 4. $\mP$ computes $\weck{A}_i:= g^{\what{e}_i}\;(i=1,\cdots,n) $ and sends $\weck{A}_1,\cdots,\weck{A}_n$ to $\V$ along with a non-interactive proof for \vs $$\pr{\ttt{MultPolyDLog}}[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\uni}, \wti{A}),\;X_{2n+1}\pl_{i=1}^n X_i(\slim_{j=1}^n \frac{X_{n+j}}{X_j}) - X_{2n+2}]. $$
+
+\noin 5. $\V$ verifies the two proofs and accepts if and only if they are both valid.\end{prf1}
+
+\noin The proof consists of $n+\bO(1)$ $\bG$-elements and $3n$ $\lam$-bit integers.
+
+\vspace{0.1cm}
 
 \noin \textbf{Multiset differences:} For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\pl_{x\in\sett{(\mc{M})}} x^{\mul(\mc{M},x)-\mul(\mc{M\cap \mc{N}},x)}} .$$ Thus, the Prover can use the Protocols \verb|PoGCD| and \verb|PoMultPolyDLog| to veriably send the commitment to $\mc{M}\sm \mc{N} $. \vspace{0.1cm}
 
@@ -1445,7 +1494,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin 2. $\mP$ sends $B_1, B_2$ to $\V$ along with a non-interactive \verb|PoE| for the equation $B_2= B_1^{\Pi(\mc{D})}$.
 
-\noin 3. $\mP$ computes non-interactive proofs for \verb|AggKE-1|$[B_2,\;(A_2,\cdots,A_n)]$ and\\ \verb|PoGCD|$[(g, A_1),\;(g, B_2),\;(g,B_1)]$ and sends them to $\V$.
+\noin 3. $\mP$ generates non-interactive proofs for \verb|AggKE-1|$[B_2,\;(A_2,\cdots,A_n)]$ and\\ \verb|PoGCD|$[(g, A_1),\;(g, B_2),\;(g,B_1)]$ and sends them to $\V$.
 
 \noin 4. $\V$ verifies the three proofs and accepts if and only if they are all valid.\end{prf1}
 
@@ -1581,6 +1630,9 @@ Let $\V_1,\cdots,\V_n$ be verifiers (such as light nodes) on the network. Let $\
 \noindent [FS87] A. Fiat, A. Shamir, \textit{How to prove yourself: Practical solutions to identification and signature problems.} In Andrew M. Odlyzko, editor, CRYPTO’86, volume 263 of LNCS, pages 186–194. Springer, Heidelberg, August 1987\vspace{0.1cm}
 
 \noin [LLX07] J. Li, N. Li, and R. Xue,  \textit{Universal accumulators with efficient nonmembership proofs} In Jonathan Katz and Moti Yung, editors, ACNS 07, volume 4521 of LNCS, pages 253-269. Springer, Heidelberg, June 2007.
+
+\noin [Ngu05] L. Nguyen. \textit{Accumulators from bilinear maps and applications}. CT-
+RSA, 2005. \vspace{0.1cm}
 
 \noindent [Sut07] A. Sutherland, \textit{Order Computations in Generic Groups}, MIT Thesis, 2007 \vspace{0.1cm}
 
@@ -1781,6 +1833,8 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
 \newpage
 
 
+\begin{comment}
+
 \noin \textbf{Private Set Intersection:} Consider a setting where two parties $\mbf{A}$ and $\mbf{B}$ have two data sets $\mc{D} = \{d_1,\cdots,d_m \}$, $\mc{E} = \{e_1,\cdots,e_n \}$ and need to compute the intersection $\mc{D}\cap \mc{E}$. A design goal is for the parties to know as little as possible about the elements not in the intersection. To this end, we may proceed as follows. 
 
 Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive root and Diffie-Hellman assumptions to hold. Let $g$ be a randomly generated element of $\mb{G}$. We represent the data elements by $2\lam$-bit primes, where $\lam$ is the security level. \vspace{0.15cm}
@@ -1802,6 +1856,8 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 \noin 8. $\mbf{A}$ sends $\mbf{B}$ non-interactive proofs for \vs $$\protect{\verb|PoKE|}[(g_0^{\al}, \protect{\verb|Com|}(\mc{D})^{\al}]\;,\;\protect{\verb|PoEqDLog|}[(g,g^{\al}),\; (g_0, g_0^{\al})].$$ 
 
 \noin 9. $\mbf{B}$ sends $\mbf{A}$ non-interactive proofs for \vs $$\protect{\verb|PoKE|}[(g_0^{\be}, \protect{\verb|Com|}(\mc{E})^{\be}]\;,\;\protect{\verb|PoEqDLog|}[(g,g^{\be}),\; (g_0, g_0^{\be})].$$ 
+
+\end{comment}
 
 
 
@@ -1839,6 +1895,11 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 
 \end{comment}
  
+
+
+
+
+
 
 
 
