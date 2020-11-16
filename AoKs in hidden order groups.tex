@@ -336,9 +336,9 @@ qed=\qedsymbol%
  
 \maketitle
 
-\begin{abstract} We study non-interactive arguments of knowledge (AoKs) in groups of hidden order. We provide protocols to aggregate the knowledge of the discrete logarithms between multiple elements and to prove certain relations between multiple discrete logarithms. This is equivalent to proving relationships between committed multisets. These proofs can be publicly verified against the constant-sized commitments to the multisets. In particular, we provide AoKs for disjointness of sets in cryptographic accumulators, with a view toward applications to sharded blockchains and verifiably outsourcing data storage. 
+\begin{abstract} We study non-interactive arguments of knowledge (AoKs) in groups of hidden order. We provide protocols to aggregate the knowledge of the discrete logarithms between multiple elements and to prove certain relations between multiple discrete logarithms. This is equivalent to proving relationships between committed multisets. These proofs can be publicly verified against the constant-sized commitments to the multisets. In particular, we provide AoKs for the disjointness of sets/multisets in cryptographic accumulators, with a view toward applications to sharded blockchains and verifiably outsourcing data storage. 
 
-Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, in order to keep the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of discrete logarithms, i.e. independent of the number of the committed multisets. We build on the techniques from [BBF19].\end{abstract}
+Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought. Thus, in order to keep the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of discrete logarithms, i.e. independent of the number of the committed multisets. We build on the techniques from [BBF19].\end{abstract}
 
 \section{\fontsize{12}{12}\selectfont Introduction  }
 
@@ -347,7 +347,7 @@ Finite abelian groups of hidden order have gained prominence within cryptography
 
 In this paper, we explore non-interactive arguments of knowledge in groups of hidden order. Our primary goal is to provide protocols for proofs of  disjointness of sets in accumulators. The primary use case for these AoKs is potential applications to sharded blockchains and to verifiable outsourcing of data.
 
-As was the case with previously studied AoKs in hidden order groups ([BBF19], [CFGNK20] etc.) the proofs consist of elements of the group $\mb{G}$ and $\lam$-bit integers, where $\lam$ is the security parameter. Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of committed sets/multisets involved. At times, this comes at the cost of a higher (but superlinear in the size of the data) computational burden on the Prover.
+As was the case with previously studied AoKs in hidden order groups ([BBF19], [CFGNK20] etc.) the proofs consist of elements of the group $\mb{G}$ and $\lam$-bit integers, where $\lam$ is the security parameter. The proofs are succinct in the sense that the proof sizes are independent of the size of the committed data sets/multisets and. Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of committed sets/multisets involved. At times, this comes at the cost of a higher (but superlinear in the size of the data) computational burden on the Prover.
 
 
 
@@ -465,7 +465,7 @@ Dirichlet's theorem on primes in arithmetic progressions combined with the prime
 
 \subsection{\fontsize{11}{11} Aggregating and disaggregating membership witnesses}
 
-\noindent \textbf{Shamir's trick:} Given elements $a_1, a_2, A\in \mb{G}$ and integers $d_1, d_2\geq 1$ such that $a^{d_1} = a_2^{d_2} = A$, Shamir's trick allows us to compute the $\LCM(d_1, d_2)$-th root of $A$ as follows.
+\noindent \textbf{Shamir's trick:} Given elements $a_1, a_2, A\in \mb{G}$ and integers $d_1, d_2$ such that $a_1^{d_1} = a_2^{d_2} = A$, Shamir's trick allows us to compute the $\LCM(d_1, d_2)$-th root of $A$ as follows.
 
 \noindent 1. Compute integers $e_1, e_2$ such that \vs $$e_1d_1+e_2d_2 = \GCD(d_1, d_2).$$
 
@@ -560,7 +560,7 @@ For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\L
 
 \noin $\mbf{2}$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if \vs $$\slim_{i=1}^n d_i^{n\lam}\gamma^i\; \in \;\bz,$$ with \op, $(d_1,\cdots, d_n)\in \bz^n$.\end{Lem}
 
-\begin{prf} $\mbf{1}$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write $d_i = \frac{c_i}{D}$ for $i=1,\cdots, n.$ Suppose, by way of contradiction that $(d_1,\cdots, d_n )\notin \bzlam^n$. Then $D$ is divisible by some prime $p>2^{\lam}$ and \vs $$\sum\limits_{i=1}^n  {c_i\gamma^i} \equiv 0\Mod{p}.$$ Now, the polynomial $\sum\limits_{i=1}^n c_iX^i \in \bFp[X]$ has at most $n$ distinct zeros in $\bFp$ and since $\gamma$ is uniformly distributed modulo $p$, the probability of this occurring is $\negl(\lamb)$, a contradiction.\vspace{0.15cm} 
+\begin{prf} $\mbf{1}$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write \vs $$d_i = \frac{c_i}{D}\;,\; c_i\in\bz\; \;\;(i=1,\cdots, n).$$ Suppose, by way of contradiction that $(d_1,\cdots, d_n )\notin \bzlam^n$. Then $D$ is divisible by some prime $p>2^{\lam}$ and \vs $$\sum\limits_{i=1}^n  {c_i\gamma^i} \equiv 0\Mod{p}.$$ Now, the polynomial $\sum\limits_{i=1}^n c_iX^i \in \bFp[X]$ has at most $n$ distinct zeros in $\bFp$ and since $\gamma$ is uniformly distributed modulo $p$, the probability of this occurring is $\negl(\lamb)$, a contradiction.\vspace{0.15cm} 
 
 \noin $\mbf{2}$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write $d_i = \frac{c_i}{D}$ for $i=1,\cdots, n.$ Suppose, by way of contradiction that $(d_1^{n\lam},\cdots, d_n^{n\lam} )\notin \bz^n$ and let $p$ be a prime dividing $D$. Then $$\slim_{i=1}^n c_i^{n\lam}\gamma^i \equiv 0\Mod{p^{n\lam}}.$$ Now, the polynomial $f(X):= \slim_{i=1}^n c_i^{n\lam} X^i$ has degree $n$ and by the preceding lemma, \vs $$\mbf{Prob}\big(h(\gamma)\equiv 0\Mod{p^{n\lam}} \big) = \negl(\lam).$$ Thus, with \op, the rationals $d_i^{n\lam}$ are integers, which in turn implies that the $d_i$ are integers.\end{prf}
 
@@ -734,7 +734,7 @@ model.\end{Prop}
 
 \noin In the next section, we will generalize this protocol to multivariate polynomial relations for multiple discrete logarithms. We briefly discuss an application of the last protocol.\\
 
-\noin \textbf{Multiset accumulators:} Let $a_1,a_2$ be elements of $\mb{G}$. Let \vs $$\mc{M} = \{\mf{m}_1\times d_1,\cdots, \mf{m}_m\times d_m \}\;,\;\mc{N} = \{\mf{n}_1\times e_1,\cdots, \mf{n}_n\times e_n \}$$ be multisets, where $\mf{m}_i,\;\mf{n}_j$ are the multiplicities of the elements. As before, we write \vs $$\Pi(\mc{M}):= \pl_{i=1}^m d_i^{\mfm_i}\;,\; \Pi(\mc{M}):= \pl_{j=1}^n e_j^{\mfn_j}.$$ Let \vs $$A_1:= g^{\Pi(\mc{M})}\;,\; A_2:= g^{\Pi(\mc{N})}$$ be the commitments to $\mc{M}$, $\mc{N}$.
+\noin \textbf{Underlying sets of committed multisets:} Let $a_1,a_2$ be elements of $\mb{G}$. Let \vs $$\mc{M} = \{\mf{m}_1\times d_1,\cdots, \mf{m}_m\times d_m \}\;,\;\mc{N} = \{\mf{n}_1\times e_1,\cdots, \mf{n}_n\times e_n \}$$ be multisets, where $\mf{m}_i,\;\mf{n}_j$ are the multiplicities of the elements. As before, we write \vs $$\Pi(\mc{M}):= \pl_{i=1}^m d_i^{\mfm_i}\;,\; \Pi(\mc{M}):= \pl_{j=1}^n e_j^{\mfn_j}.$$ Let \vs $$A_1:= g^{\Pi(\mc{M})}\;,\; A_2:= g^{\Pi(\mc{N})}$$ be the commitments to $\mc{M}$, $\mc{N}$.
 
 Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \verb|PoKE|$[A_2, A_1]$. We now show that the protocol \verb|PolyDLog| allows a Prover to succinctly demonstrate the following relations between the underlying sets of $\mc{M}$, $\mc{N}$, the proofs for which can be publicly verified against the commitments to $\mc{M}$ and $\mc{N}$.\vspace{0.1cm}
 
@@ -755,7 +755,7 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 \noin \textbf{Claim:} $\sett(\mc{N})\sub \sett(\mc{M})$.
 
-\noin 1. The Prover $\mP$ computes $N:= \max\{\mf{n}_j:1\leq j\leq n \}$ and \vs $$A_3:= a_2^{(\pl_{i=1}^m d_i^{\mf{m}_i})^N}.$$ He sends $A_3$ and $N$ to the Verifier $\V$.
+\noin 1. The Prover $\mP$ computes $N:= \max\{\mf{n}_j:1\leq j\leq n \}$ and \vs $$A_3:= a_2^{\Pi(\mc{M}))^N}.$$ He sends $A_3$ and $N$ to the Verifier $\V$.
 
 \noin 2. $\mP$ computes a non-interactive proof for \verb|PoPolyDLog|$[(a_1, A_1),\;(a_2, A_3),\;X^N]$ and sends it to $\V$.
 
@@ -769,7 +769,7 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$. 
 
-\noin \textbf{Input:} Elements $a_1,a_2\in\mb{G}$; commitments $A_1 = a_1^{\Pi(\mc{M})}\;,\;A_2 = a_2^{\Pi(\mc{N})}$ to multisets $\mc{M}$, $\mc{N}$.
+\noin \textbf{Input:} Elements $a_1,a_2\in\mb{G}$; commitments $A_1 := \ttt{Com}(a_1, \mc{M}) = a_1^{\Pi(\mc{M})}\;,\;A_2 := \ttt{Com}(a_2, \mc{N})= a_2^{\Pi(\mc{N})}$ to multisets $\mc{M}$, $\mc{N}$.
 
 \noin \textbf{Claim:} $\sett(\mc{M})\nsub \sett(\mc{N})$.
 
@@ -1178,9 +1178,9 @@ Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i
 
 \noin 4. $\mP$ computes a non-interactive proof for \verb|MultPolyDLog|$[a,\;(a_1,\cdots,a_n,A),\; f]$ where \vs $$f(X_1,\cdots,X_{n+1}):= \big(\pl_{i=1}^n X_i\big) -X_{n+1}$$ and sends the proof to $V$.
 
-\noin 5. $\mP$ computes a non-interactive proof for \verb|MultPolyDLog|$[a,\;(a_1,\cdots,a_n,\what{A}),\; \what{f}]$ where \vs $$\what{f}(X_1,\cdots, X_{n+1}):= \big(\slim_{i=1}^n \pl_{\substack{1\leq j\leq n \\ j\neq i}} X_j\big) - X_{n+1}$$ and sends the proof to $\V$.
+\noin 5. $\mP$ generates a non-interactive proof for \verb|MultPolyDLog|$[a,\;(a_1,\cdots,a_n,\what{A}),\; \what{f}]$ where \vs $$\what{f}(X_1,\cdots, X_{n+1}):= \big(\slim_{i=1}^n \pl_{\substack{1\leq j\leq n \\ j\neq i}} X_j\big) - X_{n+1}$$ and sends the proof to $\V$.
 
-\noin 6. $\mP$ computes a non-interactive proof for \verb|RelPrimeDLog|$[(a,A),\;(a,\what{A})]$ and sends it to $\V$.
+\noin 6. $\mP$ generates a non-interactive proof for \verb|RelPrimeDLog|$[(a,A),\;(a,\what{A})]$ and sends it to $\V$.
 
 \noin 7. $\V$ verifies the four proofs and accepts the validity of the claim if and only if all proofs are valid.\end{prf1}
 
@@ -1236,7 +1236,7 @@ We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime E
 \noindent 5. $\mc{P}$ generates non-interactive proofs for 
 \verb|AggKE-1|$[a_1,\mc{B}]$ and \verb|AggKE-1|$[a_2,\mc{C}]$ and sends them to the Verifer.
 
-\noindent 6. $\mc{P}$ computes a non-interactive proof for \verb|RelPrimeDLog|$[(a_1, B),\;(a_2, C)]$ and sends it to $\mc{V}$. 
+\noindent 6. $\mc{P}$ generates a non-interactive proof for \verb|RelPrimeDLog|$[(a_1, B),\;(a_2, C)]$ and sends it to $\mc{V}$. 
 
 \noindent 7. $\mc{V}$ accepts the validity of the claim if and only if all of these proofs are valid.\end{prf1}
 
@@ -1366,7 +1366,7 @@ A straightforward approach would be to provide $mn$ distinct proofs that $\GCD(d
 
 \noindent 4. $\mc{P}$ generates non-interactive proofs for \verb|AggKE-1|$[b,\mc{B}]$ and \verb|AggKE-1|$[c, \mc{C}]$ and sends them to $\mc{V}$.
 
-\noindent 5. $\mc{P}$ computes a non-interactive proof for \verb|RelPrime|$[(b,B),\;(c,C)]$ and sends the proof to $\mc{V}$.
+\noindent 5. $\mc{P}$ generates a non-interactive proof for \verb|RelPrime|$[(b,B),\;(c,C)]$ and sends the proof to $\mc{V}$.
 
 \noindent 6. $\mc{V}$ verifies all of these proofs and accepts the validity of the claim if and only if all proofs are valid.\end{prf1}
 
@@ -1395,7 +1395,9 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Updates:} When the data multiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. \vspace{0.15cm}
 
-\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.\vspace{0.1cm}
+\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.\vspace{0.15cm}
+
+\noin \textbf{Multiset differences:} For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\frac{\Pi(\mcM)}{\Pi(\mcM\cap \mc{N})}} .$$ So the Prover can use the Protocols \verb|PoGCD| and \verb|PoMultPolyDLog| to veriably send the commitment to $\mc{M}\sm \mc{N} $. \vspace{0.15cm}
 
 \noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\mr{int}})$ to the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
 
@@ -1413,18 +1415,36 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin 2. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
 
-\noin 3. $\mP$ computes the elements $\weck{A}_i=g^{e_i}\;(i=1,\cdots,n)$ and sends them to $\V$ along with a  non-interactive proof for \vs $$\pr{\ttt{AggKE-1}[g,\;(\weck{A}_1.\cdots,\weck{A}_n)]} .$$ 
+\noin 3. $\mP$ computes the elements $\weck{A}_i=g^{e_i}\;(i=1,\cdots,n)$ and sends them to $\V$ along with a  non-interactive proof for $\pr{\ttt{AggKE-1}[g,\;(\weck{A}_1.\cdots,\weck{A}_n)]} .$ 
 
 \noin 4. $\mP$ generates a non-interactive proof for $\protect{\tt{MultPolyDLog} }[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\mr{int}}),\;f]$ where \vs $$f(X_1,\cdots,X_{2n+1}):= (\slim_{i=1}^n X_iX_{n+i})-X_{2n+1} $$ and sends it to $\V$.
 
 \noin 5. $\V$ verifies the two proofs and accepts if and only if they are both valid.\end{prf1}
 
-The proof consists of $n+\bO(1)$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment, the server can include a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol\\ $\pr{\ttt{PoAggRelPrimeDLog-1}}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.\vspace{0.15cm} 
+The proof consists of $n+\bO(1)$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment to this multiset, the server node can send along a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that the proof size can be smaller in certain special cases. In particular, when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol $\pr{\ttt{PoAggRelPrimeDLog-1}}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.
+
+In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the proof can be modified so that the number of group elements is constant. The basic idea is that for a randomly generated $\lam$-bit integer $\gamma$, we have \vs $$\mbf{Prob}\big( \GCD(\slim_{i=1}^n d_i\gamma^i,\pl_{i=1}^n d_i)>1 \big)  = \negl(\lam).$$ This allows for the following protocol. \vspace{0.1cm}
+
+\begin{prf1}\normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n).$$
+
+\noin 2. $\mP$ samples $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i,\pl_{i=1}^n d_i) = 1 .$$ He sends $\gamma$ to the Verifier $\V$.
+
+\noin 3. $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to $\V$.
+
+\noin 4. $\mP$ computes $\wti{A}:= g^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[g,\; (A_1,\cdots,A_n, \wti{A}),\; f]$ where \vs $$f(x_1,\cdots,X_{n+1}):= (\pl_{i=1}^n X_i)-X_{n+1} .$$
+
+\noin 5. $\mP$ generates a non-interactive proof for $\ttt{PoGCD}[(g, \wti{A}),\;(g, \pl_{i=1}^n A_i^{\gamma^i}),\;(g, A_{\mr{int}})]$ and sends it to $\V$.
+
+\noin 6. $\V$ verifies the three proofs and accepts if and only if they are all valid.\end{prf1}
+
+
+
+\vspace{0.15cm} 
 
 
 \noin \textbf{Multiset unions:} The techniques in the last protocol also allow a server node to verifiably send over a commitment for the union of multisets $\mcM_1.\cdots,\mcM_n$. The proof that this commitment is valid can be publicly verified against the commitments $\tt{Com}(g,\mc{M}_i)\;(i=1,\cdots,n)$ which the client stores. The basic idea here is as follows.
 
-\begin{Lem} For integers $d_1,\cdots,d_n$, set $\what{d}_j:= (\pl_{i=1}^n d_i)/d_j$. Then we have\vs $$ \LCM(d_1,\cdots,d_n)\cdot \GCD(\what{d}_1,\cdots,\what{d}_n) = \pl_{i=1}^n d_i.$$ \end{Lem}
+\begin{Lem} For integers $d_1,\cdots,d_n$, set $\what{d}_j:= \pl_{\substack{1\leq i\leq n \\ i\neq j}} d_i (j=1,\cdots,n)$. Then we have\vs $$ \LCM(d_1,\cdots,d_n)\cdot \GCD(\what{d}_1,\cdots,\what{d}_n) = \pl_{i=1}^n d_i.$$ \end{Lem}
 
 \begin{prf} Let $p$ be a prime and let $\mr{val}_p(N)$ denote the largest integer $x$ such that $p^x$ divides $N$. Write $k_i:= \mr{val}_p(d_i)$ for brevity. Then $\mr{val}_p(\pl_{i=1}^n d_i) = \slim_{i=1}^n k_i$ and $\mr{val}_p(\what{d}_j) = (\slim_{i=1}^n k_i)-k_i$. Hence, \vs $$\mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \min\big((\slim_{i=1}^n k_i)-k_i\big)_i = \slim_{i=1}^n k_i - \max(k_1,\cdots,k_n).$$ On the other hand, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n)) = \max(k_1,\cdots,k_n).$$ Thus, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n))+ \mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \mr{val}_p(\pl_{i=1}^n d_i),$$ which completes the proof.
 \end{prf}
@@ -1448,13 +1468,13 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \noin \textbf{Claim:} $A_{\mr{uni}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
 
-\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n)\;,\;\what{d}_i = (\pl_{i=1}^n d_i)/d_i$$ and integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\sum\limits_{i=1}^n \what{d}_i\what{e}_i = \GCD(\what{d}_1,\cdots,\what{d}_n).$$
+\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_j:= \Pi(\mc{M}_j)\;,\;\what{d}_j := \pl_{\substack{1\leq i\leq n \\ i\neq j}} d_i \; (i=1,\cdots,n)$$ and integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\sum\limits_{i=1}^n \what{d}_i\what{e}_i = \GCD(\what{d}_1,\cdots,\what{d}_n).$$
 
-\noin 2. $\mP$ computes \vs $$\wti{A}:= g^{\pl_{i=1}^n d_i} = \ttt{Com}(g, \slim_{i=1}^n \mcM_i)$$ and sends $\wti{A}$ to the Verifier $\V$ along with a non-interactive proof for \\ $\ttt{MultPolyDLog}[g,\;(A_1,\cdots,A_n,\wti{A}),\;f]$ where \vs $$f(X_1,\cdots,X_{n+1}):= (\pl_{i=1}^n X_i)-X_{n+1}. $$
+\noin 2. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-2}}[(A_1,\cdots,A_n),\;A_{\uni}] $ and sends it to $\V$.
 
-\noin 3. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-2}}[(A_1,\cdots,A_n),\;A_{\uni}] $ and sends it to $\V$.
+\noin 3. $\mP$ computes \vs $$\wti{A}:= g^{\pl_{i=1}^n d_i} = \ttt{Com}(g, \slim_{i=1}^n \mcM_i)$$ and sends $\wti{A}$ to the Verifier $\V$ along with a non-interactive proof for the relation \\ $\ttt{MultPolyDLog}[g,\;(A_1,\cdots,A_n,\wti{A}),\;f]$ where \vs $$f(X_1,\cdots,X_{n+1}):= (\pl_{i=1}^n X_i)-X_{n+1}. $$
 
-\noin 4. $\mP$ computes $\weck{A}_i:= g^{\what{e}_i}\;(i=1,\cdots,n) $ and sends $\weck{A}_1,\cdots,\weck{A}_n$ to $\V$ along with a non-interactive proof for $\pr{\ttt{MultPolyDLog}}[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\uni}, \wti{A}),\;\weck{f}]$ where \vs $$\weck{f}(X_1,\cdots,X_{2n+1}):= \Big(X_{2n+1}\cdot\pl_{i=1}^n X_i\cdot\big(\slim_{j=1}^n \frac{X_{n+j}}{X_j}\big)\Big) - X_{2n+2} $$ 
+\noin 4. $\mP$ computes $\weck{A}_i:= g^{\what{e}_i}\;(i=1,\cdots,n) $ and sends $\weck{A}_1,\cdots,\weck{A}_n$ to $\V$ along with a non-interactive proof for $\pr{\ttt{MultPolyDLog}}[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\uni}, \wti{A}),\;\weck{f}]$ where \vs $$\weck{f}(X_1,\cdots,X_{2n+1}):= \Big(X_{2n+1}\cdot\big(\slim_{j=1}^n (X_{n+j}\pl_{\substack{1\leq i\leq n \\ i\neq j}} X_i)\big)\Big) - X_{2n+2} $$ 
 
 \noin 5. $\V$ verifies the two proofs and accepts if and only if they are both valid.\end{prf1}
 
@@ -1462,13 +1482,12 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \vspace{0.1cm}
 
-\noin \textbf{Multiset differences:} For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\pl_{x\in\sett{(\mc{M})}} x^{\mul(\mc{M},x)-\mul(\mc{M\cap \mc{N}},x)}} .$$ Thus, the Prover can use the Protocols \verb|PoGCD| and \verb|PoMultPolyDLog| to veriably send the commitment to $\mc{M}\sm \mc{N} $. \vspace{0.1cm}
 
 So, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds succinct commitments.  The communication complexity is linear in the number of the committed multisets but independent of the sizes of these multisets.
 
 \subsubsection{\fontsize{11}{11} Frequencies of elements}
 
-As before, let $\mc{M}_1,\cdots, \mc{M}_n$ be data multisets and let \vs $$A_i:= \ttt{Com}(g,\mc{M}_i) = g^{\Pi(\mc{M}_i)}\;(i=1,\cdots,n) $$ be the commitments. Suppose the server storing the data needs to identify the data multiset with the highest frequency of a data set $\mc{D}$. The protocols we have developed so far allows him to do so with a proof that the client can verify against the commitments $A_1,\cdots,A_n$.\vspace{0.1cm}
+As before, let $\mc{M}_1,\cdots, \mc{M}_n$ be data multisets and let \vs $$A_i:= \ttt{Com}(g,\mc{M}_i) = g^{\Pi(\mc{M}_i)}\;\;(i=1,\cdots,n) $$ be the commitments. Suppose the server nide storing the data for the client needs to identify the data multiset with the highest frequency of a data set $\mc{D}$. The protocols we have developed so far allows him to do so with a proof that the client can verify against the commitments $A_1,\cdots,A_n$.\vspace{0.1cm}
 
 \begin{Prot} Protocol for frequency of sets in multisets $1$.\end{Prot} \vspace{-0.3cm}
 
@@ -1509,11 +1528,13 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \bigskip
 
+\noin The next two protocols are duals to the last two. They allow the server node to verifiably identify the multiset with the highest/lowest occurrence of a data set in a setting where the client stores the membership witnesses for the multisets with respect to a single accumulated digest.
+
 \begin{Prot} Protocol for frequency of sets in multisets $3$.\end{Prot} \vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
+\noin \textbf{Inputs:} Membership witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
 
 \noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a higher frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
 
@@ -1533,7 +1554,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
+\noin \textbf{Inputs:} Membership witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
 
 \noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
 
