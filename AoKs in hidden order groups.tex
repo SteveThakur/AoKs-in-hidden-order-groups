@@ -126,13 +126,13 @@
 
 \newcommand{\lcm}{\mathrm{lcm}}
 
-\newcommand{\negl}{\tt{negl}}
+\newcommand{\negl}{\ttt{{negl}}}
 
 \newcommand{\pr}{\protect}
 
 \newcommand{\Acc}{\mbf{Acc}}
 
-\newcommand{\sett}{\tt{Set}}
+\newcommand{\sett}{\ttt{Set}}
 
 \newcommand{\mult}{\mr{mult}}
 \newcommand{\mul}{\mr{mult}}
@@ -268,7 +268,7 @@
 
 \newcommand{\un}{\ttt{uni}}
 
-\newcommand{\new}{\tt{new}}
+\newcommand{\new}{\ttt{new}}
 
 
 
@@ -347,7 +347,7 @@ Finite abelian groups of hidden order have gained prominence within cryptography
 
 In this paper, we explore non-interactive arguments of knowledge in groups of hidden order. Our primary goal is to provide protocols for proofs of  disjointness of sets in accumulators. The primary use case for these AoKs is potential applications to sharded blockchains and to verifiable outsourcing of data.
 
-As was the case with previously studied AoKs in hidden order groups ([BBF19], [CFGNK20] etc.) the proofs consist of elements of the group $\mb{G}$ and $\lam$-bit integers, where $\lam$ is the security parameter. The proofs are succinct in the sense that the proof sizes are independent of the size of the committed data sets/multisets and. Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of committed sets/multisets involved. At times, this comes at the cost of a higher (but superlinear in the size of the data) computational burden on the Prover.
+As was the case with previously studied arguments of knowledge in hidden order groups ([BBF19], [CFGNK20] etc.), the proofs consist of elements of the group $\mb{G}$ and $\lam$-bit integers, where $\lam$ is the security parameter. The proofs are succinct in the sense that the proof sizes are independent of the size of the committed data sets/multisets and. Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure $128$-bit security. Thus, with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of committed sets/multisets involved. At times, this comes at the cost of a higher (but superlinear in the size of the data) computational burden on the Prover.
 
 
 
@@ -369,7 +369,7 @@ At the moment, there are only three known families of finite abelian groups of u
 
 \noindent 1. \textbf{RSA groups:} For distinct $1536$-bit primes $p$, $q$, define $N:= pq$. The group $(\bz/N\bz)^*$ has order $\phi(N) = (p-1)(q-1)$ which can only be computed by factorizing $N$. The strong-RSA assumption is believed to hold in the RS group. However, the group does contain the element $-1\Mod{N}$ of a known order $2$. For the adaptive root assumption to hold, the group has to be replaced by its quotient group $(\bz/N\bz)^*/\{\pm 1\}$ of order $\frac{(p-1)(q-1)}{2}.$ 
 
-The RSA groups suffer from the need for a trusted setup. In practice, this is usually mitigated by a secure multi-party computation. At the moment, a $3300$-bit RSA modulus yields a security level of $128$-bits.\\
+The RSA groups suffer from the need for a trusted setup. In practice, this is usually mitigated by a one-time secure multi-party computation. At the moment, a $3300$-bit RSA modulus yields a security level of $128$-bits.\\
 
 
 \noindent 2. \textbf{Class groups:} Computing the class group of a number field is a long-standing problem in algorithmic number theory. Hence, class groups are a candidate for hidden order groups. At the moment, the only class groups that allow for efficient group operations are those of imaginary quadratic fields.
@@ -547,8 +547,7 @@ Write $w = g^x$. Then \vs $$ x D_0 +
 
 \noin We will need the next two lemmas repeatedly in the subsequent protocols.
 
-\begin{Lem} Let $p$ be a prime and let $f(X)$ be a univariate degree $n$ polynomial in $\bz[X]$ such that not all coefficients are divisible by $p$. For a randomly generated integer $\gamma$, the probability that $f(\gamma)\equiv 0\Mod{p^{n\lam}}$ is $\negl(\lam)$.
-\end{Lem}
+\begin{Lem} Let $p$ be a prime and let $f(X)$ be a univariate degree $n$ polynomial in $\bz[X]$ such that not all coefficients are divisible by $p$. For a randomly generated integer $\gamma$, the probability that $f(\gamma)\equiv 0\Mod{p^{n\lam}}$ is \normalfont $\ttt{negl}(\lam)$. \end{Lem}
 
 \begin{prf} Let $F$ be a splitting field of $f(X)$ and let \vs $${f}(X) = \pl_{i=1}^n (X-\al_i)$$ be the factorization of ${f}(X)$ over $F$. Let $\mfp_{1},\cdots,\mfp_g$ be the distinct primes of $F$ lying over $p$. Since the extension $F/\bq$ is Galois, we have \vs $$p\mc{O}_F = \pl_{i=1}^{g} \mfp_i^e = \bigcap\limits_{i=1}^{g} \mfp_i^e$$ where $e\geq 1$ is the ramification degree and the Galois group $\Gal(F/\bq)$ acts transitively on the set $\{ \mfp_1,\cdots,\mfp_g\}$.
 
@@ -1403,7 +1402,7 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \bigskip
 
-\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\mr{int}})$ to the intersection \vs $$\mc{M}_{\mr{int}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
+\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\verb|Com|}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ The server can verifiably send the intersection to the client through the following protocol, which is a minor generalization of \verb|PoGCD|. It hinges on the observation that \vs $$d = \gcd(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum\limits_{i=1}^n e_id_i = d ).$$
 
 \vspace{0.1cm}
 
@@ -1413,29 +1412,29 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mcM_i) := ( g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{int}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mcM_i) := ( g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cap}}\in\mb{G}$
 
-\noin \textbf{Claim:} $A_{\mr{int}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \frac{\Pi(\mc{M}_i)}{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}\; (i=1,\cdots,n).$$
 
-\noin 2. $\mP$ generates non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$, $\ttt{PoKE}[g,\;A_{\intt}]$ and sends them to the Verifier $\V$.
+\noin 2. $\mP$ generates non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\tt{\cap}},\;(A_1,\cdots,A_n)]$, $\ttt{PoKE}[g,\;A_{\tt{\cap}}]$ and sends them to the Verifier $\V$.
 
 \noin 3. $\mP$ samples a $\lam$-bit prime $\gamma$ and computes \vs $$ e:= \GCD(\pl_{i=1}^n d_i, \slim_{i=1}^n d_i\gamma^i).$$
 
 \noin 4. $\mP$ computes \vs $$\wti{e}:= \GCD(e^{n\lam}, \slim_{i=1}^n d_i^{n\lam}\gamma^i) .$$ If $\wti{e}$ does not divide $e^{n\lam-1}$, $\mP$ returns to Step 3 and samples another $\gamma$.  
 
-\noin 5. $\mP$ computes $A:= A_{\intt}^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[A_{\intt},\;(A_1,\cdots,A_n, A), f]$ where $$f(x_1,\cdots,X_n):= (\pl_{i=1}^n X_i)-X_{n+1}.$$
+\noin 5. $\mP$ computes $A:= A_{\tt{\cap}}^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[A_{\tt{\cap}},\;(A_1,\cdots,A_n, A), f]$ where $$f(x_1,\cdots,X_n):= (\pl_{i=1}^n X_i)-X_{n+1}.$$
 
-\noin 6. $\mP$ computes $A_0:= A_{\intt}^{e}$ and sends it to $\V$ along with a non-interactive proof for \\ $\ttt{PoGCD}[(A_{\intt}, \pl_{i=1}^n A_i^{\gamma^i}),\;(A_{\intt},A),\;(A_{\intt},A_0)]$.
+\noin 6. $\mP$ computes $A_0:= A_{\tt{\cap}}^{e}$ and sends it to $\V$ along with a non-interactive proof for \\ $\ttt{PoGCD}[(A_{\tt{\cap}}, \pl_{i=1}^n A_i^{\gamma^i}),\;(A_{\tt{\cap}},A),\;(A_{\tt{\cap}},A_0)]$.
 
-\noin 7. $\mP$ computes $\wti{A}:= A_{\intt}^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for \\ $\ttt{MultPolyDLog}[A_{\intt},\;(A_1,\cdots,A_n, \wti{A}),\;\wti{f}]$ where \vs $$f(X_1,\cdots,X_{n+1}):= \big(\slim_{i=1}^n \gamma^i X_i^{n\lam}\big) - X_{n+1}.$$
+\noin 7. $\mP$ computes $\wti{A}:= A_{\tt{\cap}}^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for \\ $\ttt{MultPolyDLog}[A_{\tt{\cap}},\;(A_1,\cdots,A_n, \wti{A}),\;\wti{f}]$ where \vs $$f(X_1,\cdots,X_{n+1}):= \big(\slim_{i=1}^n \gamma^i X_i^{n\lam}\big) - X_{n+1}.$$
 
-\noin 8. $\mP$ computes $A_{\intt}^{e^{n\lam}}, A_{\intt}^{e^{n\lam-1}}$ and sends $A_{\intt}^{e^{n\lam}}, A_{\intt}^{e^{n\lam-1}}$ to $\V$ along with non-interactive proofs for $$\ttt{PolyDLog}[(A_{\intt}, A_0),\;(A_{\intt}, A_{\intt}^{e^{n\lam}}),\;X^{n\lam}]\;,\;\ttt{PolyDLog}[(A_{\intt}, A_0),\;(A_{\intt}, A_{\intt}^{e^{n\lam-1}}),\;X^{n\lam-1}].$$
+\noin 8. $\mP$ computes $A_{\tt{\cap}}^{e^{n\lam}}, A_{\tt{\cap}}^{e^{n\lam-1}}$ and sends $A_{\tt{\cap}}^{e^{n\lam}}, A_{\tt{\cap}}^{e^{n\lam-1}}$ to $\V$ along with non-interactive proofs for $$\ttt{PolyDLog}[(A_{\tt{\cap}}, A_0),\;(A_{\tt{\cap}}, A_{\tt{\cap}}^{e^{n\lam}}),\;X^{n\lam}]\;,\;\ttt{PolyDLog}[(A_{\tt{\cap}}, A_0),\;(A_{\tt{\cap}}, A_{\tt{\cap}}^{e^{n\lam-1}}),\;X^{n\lam-1}].$$
  
-\noin 9. $\mP$ computes $\wti{A}_0 := A_{\intt}^{\wti{e}}$ and sends $\wti{A}_0$ to $\V$ along with a non-interactive proof for \\ $\ttt{PoGCD}[(A_{\intt}, \wti{A}),\;(A_{\intt},A_{\intt}^{e^{n\lam}}),\;(A_{\intt},\wti{A}_0)]$.
+\noin 9. $\mP$ computes $\wti{A}_0 := A_{\tt{\cap}}^{\wti{e}}$ and sends $\wti{A}_0$ to $\V$ along with a non-interactive proof for \\ $\ttt{PoGCD}[(A_{\tt{\cap}}, \wti{A}),\;(A_{\tt{\cap}},A_{\tt{\cap}}^{e^{n\lam}}),\;(A_{\tt{\cap}},\wti{A}_0)]$.
 
-\noin 10. $\mP$ generates a non-interactive proof for $\ttt{PoKE}[\wti{A}_0,\; A_{\intt}^{e^{n\lam-1}}] .$
+\noin 10. $\mP$ generates a non-interactive proof for $\ttt{PoKE}[\wti{A}_0,\; A_{\tt{\cap}}^{e^{n\lam-1}}] .$
 
 \noin 11. $\V$ verifies all the proofs he receives and accepts if and only if they are all valid.\end{prf1}
 
@@ -1464,6 +1463,8 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \noin - $d_i\big| d\;\forall\; i$ and there exist integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\pl_{i=1}^n d_i  =  d\cdot\slim_{i=1}^n \what{e}_i\what{d}_i.$$
 
+\noin - The rationals $\frac{d}{d_i}$ are integers and \vs $$\GCD(\frac{d}{d_1},\cdots,\frac{d}{d_n}) = 1 .$$
+
 \vspace{0.1cm}
 
 
@@ -1473,23 +1474,24 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mc{M}_i) := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{uni}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mc{M}_i) := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cup}}\in\mb{G}$
 
-\noin \textbf{Claim:} $A_{\mr{uni}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cup}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
 
-\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$\weck{d}_i:= \frac{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}{\Pi(\mc{\mcM_i})}.$$
+\begin{prf1} \normalfont \noin 1. $\mP$ generates a non-interactive proof for $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$.
 
-\noin 2. $\mP$ generates a non-interactive proof for $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\mr{uni}}]$ and sends it to the Verifier $\V$.
+\noin 2. The Prover $\mP$ computes the integers \vs $$\weck{d}_i:= \frac{\Pi(\bigcup\limits_{i=1}^n \mc{M}_i)}{\Pi(\mcM_i)}.$$
+
 
 \noin 3. $\mP$ samples a $\lam$-bit prime $\gamma$ and computes \vs $$e:= \GCD(\weck{d}_1, \slim_{i=1}^n d_i\gamma^i) .$$
 
-\noin 4. $\mP$ computes $$\what{e}:= \GCD(e^{n\lam}, \slim_{i=1}^n \weck{d}_i^{n\lam}\gamma^i) .$$ If $\what{e}$ does not divide $e^{n\lam-1}$, $\mP$ returns to Step 3 and samples another $\gamma$.
+\noin 4. $\mP$ computes $$\wti{e}:= \GCD(e^{n\lam}, \slim_{i=1}^n \weck{d}_i^{n\lam}\gamma^i) .$$ If $\wti{e}$ does not divide $e^{n\lam-1}$, $\mP$ returns to Step 3 and samples another $\gamma$.
 
 \noin 5. $\mP$ computes $\weck{A}:= g^{\slim_{i=1}^n \weck{d}_i\gamma^i}$ and sends it to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[g, \;(A_1,\cdots,A_n, A, \weck{A}), \weck{f}]$ where \vs $$\weck{f}(X_1,\cdots,X_{n+2}):= \Big( X_{n+1}\cdot \slim_{i=1}^n \frac{\gamma^i}{X_i} \Big)- X_{n+2}.$$
 
-\noin 6. $\mP$ computes $A_0:= g^{e}$ and sends $A_0$ to $\V$ along with a non-interactive proof for\\ $\ttt{PoGCD}[(g, \weck{A}),\;(g, A_{\mr{uni}}),\;(g, A_0)].$
+\noin 6. $\mP$ computes $A_0:= g^{e}$ and sends $A_0$ to $\V$ along with a non-interactive proof for\\ $\ttt{PoGCD}[(g, \weck{A}),\;(g, A_{\tt{\cup}}),\;(g, A_0)].$
 
-\noin 7. $\mP$ computes $\wti{A}:= g^{\slim_{i=1}^n \weck{d}_i^{n\lam}\gamma^i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for $\ttt{MultPolyDLog}[g, \;(A_1,\cdots,A_n, A_{\mr{uni}}, \wti{A}), \wti{f}]$ where \vs $$\wti{f}(X_1,\cdots,X_{n+2}):= \Big( X_{n+1}^{n\lam}\cdot \slim_{i=1}^n \frac{\gamma^i}{X_i^{n\lam}} \Big)- X_{n+2}. $$
+\noin 7. $\mP$ computes $\wti{A}:= g^{\slim_{i=1}^n \weck{d}_i^{n\lam}\gamma^i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for $\ttt{MultPolyDLog}[g, \;(A_1,\cdots,A_n, A_{\tt{\cup}}, \wti{A}), \wti{f}]$ where \vs $$\wti{f}(X_1,\cdots,X_{n+2}):= \Big( X_{n+1}^{n\lam}\cdot \slim_{i=1}^n \frac{\gamma^i}{X_i^{n\lam}} \Big)- X_{n+2}. $$
 
 \noin 8. $\mP$ computes $g^{e^{n\lam}}, g^{e^{n\lam-1}}$ and sends $g^{e^{n\lam}}, g^{e^{n\lam-1}}$ to $\V$ along with non-interactive proofs for $$\ttt{PolyDLog}[(g, A_0),\;(g, g^{e^{n\lam}}),\;X^{n\lam}]\;,\;\ttt{PolyDLog}[(g, A_0),\;(g, g^{e^{n\lam-1}}),\;X^{n\lam-1}].$$
 
@@ -1804,11 +1806,11 @@ The following is a list of the protocols in this paper and the relations that th
 \noin 6. \verb|PoMultPolyDLog| \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|MultPolyDLog|}}[a, (b_1,\cdots, b_n), f] = \left\{\begin{array}{l}
-    (a\in\mb{G},\; (b_1,\cdots, b_n)\in\mb{G}^n);\\
-    f\in\bz[X_1,\cdots,X_n]);\\ 
+  \mc{R}_{{\protect\verb|MultPolyDLog|}}[a, (b_1,\cdots, b_n), (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
+    \big(a\in\mb{G},\; (b_1,\cdots, b_n)\in\mb{G}^n);\\
+    f_1,\cdots,f_k\in\bq(X_1,\cdots,X_n)\big);\\ 
     (d_1,\cdots,d_n)\in \bz^n)\;: \\
-    b_i = a^{d_i}\;\forall\; i\;\bigwedge \;   f(d_1,\cdots,d_n) = 0 
+    b_i = a^{d_i}\;\forall\; i\;\bigwedge \\   \bigwedge\limits_{i=1}^k f_i(d_1,\cdots,d_n) = 0 
   \end{array}\right\}
 \]
 
@@ -1876,6 +1878,32 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
   \end{array}\right\}
 \] 
 
+\noin 14. Protocol for the intersection of multisets \vspace{-0.7cm}
+
+\[
+  \mc{R}_{\ttt{int}}[g, (A_1,\cdots,A_n), A_{\tt{\cap}}] = \left\{\begin{array}{l}
+    (g\in\mb{G};\;\\
+     (A_1,\cdots,A_n, A_{\tt{\cap}})\in\mb{G}^{n+1});\\
+    ((d_1,\cdots,d_n, d_{\tt{\cap}})\in\bz^{n+1},: \\
+    A_i = g^{d_i}\;\forall\;i\;,\; A_{\tt{\cap}} = g^{d_{\tt{\cap}}}   \\
+    
+  \GCD(d_1, \cdots, d_n) = d_{\tt{\cap}}
+  \end{array}\right\}
+\] 
+
+\noin 15. Protocol for the union of multisets \vspace{-0.7cm}
+
+\[
+  \mc{R}_{\ttt{uni}}[g, (A_1,\cdots,A_n), A_{\tt{\cup}}] = \left\{\begin{array}{l}
+    (g\in\mb{G};\;\\
+     (A_1,\cdots,A_n, A_{\tt{\cup}})\in\mb{G}^{n+1});\\
+    ((d_1,\cdots,d_n, d_{\tt{\cup}})\in\bz^{n+1}): \\
+    A_i = g^{d_i}\;\forall\;i\;,\; A_{\tt{\cup}} = g^{d_{\tt{\cup}}}   \\
+    
+  \LCM(d_1, \cdots, d_n) = d_{\tt{\cup}}
+  \end{array}\right\}
+\] 
+
 
 \bigskip
 
@@ -1919,9 +1947,9 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{int}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cap}}\in\mb{G}$
 
-\noin \textbf{Claim:} $A_{\mr{int}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1} \normalfont \noin 1. The Fiat-Shamir heuristic generates a $\lam$-bit challenge $\gammma$.
 
@@ -1933,7 +1961,7 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 
 \noin 5. $\mP$ computes elements $Q_1, Q_2\;\in\;\bG$ such that \vs $$Q_1^{l}g^{r} = g_1\;,\; Q_2^{l}g^{s} = g_2.$$ He sends \vs $$Q_1, Q_2,\; (r_1,\cdots,r_n),\;(s_1,\cdots,s_n)$$ to $\V$.
 
-\noin 6. $\mP$ computes \vs $$t:= \slim_{i=1}^n d_ie_i\Mod{l}$$ and an element $Q_3\in \bG$ such that $Q_3^lg^{t} = A_{\mr{int}}.$
+\noin 6. $\mP$ computes \vs $$t:= \slim_{i=1}^n d_ie_i\Mod{l}$$ and an element $Q_3\in \bG$ such that $Q_3^lg^{t} = A_{\tt{\cap}}.$
 
 \noin 7. The Fiat-Shamir heuristic generates a $\lam$-bit challenge $\what{\gamma}$.
 
@@ -1957,21 +1985,21 @@ Let $\mb{G}$ be a hidden order group in which we assume the strong-RSA, adaptive
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{int}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cap}}\in\mb{G}$
 
-\noin \textbf{Claim:} $A_{\mr{int}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n)$$ and integers $e_1,\cdots,e_n$ such that \vs $$\sum\limits_{i=1}^n d_ie_i = \GCD(d_1,\cdots,d_n).$$
 
-\noin 2. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
+\noin 2. $\mP$ generates a non-interactive proof for $\pr{\ttt{AggKE-1}}[A_{\tt{\cap}},\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
 
 \noin 3. $\mP$ computes the elements $\weck{A}_i=g^{e_i}\;(i=1,\cdots,n)$ and sends them to $\V$ along with a  non-interactive proof for $\pr{\ttt{AggKE-1}[g,\;(\weck{A}_1.\cdots,\weck{A}_n)]} .$ 
 
-\noin 4. $\mP$ generates a non-interactive proof for $\protect{\tt{MultPolyDLog} }[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\mr{int}}),\;f]$ where \vs $$f(X_1,\cdots,X_{2n+1}):= (\slim_{i=1}^n X_iX_{n+i})-X_{2n+1} $$ and sends it to $\V$.
+\noin 4. $\mP$ generates a non-interactive proof for $\protect{\tt{MultPolyDLog} }[g,\;(A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n, A_{\tt{\cap}}),\;f]$ where \vs $$f(X_1,\cdots,X_{2n+1}):= (\slim_{i=1}^n X_iX_{n+i})-X_{2n+1} $$ and sends it to $\V$.
 
 \noin 5. $\V$ verifies the two proofs and accepts if and only if they are both valid.\end{prf1}
 
-The proof consists of $n+\bO(1)$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment to this multiset, the server node can send along a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\mr{int}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that the proof size can be smaller in certain special cases. In particular, when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol $\pr{\ttt{PoAggRelPrimeDLog-1}}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.
+The proof consists of $n+\bO(1)$ $\mb{G}$-elements and $2n$ $\lam$-bit integers. If the client also needs the intersection $\bigcap\limits_{i=1}^n \mc{M}_i$ rather than just the commitment to this multiset, the server node can send along a non-interactive \verb|PoE| for the exponentiation \vs $$A_{\tt{\cap}} = g^{\Pi(\bigcap\limits_{i=1}^n \mc{M}_i)}.$$ Note that the proof size can be smaller in certain special cases. In particular, when the multisets $\mc{M}_i$ are pairwise disjoint, the prover can use the protocol $\pr{\ttt{PoAggRelPrimeDLog-1}}$, which entails a constant number of $\bG$-elements and $2n$ $\lam$-bit integers.
 
 In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the proof can be modified so that the number of group elements is constant. The basic idea is that for a randomly generated $\lam$-bit integer $\gamma$, we have \vs $$\mbf{Prob}\big( \GCD(\slim_{i=1}^n d_i\gamma^i,\pl_{i=1}^n d_i)>1 \big)  = \negl(\lam).$$ This allows for the following protocol. \vspace{0.1cm}
 
@@ -1979,21 +2007,21 @@ In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{int}}\in\mb{G}$.
+\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cap}}\in\mb{G}$.
 
 \noin \textbf{Assumption:} All elements of $\mcM_i$ are primes $> 2^{\lam}$.
 
-\noin \textbf{Claim:} $A_{\mr{int}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1}\normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \Pi(\mc{M}_i)\; (i=1,\cdots,n).$$
 
 \noin 2. $\mP$ samples $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i,\pl_{i=1}^n d_i) = 1 .$$ He sends $\gamma$ to the Verifier $\V$.
 
-\noin 3. $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[A_{\mr{int}},\;(A_1,\cdots,A_n)]$ and sends it to $\V$.
+\noin 3. $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[A_{\tt{\cap}},\;(A_1,\cdots,A_n)]$ and sends it to $\V$.
 
 \noin 4. $\mP$ computes $\wti{A}:= g^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[g,\; (A_1,\cdots,A_n, \wti{A}),\; f]$ where \vs $$f(X_1,\cdots,X_{n+1}):= (\pl_{i=1}^n X_i)-X_{n+1} .$$
 
-\noin 5. $\mP$ generates a non-interactive proof for $\ttt{PoGCD}[(g, \wti{A}),\;(g, \pl_{i=1}^n A_i^{\gamma^i}),\;(g, A_{\mr{int}})]$ and sends it to $\V$.
+\noin 5. $\mP$ generates a non-interactive proof for $\ttt{PoGCD}[(g, \wti{A}),\;(g, \pl_{i=1}^n A_i^{\gamma^i}),\;(g, A_{\tt{\cap}})]$ and sends it to $\V$.
 
 \noin 6. $\V$ verifies the three proofs and accepts if and only if they are all valid.\end{prf1}
 
@@ -2008,9 +2036,9 @@ In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\mr{uni}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cup}}\in\mb{G}$
 
-\noin \textbf{Claim:} $A_{\mr{uni}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
+\noin \textbf{Claim:} $A_{\tt{\cup}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_j:= \Pi(\mc{M}_j)\;,\;\what{d}_j := \pl_{\substack{1\leq i\leq n \\ i\neq j}} d_i \; (i=1,\cdots,n)$$ and integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\sum\limits_{i=1}^n \what{d}_i\what{e}_i = \GCD(\what{d}_1,\cdots,\what{d}_n).$$
 
