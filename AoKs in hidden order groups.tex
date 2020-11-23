@@ -336,16 +336,16 @@ qed=\qedsymbol%
  
 \maketitle
 
-\begin{abstract} We study non-interactive arguments of knowledge (AoKs) in groups of hidden order. We provide protocols to aggregate the knowledge of the discrete logarithms between multiple elements and to prove certain relations between multiple discrete logarithms. This is equivalent to proving relationships between the committed sets/multisets. These proofs can be publicly verified against the constant-sized commitments to the sets/multisets. In particular, we provide AoKs for the disjointness of sets/multisets in cryptographic accumulators, with a view toward applications to sharded blockchains and verifiably outsourcing data storage. 
+\begin{abstract} We study non-interactive arguments of knowledge (AoKs) in groups of hidden order. We provide protocols whereby a Prover can demonstrate certain relations between committed sets/multisets with succinct proofs. These proofs can be publicly verified against the constant-sized commitments to the sets/multisets. In particular, we provide AoKs for the disjointness of sets/multisets in cryptographic accumulators, with a view toward applications to sharded blockchains and verifiably outsourcing data storage. 
 
-Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought. Thus, in order to keep the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of discrete logarithms, i.e. independent of the number of the committed multisets. We build on the techniques from [BBF19] and [Wes18].\end{abstract}
+Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought. Thus, in order to keep the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of the committed sets/multisets rather than just independent of the sizes of these sest/multisets. We build on the techniques from [BBF19] and [Wes18].\end{abstract}
 
 \section{\fontsize{12}{12}\selectfont Introduction  }
 
 
-Finite abelian groups of hidden order have gained prominence within cryptography in the last few years. The adaptive root assumption in such groups yields a cryptographic accumulator which is universal and dynamic with batchable membership and non-membership proofs. One of the best known verifiable delay functions is that constructed in [Wes18], which can be instantiated with any group of unknown order in which the adaptive root assumption holds. Such groups also form the basis for the transparent polynomial commitment constructed in [BFS19]. This is a polynomial commitment with logarithmic sized proofs and verification time and can be instantiated with any group of hidden order.
+Finite abelian groups of hidden order have seen a surging interest within cryptography in the last few years. The adaptive root assumption in such groups yields a cryptographic accumulator which is universal and dynamic with batchable membership and non-membership proofs ([BBF19]). One of the best known verifiable delay functions is that constructed in [Wes18], which can be instantiated with any group of unknown order in which the adaptive root assumption holds. Such groups also form the basis for the transparent polynomial commitment constructed in [BFS19]. This is a polynomial commitment with logarithmic sized proofs and verification time and can be instantiated with any group of hidden order.
 
-In this paper, we explore non-interactive arguments of knowledge in groups of hidden order. Our primary goal is to provide protocols for proofs of  disjointness of sets in accumulators. The primary use case for these AoKs is potential applications to sharded blockchains and to verifiable outsourcing of data.
+In this paper, we explore non-interactive arguments of knowledge in groups of hidden order. We provide protocols whereby a Prover who stores data in the form of sets/multisets can prove relationships between these sets/multisets with communication complexity independent of the size of this data. These proofs can be publicly verified against the constant-sized commitments held by the Verifier. Our primary goal is to provide protocols for proofs of  disjointness of sets in accumulators. The primary use case for these AoKs is potential applications to sharded blockchains and to verifiable outsourcing of data.
 
 As was the case with previously studied arguments of knowledge in hidden order groups ([BBF19], [CFGNK20] etc.), the proofs consist of elements of the group $\mb{G}$ and $\lam$-bit integers, where $\lam$ is the security parameter. The proofs are succinct in the sense that the proof sizes are independent of the size of the committed data sets/multisets and. Recent work ([DGS20]) suggests that the hidden order groups need to be substantially larger in size that previously thought, in order to ensure the desired security level. Furthermore, the two known candidates for transparent hidden order groups - imaginary quadratic class groups and genus three Jacobians - are not as well studied as RSA groups when it comes to potential attacks against the adaptive root and strong-RSA assumptions. Hence, it is conceivable that these groups might need to be even larger than presently believed. Bearing this in mind and with a view toward keeping the communication complexity between the Prover and the the Verifier to a minimum, we have designed the protocols so that the proofs consist of a constant number of group elements, independent of the number of committed sets/multisets involved, rather than just independent of the sizes of these sets/multisets. %At times, this comes at the cost of a higher (albeit superlinear in the size of the data) computational burden on the Prover.
 
@@ -432,7 +432,7 @@ We first recall/introduce a few basic definitions and notations concerning multi
 
 \noin - $\Pi(\mc{M}\sm \mc{N}) = {\Pi(\mc{M})}/{\Pi(\mc{M}\cap \mc{N})}$\vspace{0.1cm}
 
-For a multiset $\mc{M}$ represented by $\lam$-bit primes and a hidden order group $\bG$, a \textit{commitment to a multiset} $\mc{M}$ is a pair $(g, h)\in\bG^2$ such that $g^{\Pi(\mc{M})} = h$. The discrete logarithm assumption implies that this commitment is hiding. The low order assumption implies that it is binding.
+For a multiset $\mc{M}$ represented by $\lam$-bit primes and a hidden order group $\bG$, a \textit{commitment to a multiset} $\mc{M}$ is a pair $(g, h)\in\bG^2$ such that $g^{\Pi(\mc{M})} = h$. The hardness of the discrete logarithm problem implies that this commitment is \textit{hiding} in the sense that no PPT algorithm can compute $\mcM$ from the pair $[g,h]$. The low order assumption implies that it is \textit{binding} in the sense that no PPT algorithm can compute another multiset $\mcM'$ with the same commitment.
 
 \subsection{\fontsize{11}{11}\selectfont Cryptographic Accumulators }
 
@@ -494,13 +494,13 @@ The most important special case is when $A$ is the accumulated digest $g^{\Pi(\m
 \noin Note that if there exists an element $a\in\mb{G}$ and distinct rationals $\frac{d_1}{d_2}, \frac{d_3}{d_4}\;(d_i\in\bz)$ such that \vs $$a^{\frac{d_1}{d_2}} = a^{\frac{d_3}{d_4}},$$ then $a^{d_1d_4-d_2d_3} = 1$ and $d_1d_4-d_2d_3\neq 0$. So the adaptive root assumption implies that a PPT algorithm cannot generate such a tuple $(a,d_1,d_2,d_3,d_4)$ except with negligible probability. Furthermore, by Shamir's trick, the condition is equivalent to the Prover $\mP$ being able to compute an element $a_0\in\mb{G}$ and co-prime integers $d_1,d_2$ such that \vs $$\al = \frac{d_1}{d_2}\;\;,\;\;a_0^{d_2} =a\;,\; a_0^{d_1} =b\;,\; $$
 
 
-\begin{Def} An integer is said to be \textbf{$\lamb$-smooth} is all of its prime divisors are $\leq 2^{\lamb}$. An integer is said to be \textbf{$\lamb$-rough} is all of its prime divisors are $> 2^{\lam-1}$.\end{Def}
+\begin{Def} An integer is said to be \textbf{$\lamb$-smooth} is all of its prime divisors are $\leq 2^{\lamb-1}$. An integer is said to be \textbf{$\lamb$-rough} is all of its prime divisors are $> 2^{\lam-1}$.\end{Def}
 
 Similarly, we say a set/multiset $\mcM$ of primes is $\lam$-rough if the integer $\Pi(\mcM)$ is $\lam$-rough. This is equivalent to each prime of $\mcM$ being larger than $2^{\lam-1}$.
 
 The properties of $\lamb$-smoothness and $\lamb$-roughness are clearly preserved under products, greatest common divisors and least common multiples. Furthermore, any positive integer $n$ is uniquely expressible as a product $n_{{\lam,s}}n_{{\lam,r}}$ of a $\lam$-smooth integer $n_{{\lam,s}}\geq 0$ and a $\lam$-rough integer $n_{{\lam,r}}\geq 0$.
 
-\begin{Def} For a security parameter $\lamb$, we denote by $\bz_{(\lamb)}$ the integral domain obtained by localizing $\bz$ away from all primes $\geq 2^{\lamb}$. \end{Def}
+\begin{Def} For a security parameter $\lamb$, we denote by $\bz_{(\lamb)}$ the integral domain obtained by localizing $\bz$ away from all primes $\geq 2^{\lamb-1}$. \end{Def}
 
 \noindent Thus, \vs $$\bz_{(\lamb)} = \left\{\frac{\al}{\be}:\; \al,\be\in\bz,\;\GCD(\al,\be) = 1,\; \be \text{ is } \lamb\text{-smooth}\right\}.$$ Note that $\bz_{(\lamb)}$ inherits the structure of a principal ideal domain. The group of units of $\bzlam$ is given by $$\bzlam^{\times} := \left\{\frac{\al}{\be}:\; \al,\be\in\bz,\;\GCD(\al,\be) = 1,\; \al, \be \text{ are } \lamb\text{-smooth}\right\}. $$ The prime ideals of $\bz_{(\lamb)}$ are the principal ideals generated by rational primes larger than $2^{\lamb}$.
 
@@ -607,10 +607,10 @@ The part where $\mc{P}$ computes $g^x$ and sends it to $\mc{V}$ \textit{before} 
 
 Clearly, the relation \textit{Knowledge of the Exponent} is transitive in the sense that for elements $a_1,a_2,a_3\in\mb{G}$, if a prover $\mP$ possesses integers $d_1,d_2$ such that $a_1^{d_1} = a_2\;,\;a_2^{d_2} = a_3$, then he possesses the integer $d_1d_2$ which fulfills the equation $a_1^{d_1d_2} = a_3$. Henceforth, we denote the proof of knowledge of the discrete logarithm between $a,b\in\mb{G}$ by $\verb|PoKE|[a,b]$. 
 
-In the following protocol, we show how a Prover could probabilistically demonstrate that two discrete logarithms are equal without revealing anything about the common discrete logarithm other than residues modulo a prime challenge. We provide an argument of knowledge for  the following relation:
+In the following protocol, we show how a Prover could probabilistically demonstrate that two discrete logarithms are equal with a constant-sized proof. We provide an argument of knowledge for  the following relation:
 
 \[
-  \mc{R}_{{\protect\verb|EqDLog|}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{EqDLog}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
     ((a_1, b_1),\; (a_2,b_2)\in\mb{G}^2\\
     d\in\mb{Z}: \\
     (b_1,b_2) = (a_1^d,a_2^d)
@@ -637,7 +637,7 @@ In the following protocol, we show how a Prover could probabilistically demonstr
 
 \noin Thus, the proof consists of four $\mb{G}$-elements and one $\lam$-bit integer. 
 
-\begin{Prop} The protocol \verb|EqDLog|$[(a_1, b_1),\; (a_2, b_2)]$ is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|EqDLog|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|EqDLog|$[(a_1, b_1),\; (a_2, b_2)]$ is an argument of knowledge for the relation $\mc{R}_{{\tt{{EqDLog}}}}$ in the generic group model.\end{Prop}
 
 \begin{prf} Since the protocol \verb|PoKE| is secure ([BBF19]), the validity of the equations \vs $$Q_1^la_1^r \stackrel{?}{=}  b_1, \;\; Q_2^la_2^r \stackrel{?}{=} b_2, \;\; (\weck{g})^l g^r \stackrel{?}{=} \wti{g}$$ proves that $\mc{P}$ possesses the discrete logarithms between $a_1, b_1$ and $a_2, b_2$. Suppose, by way of contradiction, that these discrete logarithms are distinct and denote them by $d_1$, $d_2$ respectively. The adaptive root assumption implies that with \op,\vs $$d_1 \equiv r\equiv d_2 \Mod{l}.$$ But since the $\lamb$-bit prime $l$ is randomly generated, the integer $d_1-d_2$ is randomly and uniformly distributed modulo $l$ and hence, \vs $$ \Prob\big( d_1\equiv d_2\Mod{l}\; \Big|\; d_1\neq d_2    \big) = \frac{1}{l} =\negl(\lamb),$$ a contradiction.\end{prf}
 
@@ -646,7 +646,7 @@ In the following protocol, we show how a Prover could probabilistically demonstr
 \noindent We now show how to generalize the last protocol for multiple discrete logarithms while keeping the communication complexity constant-sized and independent of the number of discrete logarithms. We call the following protocol the \textit{Aggregated Equality of Discrete Logarithms} or \verb|AggEqDLog| for short. We provide an argument of knowledge for  the following relation:
 
 \[
-  \mc{R}_{{\protect\verb|AggEqDLog|}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggEqDLog}}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
   	%(a, b)\in\mb{G}^2\\
     (\mc{A} = (a_1, \cdots, a_n),\;\mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\
     d\in\mb{Z}): \\
@@ -680,7 +680,7 @@ In the following protocol, we show how a Prover could probabilistically demonstr
 
 \vspace{0.1cm}
 
-\begin{Prop} The protocol \verb|AggEqDLog| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggEqDLog|}}$in the generic group
+\begin{Prop} The protocol \verb|AggEqDLog| is an argument of knowledge for the relation $\mc{R}_{{\tt{AggEqDLog}}}$in the generic group
 model.\end{Prop}
 
 \begin{prf} (Sketch) With notations as in in the Protocol, $\mc{V}$ accepts if and only if $\mc{P}$ proves possession of an integer $d$ such that $$a^d = b,\;\;\wti{a}^d = \wti{b}$$ through the Protocol \verb|PoEqDLog|$[(a,b),\; (\wti{a},\wti{b})]$. Now, since the challenge $\gamma$ is randomly generated, it follows that \vspace{-0.15cm}$$ \mbf{Prob}\left( (a_1^d,\cdots, a_n^d) \neq (b_1,\cdots, b_n)\;   \Big|\; \wti{a}^d = \wti{b} \right) \in \negl(\lamb). $$ Since the Protocol \verb|EqDLog|$[(a,b),\; (\wti{a},\wti{b})]$ is secure under the strong-RSA and adaptive root\\ assumptions, it follows that the Protocol \verb|AggEqDLog|$[(a_1, b_1),\; (a_2, b_2)]$ is also secure under these assumptions.\end{prf}
@@ -693,7 +693,7 @@ model.\end{Prop}
 \noindent We can also generalize the protocol \verb|EqDLog| in another direction. For a public polynomial {$f(X)\in \bz[X]$}, an honest Prover can provide a constant-sized proof that he possesses integers $d_1,d_2$ such that \vs $$a_1^{d_1} = b_1\;,\;a_2^{d_2} = b_2\;,\;f(d_1) = d_2.$$ We provide an argument of knowledge for the relation 
 
 \[
-  \mc{R}_{{\protect\verb|PolyDLog|}}[(a_1, b_1),\;(a_2,b_2),\;f] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{PolyDLog}}}[(a_1, b_1),\;(a_2,b_2),\;f] = \left\{\begin{array}{l}
     ((a_1, b_1), (a_2,b_2)\in\mb{G}^2,\;f\in\bz[X]);\\
     (d_1, d_2)\in\mb{Z}^2: \\
     b_1 = a_1^{d_1}\; \bigwedge\; b_1 = a_1^{d_1}\; \bigwedge \;d_2 = f(d_1)
@@ -789,17 +789,17 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 We call the following protocol the \textit{Proof of Aggregated Knowledge of the Exponent 1} or \verb|AggKE-1| for short. We provide an argument of knowledge for the relation:
 \[
-  \mc{R}_{{\protect\verb|AggKE-1|}}[a,\; \mc{B}] = \left\{\begin{array}{l}
-    (a\in\mb{G}, \mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\ 
+  \mc{R}_{{\ttt{AggKE-1}}}[a,\; \mc{A}] = \left\{\begin{array}{l}
+    (a\in\mb{G}, \mc{A} = (a_1,\cdots, a_n)\in\mb{G}^n);\\ 
     (d_1,\cdots,d_n)\in\bz^n):  \\
-    b_i = a^{d_i}\;\forall\; i
+    a_i = a^{d_i}\;\forall\; i
   \end{array}\right\}
 \]
 
 
 \vspace{0.1cm}
 
-\begin{Prot} \normalfont \textit{Proof of Aggregated knowledge of exponents} 1 (\verb|PoAggKE-1|):\end{Prot} \vspace{-0.3cm}
+\begin{Prot} \normalfont \textit{Proof of aggregated knowledge of exponents} 1 (\verb|PoAggKE-1|):\end{Prot} \vspace{-0.3cm}
 
 \noindent \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$.
 
@@ -831,7 +831,7 @@ Thus, the proof consists of three $\mb{G}$-elements and $n$ $\lam$-bit integers.
 
 \vspace{0.2cm}
 
-\begin{Prop} The protocol \verb|PoAggKE-1| is an argument of knowledge for the relation\\ $\mc{R}_{{\protect\verb|AggKE-1|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|PoAggKE-1| is an argument of knowledge for the relation\\ $\mc{R}_{{\ttt{AggKE-1}}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The equation $Q_0^la^{r_0} = b_0$ implies that $\mP$ possesses rationals $d_1,\cdots,d_n$ such that $r_i\equiv d_i\Mod{l}$ and 
 $a_i^{d_i} = b_i$. Furthermore, we have $\wti{g} = (\weck{g})^lg^{\wti{r}}$ and hence, the adaptive root assumption implies that with \op, \vs $$\wti{g} = g^{(\slim_{i=1}^n d_i^{n\lam}\gamma^i)+lk} $$ for some integer $k$. Since the $\lam$-bit prime $l$ is randomly generated, the discrete logarithm between $g,\wti{g}$ is randomly and uniformly distributed modulo $l$. Hence, the Schwartz-Zippel lemma implies that with \op, \vs $$\wti{g} = g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}.$$ Now, the fractional root assumption implies that with \op, $\slim_{i=1}^n d_i^{n\lam}\gamma^i\in\bz$. From Lemma 1.3, it follows that with \op, $(d_1,\cdots,d_n)\in\bz^n$.\end{prf}
@@ -840,13 +840,15 @@ $a_i^{d_i} = b_i$. Furthermore, we have $\wti{g} = (\weck{g})^lg^{\wti{r}}$ and 
 
 In the next protocol, we generalize the protocol \verb|PolyDLog| to multiple discrete logarithms. We provide an argument of knowledge for the relation: 
 \[
-  \mc{R}_{{\protect\verb|MultPolyDLog|}}[a,\; (b_1,\cdots, b_n),\; (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{MultPolyDLog}}[a,\; (b_1,\cdots, b_n),\; (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
     (a\in\mb{G},\; (b_1,\cdots, b_n)\in\mb{G}^n);\\
     (f_1,\cdots,f_k)\in\bz[X_1,\cdots,X_n]^k;\\ 
     (d_1,\cdots,d_n)\in\bz^n)\;: \\
     b_i = a^{d_i}\;\forall\; i\;\bigwedge \;\\   f_j(d_1,\cdots,d_n) = 0\;\forall\; j 
   \end{array}\right\}
-\] The soundness of the protocol hinges on the Schartz-Zippel lemma for multivariate polynomials, which we state here.
+\] 
+
+\noin The soundness of the protocol hinges on the Schartz-Zippel lemma for multivariate polynomials, which we state here.
 
 \begin{Lem} $\mr{(Schwartz\text{-}Zippel)}:$ Let $F$ be a field and let $f\in F[X_1,\cdots,X_n]$ be a polynomial. Let $r_1,\cdots,r_n$ be selected randomly and uniformly from a subset $S\sub F$. Then \vspace{-0.1cm}$$\mbf{Prob}[f(r_1,\cdots, r_n) = 0] \leq \frac{\deg(f)}{|S|}.$$\end{Lem}
 
@@ -902,7 +904,7 @@ Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuris
 An important special case is where $f$ is the $(n+1)$-variate polynomial \vs $$f(X_1,\cdots,X_n, X_{n+1}) := \big(\pl_{i=1}^n X_i \big)- X_{n+1}.$$ We will need this case for one of the subsequent protocols. \vspace{0.2cm}
 
 
-\begin{Prop} The protocol \verb|PoMultPolyDLog| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|MultPolyDLog|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|PoMultPolyDLog| is an argument of knowledge for the relation $\mc{R}_{{\tt{MultPolyDLog}}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) Since the equation $Q_0^l a^{r_0} = \pl_{i=1}^n b_i^{\gamma_0^i}$ holds, the adaptive root assumption implies that with \op, the Prover possesses rationals $d_1,\cdots,d_n$ such that: 
 
@@ -916,7 +918,7 @@ Since $\gamma_0$ is randomly generated after the Prover has committed $(r_1,\cdo
 \noindent We now discuss a relation that is a dual to the relation \verb|AggKE-1|. We provide an argument of knowledge for the following relation: 
 
 \[
-  \mc{R}_{{\protect\verb|AggKE-2|}}[\mc{A},\;A] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggKE-2}}}[\mc{A},\;A] = \left\{\begin{array}{l}
     (\mc{A} = (a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
     (d_1,\cdots,d_n)\in\bz^n) :  \\
      A = a_i^{d_i}\;\forall\; i
@@ -924,9 +926,7 @@ Since $\gamma_0$ is randomly generated after the Prover has committed $(r_1,\cdo
 \]
 \vspace{0.1cm}
 
-\noin Given elements $a_1,\cdots,a_n$ such that \vs $$A = a_1^{d_1} =\cdots = a_n^{d_n} $$ where the integers $d_i$ are known to the Prover, the Prover can efficiently compute $d:= \LCM(d_1,\cdots,d_n)$ and  using Shamir's trick, an element $a\in\mb{G}$ such that $a^d = A$ in runtime $\mbf{O}(n\log(n))$. Now, the protocol \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and \verb|PoKE|$[a,\;A]$ would demonstrate that the Prover possesses the discrete logarithms between $a_i$ and $A$ for every $i$. However, these protocols do not prove that these discrete logarithms are, in fact, integers. To that end, a Prover needs to demonstrate that the rationals $d/d_i$ ($i=1,\cdots, n$) are integers. 
-
-Unlike the protocol \verb|PoAggKE-1|, the proof for \verb|AggKE-2| is not constant-sized. Although the number of group elements is indeed constant, our proof contains $n$ $\lam$-bit integers arising from the remainders modulo the challenge.
+\noin Given elements $a_1,\cdots,a_n$ such that \vs $$A = a_1^{d_1} =\cdots = a_n^{d_n} $$ where the integers $d_i$ are known to him, the Prover can efficiently compute $d:= \LCM(d_1,\cdots,d_n)$ and  using Shamir's trick, an element $a\in\mb{G}$ such that $a^d = A$ in runtime $\mbf{O}(n\log(n))$. Now, the protocol \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and \verb|PoKE|$[a,\;A]$ would demonstrate that the Prover possesses the discrete logarithms between $a_i$ and $A$ for every $i$. However, these protocols do not prove that these discrete logarithms are, in fact, integers. To that end, a Prover needs to demonstrate that the rationals $d/d_i$ ($i=1,\cdots, n$) are integers. This can be achieved by the Prover producing the element \vs $$\wti{g}:= g^{\slim_{i=1}^{n}d_i^{n\lam}\gamma^i} $$ for some randomly generated $\lam$-bit integer $\gamma$. Lemma 1.3 and the fractional root assumption then imply that with overwhelming probability
 
 \vspace{0.2cm}
 
@@ -950,7 +950,7 @@ Unlike the protocol \verb|PoAggKE-1|, the proof for \verb|AggKE-2| is not consta
 
 \noin 6. $\mc{P}$ computes $R:= D\Mod{l}$ and $\weck{a}:= a^{(D-R)/l}$. He sends $\weck{a}, R$ to $\mc{V}$.
 
-\noin 7. $\mc{P}$ computes the integers $\what{r}_i:= \what{d}_i\Mod{l}$ ($i=1,\cdots,n$) and the integer $\what{q},\what{r}$ such that \vs $$\slim_{i=1}^n \what{d}_i\gamma^i = \what{q} l + \what{r}\;,\;\what{r}\in [l].$$ He computes $\what{Q}:= a^{\what{q}}$ and sends $\what{Q},\; (\what{r}_1,\cdots,\what{r}_n)$ to $\mc{V}$.
+\noin 7. $\mc{P}$ computes the integers $\what{r}_i:= \what{d}_i\Mod{l}$ ($i=1,\cdots,n$) and the integers $\what{q},\what{r}$ such that \vs $$\slim_{i=1}^n \what{d}_i\gamma^i = \what{q} l + \what{r}\;,\;\what{r}\in [l].$$ He computes $\what{Q}:= a^{\what{q}}$ and sends $\what{Q},\; (\what{r}_1,\cdots,\what{r}_n)$ to $\mc{V}$.
 
 \noin 8. $\mc{P}$ computes the integers ${r}_i:= {d}_i\Mod{l}$ ($i=1,\cdots,n$) and the integers $q,r,\wti{q},\wti{r}$ such that \vs $$\slim_{i=1}^n d_i\gamma^i = ql+r\;,\;\slim_{i=1}^n {d}_i^{n\lam}\gamma^i = \wti{q}l+\wti{r}\;,\;\;\;r,\wti{r}\in[l] $$ He computes ${Q}:= a^q$, $\weck{g}:= g^{\wti{q}}$ and sends ${Q}, \weck{g}$ to $\mc{V}$.
 
@@ -979,16 +979,16 @@ Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuris
 
 \vspace{0.2cm}
 
-\begin{Prop} The protocol \verb|PoAggKE-2| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggKE-2|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|PoAggKE-2| is an argument of knowledge for the relation $\mc{R}_{{\tt{AggKE-2}}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The subprotocol \verb|PoAggKE-1|$[a,\;\{a_1,\cdots,a_n\}]$ demonstrates that with \op, the Prover possesses integers $\what{d}_1,\cdots,\what{d}_n$ such that \vs $$a_i = a^{\what{d}_i}\; (i=1.\cdots,n)$$ Furthermore, since $\gamma_0$ is randomly generated and the equation \vs $$\what{Q}_0^la^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_0^i} $$ holds, the adaptive root assumption implies that with \op, \vs $$\slim_{i=1}^n\what{r}_i\gamma_0^i\equiv \slim_{i=1}^n \what{d}_i\gamma_0^i\Mod{l}.$$ Hence, with \op, $\what{r}_i\equiv \what{d}_i\Mod{l}$ (Schwartz-Zippel).
 
 The equation $(\weck{a})^la^R= A $ implies that with \op, the Prover possesses a rational $D\equiv R\Mod{l}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d_n}^{-1}$ satisfy \vs $$a_i^{D\what{d_i}^{-1}} = A \text{ for every }i.$$ Now, the Verifier independently computes \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{l}\;(i=1,\cdots,n),\;\;r:= \slim_{i=1}^n r_i\gamma^i\equiv \slim_{i=1}^n D\what{d}_i^{-1}\Mod{l},$$\vspace{-0.3cm} $$\wti{r}:= {\slim_{i=1}^n r_i^{n\lam}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{n\lam}\gamma^i}\Mod{l}.$$ Hence, the equation $(\weck{g})^lg^{\wti{r}} = \wti{g}$ implies that with \op, \vs $$\wti{g} = g^{\slim_{i=1}^n (D\what{d_i}^{-1})^{^{n\lam}}\gamma^i}g^{kl} $$ for some integer $k$. Since the prime $l$ is randomly generated, the Schwartz-Zippel lemma implies that with \op, \vs $$\wti{g} = g^{\slim_{i=1}^n (D\what{d_i}^{-1})^{^{n\lam}}\gamma^i}. $$ The fractional root assumption implies that $\slim_{i=1}^n (D\what{d_i}^{-1})^{^{n\lam}}\gamma^i$ is a an integer and by lemma 1.3, it follows that with \op, the rationals $D\what{d_i}^{-1}$ are integers.\end{prf}
 
-In what follows, we provide an argument of knowledge for the relation 
+In what follows, we provide an argument of knowledge for the relation \vs
 
 \[
-  \mc{R}_{{\protect\verb|EqDLogPairs|}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
+  \mc{R}_{{\\ttt{EqDLogPairs}}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
   	((a_1, a_2)\in\mb{G}^2\\
     \mc{B} = (b_1,\cdots, b_n)\;,\;\mc{C} = (c_1,\cdots, c_n)\;\in\mb{G}^n);\\
     (d_1,\cdots,d_n)\in\mb{Z}^n): \\
@@ -1036,7 +1036,7 @@ In what follows, we provide an argument of knowledge for the relation
 
 \section{\fontsize{12}{12}\selectfont Protocols for arguments of disjointness}
 
-The goal of this section is to provide protocols for demonstrating disjointness of multiple data multisets. The proofs can be publicly verified against the succinct commitments to these multisets. To that end, we first describe a protocol whereby an honest Prover can show that the GCD of two discrete logarithms equals a third discrete logarithm while keeping the communication complexity constant. One obvious application is proving disjointness of sets in accumulators instantiated with hidden order groups. We formulate an argument of knowledge for the relation  $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),(a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} .$$ We construct a protocol that has communication complexity independent of the elements $a_i, b_i$. The protocol rests on the observation that \vs $$d_3 = \GCD(d_1, d_2)\;\; \LRA \;\;(d_1\equiv d_2\equiv 0 \Mod{d_3})\;\wedge \; \left(\exists \; (x_1,x_2)\in \bz^2:\; d_3 = x_1d_1+x_2d_2  \right).$$
+The goal of this section is to provide protocols for demonstrating disjointness of multiple data multisets. The proofs can be publicly verified against the succinct commitments to these multisets. To that end, we first describe a protocol whereby an honest Prover can show that the GCD of two discrete logarithms equals a third discrete logarithm while keeping the communication complexity constant. One obvious application is proving disjointness of sets in accumulators instantiated with hidden order groups. We formulate an argument of knowledge for the relation  $$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),(a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} .$$ We construct a protocol that has communication complexity independent of the elements $a_i, b_i$. The protocol rests on the observation that \vs $$d_3 = \GCD(d_1, d_2)\;\; \LRA \;\;(d_1\equiv d_2\equiv 0 \Mod{d_3})\;\bigwedge \; \left(\exists \; (x_1,x_2)\in \bz^2:\; d_3 = x_1d_1+x_2d_2  \right).$$
  
 
 \begin{Prot} \normalfont \textit{Proof of the greatest common divisor} (\verb|PoGCD|):\end{Prot} \vspace{-0.3cm}
@@ -1063,7 +1063,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \noindent 6. $\mc{V}$ verifies all of the proofs he receives in addition to the equation $\wti{b}_1\wti{b}_{1,2}\stackrel{?}{=} b_{1,3}$. He accepts the validity of the claim if and only if all of these proofs are valid.\end{prf1}
 
-\noindent An important special case is where $\GCD(d_1, d_2) = 1$. In this case, Step 3 is redundant and hence, the proof size is smaller. We call this special case the Protocol for \textit{Relatively Prime Discrete Logarithms} or \verb|RelPrimeDLog| for short: $$\mc{R}_{{\protect\verb|RelPrimeDLog|}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$ 
+\noindent An important special case is where $\GCD(d_1, d_2) = 1$. In this case, Step 3 is redundant and hence, the proof size is smaller. We call this special case the Protocol for \textit{Relatively Prime Discrete Logarithms} or \verb|RelPrimeDLog| for short: $$\mc{R}_{{\ttt{RelPrimeDLog}}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$ 
 
 \vspace{0.1cm}
 
@@ -1093,7 +1093,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \vspace{0.2cm}
 
-\begin{Prop} The Protocols \verb|PoGCD|, \verb|PoRelPrimeDLog| are arguments of knowledge for the relations $\mc{R}_{{\protect\verb|GCD|}}$, $\mc{R}_{{\protect\verb|RelPrimeDLog|}}$ respectively in the generic group model.\end{Prop}
+\begin{Prop} The Protocols \verb|PoGCD|, \verb|PoRelPrimeDLog| are arguments of knowledge for the relations $\mc{R}_{{\tt{GCD}}}$, $\mc{R}_{{\tt{RelPrimeDLog}}}$ respectively in the generic group model.\end{Prop}
 
 \begin{prf} Since the relation \verb|RelPrimeDLog| is a special case of the relation \verb|GCD|, it suffices to show that the protocol \verb|PoGCD| is correct and sound. Furthermore, since we showed that \verb|PoEqDLog| is correct and sound, we may assume without loss of generality that - with notations as in the protocol \verb|PoGCD| - \vs $$a_1 = a_2 = a_3\;,\; {b}_{1,2} = b_2\;,\;{b}_{1,3} = b_3 .$$ Now, the protocols \verb|PoKE|$[b_3, b_1]$, \verb|PoKE|$[b_3, b_2]$, \verb|PoKE|$[a_1, b_3]$ imply that with \op, the Prover $\mP$ possesses integers $d_1,d_2,d_3$ such that \vs $$a_1^{d_1} = b_1\;,\;a_1^{d_2} = b_2\;,\;a_1^{d_3} = b_3\;,\;\GCD(d_1,d_2)\equiv 0\Mod{d_3}.$$ 
 
@@ -1101,7 +1101,7 @@ Furthermore, the Prover $\mP$ sends elements $\wti{b}_1, \wti{b}_2\in \mb{G}$ su
 \end{prf}
 
 
-It is easy to see that the \verb|PoGCD| may be combined with the protcol \verb|PoMultPolyDLog| to provide an argument of knowledge for the relation \vs $$\mc{R}_{{\protect\verb|LCM|}}[(a_1,b_1),(a_2,b_2), \; (a_3, b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\LCM(d_1,d_2)=d_3 \} .$$ This argument of knowledge can demonstrate that for data multisets $\mc{D}_1,\mc{D}_2, \mc{D}_3$, we have \vs $$\mc{D}_3 = \mc{D}_1\cup \mc{D}_2 $$ by setting \vs $$ d_i = \prod\limits_{d\in\mc{D}_i} x\;\;(i=1,2,3).$$\vspace{0.2cm}
+It is easy to see that the \verb|PoGCD| may be combined with the protcol \verb|PoMultPolyDLog| to provide an argument of knowledge for the relation \vs $$\mc{R}_{{\ttt{LCM}}}[(a_1,b_1),(a_2,b_2), \; (a_3, b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\LCM(d_1,d_2)=d_3 \} .$$ This argument of knowledge can demonstrate that for data multisets $\mc{D}_1,\mc{D}_2, \mc{D}_3$, we have \vs $$\mc{D}_3 = \mc{D}_1\cup \mc{D}_2 $$ by setting \vs $$ d_i = \prod\limits_{d\in\mc{D}_i} x\;\;(i=1,2,3).$$\vspace{0.2cm}
 
 
 \begin{comment}
@@ -1139,7 +1139,7 @@ Suppose a Prover needs to demonstrate to a Verifier (with access to the accumula
 We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime Exponents-1} or\\ \verb|AggRelPrimeDLog-1| for short. We provide an argument of knowledge for the following relation:
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-1|}}[a,\; \mc{A}] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggRelPrimeDLog-1}}[a,\; \mc{A}] = \left\{\begin{array}{l}
     (a\in\mb{G},\;  \mc{A}:=(a_1,\cdots, a_n)\in\mb{G}^n);\\
     (d_1,\cdots,d_n)\in\bz^n): \\
     a_i = a^{d_i}\;\forall\;i\;\;,\;\; \GCD(d_i, d_j) = 1)\;\forall \;i\neq j   	
@@ -1189,7 +1189,7 @@ Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i
 
 \noin Thus, the proof consists of a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
 
-\begin{Prop} The protocol \verb|PoAggRelPrimeDLog-1| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggRelPrimeDLog-1|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|PoAggRelPrimeDLog-1| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-1}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The two \verb|MultPolyDLog| proofs imply that with \op, $\mP$ possesses integers $D$, $\what{D}$, $d_1,\cdots,d_n$ such that \vs $$D = \pl_{i=1}^n d_i\;,\;\what{D} = \slim_{i=1}^n \frac{D}{d_i}   \;,\;a^{d_i} = a_i\;\forall\;i \;,\;a^{D} = A\;,\; a^{\what{D}} = \what{A} .$$ Furthermore, the proof for \verb|RelPrimeDLog|$[(a,A),\;(a,\what{A})]$ implies that $\GCD(D,\slim_{i=1}^n D/d_i) = 1$. Hence, by the preceding lemma, the integers $d_i$ are pairwise co-prime.\end{prf}
 
@@ -1197,13 +1197,13 @@ Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i
 
 \bigskip
 
-\noin Given elements $a_1, a_2\in \mb{G}$ and equations \vspace{-0.15cm}$$a_1^{d_1} = b_1,\cdots, a_1^{d_m}= b_m,\;\; a_2^{e_1} = c_1,\cdots, a_2^{e_n} = c_n,$$ a Prover may provide a proof that he possesses the integers \vspace{-0.15cm}$$d_1,\cdots, d_m,\;e_1,\cdots, e_n$$ and that every pair $d_i, e_j$ is relatively prime. Clearly, the latter part is equivalent to showing that the integers \vspace{-0.15cm}$$d:=\LCM(d_1,\cdots, d_m)\;,\;e:=\LCM(e_1,\cdots, e_n)$$ are relatively prime. Our approach is to compute elements $B = a_1^d,\;C:= a_2^{e}$. We then use the protocols \verb|AggKE-1| and \verb|AggKE-2| to provide arguments of knowledge that $d, e$ are divisible by $\{d_1,\cdots, d_n \}$, $\{e_,\cdots,e_n \}$ repectively. We then  use the protocol \verb|RelPrimeDLog| to show that $\GCD(d, e) = 1$.
+\noin Given elements $a_1, a_2\in \mb{G}$ and equations \vspace{-0.15cm}$$a_1^{d_1} = b_1,\cdots, a_1^{d_m}= b_m,\;\; a_2^{e_1} = c_1,\cdots, a_2^{e_n} = c_n,$$ a Prover may provide a proof that he possesses the integers \vs $$d_1,\cdots, d_m,\;e_1,\cdots, e_n$$ and that every pair $d_i, e_j$ is relatively prime. Clearly, the latter part is equivalent to showing that the integers \vs $$d:=\LCM(d_1,\cdots, d_m)\;,\;e:=\LCM(e_1,\cdots, e_n)$$ are relatively prime. Our approach is to compute elements $B = a_1^d,\;C:= a_2^{e}$. We then use the protocols \verb|AggKE-1| and \verb|AggKE-2| to provide arguments of knowledge that $d, e$ are divisible by $\{d_1,\cdots, d_n \}$, $\{e_,\cdots,e_n \}$ repectively. We then  use the protocol \verb|RelPrimeDLog| to show that $\GCD(d, e) = 1$.
 
 
 We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime Exponents 2} or\\ \verb|AggRelPrimeDLog-2| for short. We provide an argument of knowledge for the following relation:\vspace{-0.2cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-2|}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggRelPrimeDLog-2}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
     ((a_1,a_2)\in\mb{G}^2,\;\\
      \mc{B}:=(b_1,\cdots, b_m)\in\mb{G}^m,\;\mc{C}:= (c_1,\cdots, c_n)\in\mb{G}^n);\\
     ((d_1,\cdots,d_m)\in\bz^m,\; (e_1,\cdots,e_n)\in\bz^n)\;: \\
@@ -1248,7 +1248,7 @@ We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime E
 \noindent \textbf{Remark:} The proof consists of the element $B, C \in \mb{G}$, two \verb|AggKE-1| proofs, two \verb|MultPolyDLog| proofs and one \verb|RelPrimeDLog| proof. Each of these proofs consists of a constant number of $\mb{G}$-elements and hence, the same is true regarding our proof for the Protocol\\ \verb|AggRelPrimeDLog-2|$[(a_1, \mc{B}), \; (a_2, \mc{C})]$. However, the \verb|AggKE-1| and \verb|PoMultPolyDLog| proofs result in $2(m+n)$ $\lamb$-bit integers in the proof. Hence, the size of the proof is $\mbf{O}(m+n)$. \vspace{0.2cm}
 
 
-\begin{Prop} The Protocol \verb|AggRelPrimeDLog-2| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggRelPrimeDLog-2|}}$ in the generic group
+\begin{Prop} The Protocol \verb|AggRelPrimeDLog-2| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-2}}$ in the generic group
 model.\end{Prop}
 
 \begin{prf} (Sketch) Since each of the subprotocols was shown to be correct and sound in the preceding seciton, this follows immediately.\end{prf}
@@ -1265,7 +1265,7 @@ Suppose a Prover needs to demonstrate that the multisets $\mc{D}_i$ are pairwise
 Instead, we provide a protocol whereby the proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers. The protocol rests on two simple observations. First, note that for integers $d_1,\cdots,d_n$, \vs $$\GCD(d_i,d_j)=1\;\forall\;i\neq j\; \LRA \pl_{i=1}^n d_i= \LCM(d_1,\cdots,d_n),$$ as can be easily proved by induction. Secondly, if an element $w\in \mb{G}$ can be expressed in the form \vspace{-0.15cm}$$w = \prod\limits_{i=1}^n w_i^{x_i},\;\;(x_1,\cdots,x_n)\in\bz^n,$$ then \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^{k} $$ for some integer $k$. More precisely, \vs $$k = \slim_{i=1}^n x_i\frac{\LCM(d_1,\cdots,d_n)}{d_i}.$$ Furthermore, the Prover can efficiently compute the integers \vs $$d:= \pl_{i=1}^n d_i = \LCM(d_1,\cdots,d_n)\;,\;\what{d}_i:= \pl_{\substack{1\leq j\leq n\\ j\neq i}} d_j\;\; (i=1,\cdots,n)\;\;,\;\; \what{d} := \slim_{i=1}^n \what{d}_i.$$ Now, $d$ is relatively prime to $\what{d}$. Hence, the Prover can efficiently compute integers $e,\what{e}$ such that $$de+\what{d}\what{e} = 1\;,\; A^e(\pl_{i=1}^n w_i)^{\what{e}} = w.  $$ In particular, since $\pl_{i=1}^n w_i$ is publicly computable, the Prover can demonstrate, with constant communication complexity, that $w$ is expressible as a product $\pl_{i=1}^n w_i^{x_i}$ where the $x_i$ are integers known to him. If the Prover can also demonstrate that $$w^{\prod\limits_{i=1}^n d_i} = A,$$ (with a subprotocol virtually identical to \verb|MultPolyDLog|), then this implies that \vspace{-0.15cm}$$\LCM(d_1,\cdots,d_n)\equiv 0\Mod{ \prod\limits_{i=1}^n d_i},$$ which forces equality. In what follows, we provide an argument of knowledge for the relation 
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-3|}}[(w_1,\cdots, w_n), A] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggRelPrimeDLog-3}}[(w_1,\cdots, w_n), A] = \left\{\begin{array}{l}
     (A\in\mb{G},\; (w_1,\cdots, w_n)\;\in\mb{G}^n);\\
     ((d_1,\cdots,d_n)\in\bz^n)\;: \\
     w_i^{d_i} = A\;\forall\;i\\
@@ -1324,7 +1324,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 \vspace{0.1cm}
 
 
-\begin{Prop} The protocol \verb|PoAggRelPrimeDLog-3| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggRelPrimeDLog-3|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|PoAggRelPrimeDLog-3| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-3}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The equations verified in step 15 imply that with \op, there exist integers $d_1,\cdots,d_n, D$ such that \vs $$D = \pl_{i=1}^n d_i\;,\;A = w^D\;,\; A= w_i^{d_i}\;\forall \;i .$$ Furthermore, since we have $A_0W = w$ and the proofs for \verb|PoKE|$[A,\;A_0]$ and \verb|PoKE|$[(\pl_{i=1}^n w_i),\; W]$, it follows that, in particular, $w$ is expressible as a product \vs $$w =\pl_{i=1}^n w_i^{x_i}\;,\;(x_1,\cdots,x_n)\in\bz^n.$$ Hence, \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^k$$ for some integer $k$. Thus, $\LCM(d_1,\cdots,d_n)$ is divisible by the product $\pl_{i=1}^n d_i$ . Hence, the integers $d_i$ are pairwise co-prime.\end{prf}
 
@@ -1334,7 +1334,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 Next, we discuss a dual to the Protocol \verb|AggRelPrimeDLog-2|. Given elements $B, C\in \mb{G}$ and subsets \vspace{-0.15cm}$$\mc{B} = \{b_1,\cdots, b_m\}\in \mb{G}^m,\;\; \mc{C} = \{c_1,\cdots, c_n\}\in \mb{G}^n,$$ an honest Prover may provide a proof that he possesses integers \vs $$\{d_1,\cdots, d_m\}\;,\; \{e_1,\cdots, e_n\}$$ such that $b_i^{d_i} = B,\; c_j^{e_j} = C$ and every pair $d_i, e_j$ is relatively prime. We call this relation the \textit{Aggregated Relatively Prime Discrete Logarithms 4} or \verb|AggRelPrimeDLog-4| for short. We provide an argument of knowledge for the following relation:
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-4|}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggRelPrimeDLog-4}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
     ((B,C)\in\mb{G}^2,\;\\
      \mc{B} = (b_1,\cdots,b_m)\in\mb{G}^m,\;\mc{C} = (c_1,\cdots, c_n)\in\mb{G}^n);\\
     ((d_1,\cdots,d_m)\in\bz^m,\; (e_1,\cdots,e_n)\in\bz^n)\;: \\
@@ -1376,7 +1376,7 @@ A straightforward approach would be to provide $mn$ distinct proofs that $\GCD(d
 \noindent Thus, the proof for \verb|AggRelPrimeDLog-4| consists of a constant number of $\mb{G}$-elements and $m+n$ $\lam$-bit integers arising from the proofs for \verb|AggKE-2|$[\mc{B}, B]$ and \verb|AggKE-2|$[\mc{C}, C]$.
 
 
-\begin{Prop} The protocol \verb|AggRelPrimeDLog-4| is an argument of knowledge for the relation $\mc{R}_{{\protect\verb|AggRelPrimeDLog-4|}}$ in the generic group model.\end{Prop}
+\begin{Prop} The protocol \verb|AggRelPrimeDLog-4| is an argument of knowledge for the relation $\mc{R}_{\ttt{AggRelPrimeDLog-4}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The proofs for \verb|AggKE-2|$[\mc{B}, B]$ and \verb|AggKE-1|$[b,\mc{B}]$ imply that, with overwhelming probability, there exist integers $d,d_1,\cdots,d_m,\what{d}_1,\cdots,\what{d}_m$ such that \vs $$b^d = B\;,\; b^{\what{d}_i}= b_i\;,\; b_i^{d_i}= B\;\forall\; i.$$ Similarly, the proofs for \verb|AggKE-2|$[\mc{C}, C]$ and \verb|AggKE-1|$[c,\mc{C}]$ imply that with overwhelming probability, there exist integers $e,e_1,\cdots,e_n$, $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$c^e = C\;,\; c^{\what{e}_j}= c_j\;,\;c_j^{e_j}= C\;\forall\; j.$$ 
 
@@ -1398,7 +1398,7 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Updates:} When the data multiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. \vspace{0.15cm}
 
-\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\mr{prod}}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\} $$ using the Protocol \vs $$\protect{\verb|PoMultPolyDLog|}[(g, A_1),\cdots,(g,A_n), (g,A_{\mr{prod})},\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers.
+\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\Pi}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \Big\{(\sum\limits_{i=1}^n \mul(\mc{M}_i, x))\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\Big\} $$ using the Protocol \vs $$\ttt{PoMultPolyDLog}[(g, A_1),\cdots,(g,A_n), (g,A_{\Pi}),\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
 
 \bigskip
 
@@ -1420,8 +1420,7 @@ Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge
 
 \noin 5. $V$ verifies the proofs and accepts if and only if they are all valid.\vspace{0.2cm}
 
-This proof entails $\bO(n)$ group elements. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for $$\ttt{RelPrimeDLog}[(a,\pl_{i=1}^n A_i^{\gamma^i}),\;(a, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit $p$
-, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
+This proof entails $\bO(n)$ group elements. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(a,\pl_{i=1}^n A_i^{\gamma^i}),\;(a, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
 
 \begin{comment}
 However, this is no longer true when the integers $\Pi(\mcM_i)$ have prime divisors of bit-size $< \lam$. While such a protocol would be \textit{sound} in the sense that a Prover could not forge a fake proof, it would not be \textit{correct}, meaning an honest Prover might not be able to efficiently generate a proof. To get around this problem, we use lemma 1.3. 
@@ -1431,11 +1430,13 @@ For an arbitrary $\lam$-bit integer $\gamma$, consider the integer $\slim_{i=1}^
 For a randomly chosen $\gamma$, suppose we have \vs $$ e:= \GCD(\slim_{i=1}^n d_i\gamma^i, d_1) > 1 .$$ Let $p$ be any prime divisor of $e$. Since $p$ does not divide all of the coefficients of the polynomial $\slim_{i=1}^n d_i^{n\lam}X_i\in\bz[X]$, it follows that \vspace{-0.25cm} $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p^{n\lam}} \big) = \negl(\lam).$$ The Prover can efficiently compute \vs $$e:= \GCD(\slim_{i=1}^n d_i\gamma^i, d_1)\;,\;\wti{e}:= \GCD(\slim_{i=1}^n d_i\gamma^i, e^{n\lam}).$$ He sends the commitments to these integers and demonstrates the relations between the discrete logarithms using the protocols $\ttt{PoGCD}$ and $\ttt{MultPolyDlog}$. Now, $$e^{n\lam-1}\equiv 0\Mod{\wti{e}} \imp \GCD(d_1,\cdots,d_n) = 1.$$ To see this, let $p$ be a prime dividing $\GCD(d_1,\cdots,d_n)$ and let $k$ be the largest integer such that $p^k$ divides $e$. Then $p^{kn\lam}$ divides every $d_i^{n\lam}$ and hence, $p^{kn\lam}$ divides $\wti{e}$. On the other hand, $p^{kn\lam}$ does not divide $e^{n\lam-1}$, a contradiction.  \end{comment} 
 
 
+As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi(\mcM)$ is $\lam$-rough or equivalently, all elements of $\mcM$ are primes $> 2^{\lam-1}$.
+
 \begin{Prot} Protocol for the intersection of $\lam$-rough multisets.\end{Prot} \vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mcM_i) := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$ whose elements are $\lam$-bit primes; an element $A_{\tt{\cap}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mcM_i) := g^{\Pi(\mc{M}_i)}$ for $\lam$-rough multisets $\mc{M}_i$ whose elements are $\lam$-bit primes; an element $A_{\tt{\cap}}\in\mb{G}$
 
 \noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
@@ -1491,26 +1492,26 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \noin \textbf{Claim:} $A_{\tt{\cup}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
 
-\begin{prf1} \normalfont \noin 1. $\mP$ generates a non-interactive proof for $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$.
+\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vspace{-0.25cm} $$d:= \Pi(\bigcup\limits_{i=1}^n \mc{M}_i)\;,\;\weck{d}_i:= \frac{\Pi(\bigcup\limits_{i=1}^n \mc{M}_i)}{\Pi(\mcM_i)}\;\;(i=1,\cdots,n).$$
 
-\noin 2. The Prover $\mP$ computes the integers \vspace{-0.25cm} $$\weck{d}_i:= \frac{\Pi(\bigcup\limits_{i=1}^n \mc{M}_i)}{\Pi(\mcM_i)}\;\;(i=1,\cdots,n).$$
+\noin 2. $\mP$ generates a non-interactive proof for the rlation $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$.
+
 
 \noin 3. $\mP$ samples $\lam$-bit integers $\gamma$ until he finds one such that \vs $$ \GCD(d, \slim_{i=1}^n \weck{d}_i\gamma^i) =1.$$ He sends $\gamma$ to $\V$.
 
-\noin 4. $\mP$ computes \vs $$\weck{A}:= g^{\slim_{i=1}^n \weck{d}_i\gamma^i}$$ and sends $\weck{A}$ to $\V$ along with a non-interactive proof for $\ttt{MultPolyDLog}[g,\;(A_1,\cdots, A_n, A_{\tt{\cup}}, \weck{A}), \weck{f}]$ where \vs $$\weck{f}(X_1,\cdots X_{n+2}):= \Big(\slim_{i=1}^n \frac{\gamma^iX_{n+1}}{X_i}\Big)-X_{n+2}.$$
+\noin 4. $\mP$ computes \vs $$\weck{A}:= g^{\slim_{i=1}^n \weck{d}_i\gamma^i}$$ and sends $\weck{A}$ to $\V$ along with a non-interactive proof for $\ttt{MultPolyDLog}[g,\;(A_1,\cdots, A_n, A_{\tt{\cup}}, \weck{A}), \weck{f}]$ where \vs $$\weck{f}(X_1,\cdots X_{n+2}):= X_{n+1}\Big(\slim_{i=1}^n \gamma^i\big(\pl_{\substack{1\leq j\leq n\\ j\neq i}} X_j\big)\Big) - X_{n+2}\pl_{i=1}^n X_i.$$
+
 
 \noin 5. $\mP$ generates a non-interactive proof for $\ttt{RelPrimeDLog}[(g, A_{\tt{\cup}}),\;(g, \pl_{i=1}^n A_i^{\gamma^i})]$ and sends it to $\V$.
 
 \noin 6. $\V$ verifies all the proofs he receives and accepts if and only if they are all valid. \end{prf1}
 
-\noin The proof consists of a constant number of $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integers.
-
-
+\noin The proof consists of a constant number of $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integers. A server node storing the data multisets $\mcM_i$ can use this protocol to verifiably send the succinct commitment for the union $\bigcup\limits_{i=1}^n \mcM_i$. The validity of this commitment can be verified against the commitments to the $\mcM_i$ held by the client.
 
 
 \bigskip
 
-So, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds succinct commitments.  The communication complexity is linear in the number of the committed multisets but independent of the sizes of these multisets.
+Thus, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds succinct commitments.  The communication complexity is linear in the number of the committed multisets but independent of the sizes of these multisets.
 
 \subsubsection{\fontsize{11}{11} Frequencies of elements}
 
@@ -1626,7 +1627,7 @@ This preserves a common base for the $n$ commitments. The runtime complexity is 
 
 Consider the setting of a stateless sharded blockchain that, instead of a Merkle tree, hinges on a cryptographic accumulator instantiated with a hidden order group $\mb{G}$ ([BBF19]). Let $g$ be a randomly selected element of $\mb{G}$ and $S_1,\cdots, S_n$ the distinct shards. Let $\mc{D}_i$ denote the data in shard $S_i$ and $\mc{D}:= \bigcup\limits_{i=1}^n \mc{D}_i$. Then the accumulated digest (the analog of the Merkle root hash) of $S_i$ is given by \vs $$A_i:= g^{\Pi(\mc{D}_i)}.$$  The accumulated digest of the blockchain is given by \vs $$A:= g^{\Pi(\mc{D})}.$$
 
-In order to demonstrate that the data sets in distinct shards are pairwise disjoint, a Prover (such as a miner or an untrusted server) can provide a proof for the relation\\ $\mc{R}_{{\protect\verb|AggRelPrimeDLog-1|}}[a, \mc{A}]$ where $\mc{A} = (A_1,\cdots,A_n)$.\vspace{0.2cm}
+In order to demonstrate that the data sets in distinct shards are pairwise disjoint, a Prover (such as a miner or an untrusted server) can provide a proof for the relation\\ $\mc{R}_{\ttt{AggRelPrimeDLog-1}}[a, \mc{A}]$ where $\mc{A} = (A_1,\cdots,A_n)$.\vspace{0.2cm}
 
 Let $\V_1,\cdots,\V_n$ be verifiers (such as light nodes) on the network. Let $\mc{E}_i$ denote the data set corresponding to $\V_i$. Suppose the verifiers need to verify that the data sets $\mc{E}_i$ are pairwise disjoint, but do not have access to the data sets outside their shards. A Prover $\mP$ (such as a miner or an untrusted server) can prove this pairwise disjointness as follows.\vspace{0.1cm}
 
@@ -1678,6 +1679,8 @@ Let $\V_1,\cdots,\V_n$ be verifiers (such as light nodes) on the network. Let $\
 
 
 \noindent [DGS20] S. Dobson, S. Galbraith, B. Smith, \textit{Trustless Groups of Unknown Order with Hyperelliptic Curves}, https://eprint.iacr.org/2020/196\vspace{0.1cm}
+
+\noin [Fis18] B. Fisch. \textit{Tight Proofs of Space and Replication}. In Y. Ishai and V. Rijmen, editors, EUROCRYPT 2019, Part II, volume 11477 of LNCS, pages 324-348. Springer, Heidelberg, May 2019.
 
 \noindent [FS87] A. Fiat, A. Shamir, \textit{How to prove yourself: Practical solutions to identification and signature problems.} In Andrew M. Odlyzko, editor, CRYPTO’86, volume 263 of LNCS, pages 186–194. Springer, Heidelberg, August 1987\vspace{0.1cm}
 
@@ -1756,20 +1759,20 @@ Email: stevethakur01@gmail.com
 
 The following is a list of the protocols in this paper and the relations that the protocols are arguments of knowledge for, in the generic group model.\\
 
-\noin 1. \verb|PoEqDLog| \vspace{-0.3cm}
+\noin 1. $\ttt{PoEqDLog}$ (Proof of equality of discrete logarithms) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|EqDLog|}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{EqDLog}}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
     ((a_1, b_1), \; (a_2,b_2)\in\mb{G}^2\\
     d\in\mb{Z}): \\
     (b_1,b_2) = (a_1^d,a_2^d)
   \end{array}\right\}
 \]
 
-\noin 2. \verb|PoAggEqDLog| \vspace{-0.3cm}
+\noin 2. $\ttt{PoAggEqDLog}$ (Proof of aggregated equality of discrete logarithms) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggEqDLog|}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggEqDLog}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
   	((a, b)\in\mb{G}^2\\
     \mc{A} = (a_1, \cdots, a_n),\;\mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\
     d\in\mb{Z}): \\
@@ -1778,51 +1781,51 @@ The following is a list of the protocols in this paper and the relations that th
 \]
  
 
-\noin 3. \verb|PoPolyDLog| \vspace{-0.3cm}
+\noin 3. $\ttt{PoPolyDLog}$ (Proof of polynomial relation between discrete logarithms)\vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|PolyDLog|}}[(a_1, b_1),\;(a_2,b_2),\;f] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{PolyDLog}}}[(a_1, b_1),\;(a_2,b_2),\;f] = \left\{\begin{array}{l}
     ((a_1, b_1), \; (a_2,b_2)\in\mb{G}^2,\;f\in\bz[X]);\\
     (d_1, d_2)\in\mb{Z}^2: \\
     b_1 = a_1^{d_1}\; \bigwedge\; b_1 = a_1^{d_1}\; \bigwedge \;d_2 = f(d_1)
   \end{array}\right\}
 \]
 
-\noin 4. \verb|PoAggKE-1| \vspace{-0.3cm}
+\noin 4. $\ttt{PoAggKE-1}$ (Proof of aggregated knowledge of exponents-1) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggKE-1|}}[a,\; \mc{B}] = \left\{\begin{array}{l}
-    (a\in\mb{G},\; \mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\ 
+  \mc{R}_{{\ttt{AggKE-1}}}[a,\; \mc{A}] = \left\{\begin{array}{l}
+    (a\in\mb{G},\; \mc{B} = (a_1,\cdots, a_n)\in\mb{G}^n);\\ 
     (d_1,\cdots,d_n)\in\bz^n):  \\
-    b_i = a^{d_i}\;\forall\; i
+    a_i = a^{d_i}\;\forall\; i
   \end{array}\right\}
 \]
 
-\noin 5. \verb|PoAggKE-2| \vspace{-0.3cm}
+\noin 5. $\ttt{PoAggKE-2}$ (Proof of aggregated knowledge of exponents-2) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggKE-2|}}[\mc{A},\;A] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggKE-2}}}[\mc{A},\;A] = \left\{\begin{array}{l}
     (\mc{A} = (a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
     (d_1,\cdots,d_n)\in\bz^n) :  \\
-     A = a_i^{d_i}\;\forall\; i
+     A = a_i^{d_i}\;\forall\;  i
   \end{array}\right\}
 \]
 
-\noin 6. \verb|PoMultPolyDLog| \vspace{-0.3cm}
+\noin 6. $\ttt{PoMultPolyDLog}$ (Proof of multivariate polynomial relations between discrete logs)\vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|MultPolyDLog|}}[a, (b_1,\cdots, b_n), (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
-    \big(a\in\mb{G},\; (b_1,\cdots, b_n)\in\mb{G}^n);\\
-    f_1,\cdots,f_k\in\bq(X_1,\cdots,X_n)\big);\\ 
-    (d_1,\cdots,d_n)\in \bz^n)\;: \\
-    b_i = a^{d_i}\;\forall\; i\;\bigwedge \\   \bigwedge\limits_{i=1}^k f_i(d_1,\cdots,d_n) = 0 
+  \mc{R}_{\ttt{MultPolyDLog}}[a,\; (b_1,\cdots, b_n),\; (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
+    (a\in\mb{G},\; (b_1,\cdots, b_n)\in\mb{G}^n);\\
+    (f_1,\cdots,f_k)\in\bz[X_1,\cdots,X_n]^k;\\ 
+    (d_1,\cdots,d_n)\in\bz^n)\;: \\
+    b_i = a^{d_i}\;\forall\; i\;\bigwedge \;\\   f_j(d_1,\cdots,d_n) = 0\;\forall\; j 
   \end{array}\right\}
 \]
 
-\noin 7. \verb|PoEqDLogPairs| \vspace{-0.3cm}
+\noin 7. $\ttt{PoEqDLogPairs}$ (Proof of equality of discrete log pairs) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|EqDLogPairs|}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{EqDLogPairs}}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
   	(a_1,a_2\in\mb{G};\\
     (b_1,\cdots, b_n),\;(c_1,\cdots, c_n)\in\mb{G}^n);\\
     (d_1,\cdots,d_n)\in \bz^n)\;: \\
@@ -1830,30 +1833,31 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 8. \verb|PoGCD| \vspace{-0.2cm}
-$$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} .$$
+\noin 8. $\ttt{PoGCD}$ (Proof of GCD) \vspace{-0.5cm} 
+
+\[\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} .\]
 
 
-\noin 9. \verb|PoRelPrimeDLog| (special case of \verb|PoGCD|) \vspace{-0.7cm}
+\noin 9. $\ttt{PoRelPrimeDLog}$ (Proof of relatively prime discrete logs; special case of \verb|PoGCD|) \vspace{-0.7cm}
 
 \[
-\mc{R}_{{\protect\verb|RelPrimeDLog|}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .
+\mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .
 \]
 
-\noin 10. \verb|PoAggRelPrimeDLog-1| \vspace{-0.2cm}
+\noin 10. $\ttt{PoAggRelPrimeDLog-1}$ (Aggregated proof of relatively prime discrete logarithms-1) \vspace{-0.2cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-1|}}[a, \mc{A}] = \left\{\begin{array}{l}
+  \mc{R}_{\ttt{AggRelPrimeDLog-1}}[a, \mc{A}] = \left\{\begin{array}{l}
     \big(a\in\mb{G},\;  \mc{A}:=(a_1,\cdots, a_n)\in\mb{G}^n);\\
     (d_1,\cdots,d_n)\in\bz^n\big): \\
     a_i = a^{d_i}\;\forall\;i\;\;,\;\; \GCD(d_i, d_j) = 1)\;\forall \;i\neq j   	
   \end{array}\right\}
 \] 
 
-\noin 11. \verb|PoAggRelPrimeDLog-2| \vspace{-0.6cm}
+\noin 11. $\ttt{PoAggRelPrimeDLog-2}$ (Aggregated proof of relatively prime discrete logarithms-2) \vspace{-0.6cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-2|}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggRelPrimeDLog-2}}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
     \big((a_1,a_2)\in\mb{G}^2,\;\\
      \mc{B}:=(b_1,\cdots, b_m)\in\mb{G}^m,\;\mc{C}:= (c_1,\cdots, c_n)\in\mb{G}^n);\\
     ((d_1,\cdots,d_m)\in\bz^m,\; (e_1,\cdots,e_n)\in\bz^n\big)\;: \\
@@ -1861,10 +1865,10 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
   \end{array}\right\}
 \] 
 
-\noin 12. \verb|PoAggRelPrimeDLog-3| \vspace{-0.3cm}
+\noin 12.${\ttt{PoAggRelPrimeDLog-3}}$ (Aggregated proof of relatively prime discrete logarithms-3) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-3|}}[(w_1,\cdots, w_n), A] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggRelPrimeDLog-3}}}[(w_1,\cdots, w_n), A] = \left\{\begin{array}{l}
     \big(A\in\mb{G},\; (w_1,\cdots, w_n)\;\in\mb{G}^n);\\
     ((d_1,\cdots,d_n)\in\bz^n\big)\;: \\
     w_i^{d_i} = A\;\forall\;i\;\bigwedge  \\
@@ -1872,10 +1876,10 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
   \end{array}\right\}
 \] 
 
-\noin 13. \verb|PoAggRelPrimeDLog-4| \vspace{-0.7cm}
+\noin 13. ${\ttt{PoAggRelPrimeDLog-4}}$ (Aggregated proof of relatively prime discrete logarithms-4) \vspace{-0.5cm}
 
 \[
-  \mc{R}_{{\protect\verb|AggRelPrimeDLog-4|}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
+  \mc{R}_{{\ttt{AggRelPrimeDLog-4}}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
     \big((B,C)\in\mb{G}^2,\;\\
      \mc{B} = (b_1,\cdots,b_m)\in\mb{G}^m,\;\mc{C} = (c_1,\cdots, c_n)\in\mb{G}^n);\\
     ((d_1,\cdots,d_m)\in\bz^m,\; (e_1,\cdots,e_n)\in\bz^n\big)\;: \\
@@ -1883,12 +1887,12 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
   \end{array}\right\}
 \]   
 
-\noin 14. Protocol for the intersection of multisets \vspace{-0.4cm}
+\noin 14. Protocol for the intersection of $\lam$-rough multisets \vspace{-0.3cm}
 
 \[
-  \mc{R}_{\tt{\cap}}[g,\; (A_1,\cdots,A_n),\; A_{\tt{\cap}}] = \left\{\begin{array}{l}
-    (g\in\mb{G};\;\\
-     (A_1,\cdots,A_n)\in\mb{G}^{n})\;,\; A_{\tt{\cap}}\in\bG;\\
+  \mc{R}_{\tt{\cap}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cap}}] = \left\{\begin{array}{l}
+    (a\in\mb{G};\;\\
+     (A_1,\cdots,A_n)\in\mb{G}^{n}\;,\; A_{\tt{\cap}}\in\bG;\\
     ((d_1,\cdots,d_n, d_{\tt{\cap}})\in\bz^{n+1}): \\
     A_i = g^{d_i}\;\forall\;i\;,\; A_{\tt{\cap}} = g^{d_{\tt{\cap}}}   \\
     
@@ -1896,18 +1900,37 @@ $$\mc{R}_{{\protect\verb|GCD|}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i
   \end{array}\right\}
 \] 
 
-\noin 15. Protocol for the union of multisets \vspace{-0.4cm}
+\noin 15. Protocol for the union of $\lam$-rough multisets \vspace{-0.3 cm}
 
 \[
-  \mc{R}_{\tt{\cup}}[g,\; (A_1,\cdots,A_n),\; A_{\tt{\cup}}] = \left\{\begin{array}{l}
-    (g\in\mb{G};\;\\
-     (A_1,\cdots,A_n) \mb{G}^{n})\;,\;,A_{\tt{\cup}})\in\mb{G};\\
+  \mc{R}_{\tt{\cup}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cup}}] = \left\{\begin{array}{l}
+    (a\in\mb{G};\;\\
+     (A_1,\cdots,A_n)\in \mb{G}^{n})\;,\;,A_{\tt{\cup}})\in\mb{G};\\
     ((d_1,\cdots,d_n, d_{\tt{\cup}})\in\bz^{n+1}): \\
     A_i = g^{d_i}\;\forall\;i\;,\; A_{\tt{\cup}} = g^{d_{\tt{\cup}}}   \\
     
   \LCM(d_1, \cdots, d_n) = d_{\tt{\cup}}
   \end{array}\right\}
 \] 
+
+\noin 16. Protocol for equality/inequality of underlying sets \vspace{0.1cm}
+
+\noin Given elements $a_1,a_2\in\bG$ and multisets $\mcM_1, \mcM_2$ with commitments $\ttt{Com}(a_i, \mcM_i) = a_i^{\Pi(\mcM_i)}$, the Prover can demonstrate the equality/inequality of the underlying sets $\sett(\mcM_1)$, $\sett(\mcM_2)$.\vspace{0.25cm}
+
+\noin 17. Protocol for the highest/lowest frequency of elements in multisets \vspace{0.1cm}
+
+\noin Given commitments $\ttt{Com}(g, \mcM_i)= g^{\mcM_i}$ to multisets $\mcM_1,\cdots,\mcM_n$ and a data set $\mc{D}$, the Prover can show that every element of $\mc{D}$ occurs with a higher/lower frequency in $\mcM_1$ than in any $\mcM_i$ for $i\geq 2$.
+
+\noin Similarly, given a single accumulated digest $A$ and witnesses $w_i$ for multisets $\mcM_i$ such that $w_i^{\Pi(\mcM_i)} = A $, the Prover can show that every element of $\mc{D}$ occurs with a higher/lower frequency in $\mcM_1$ than in any $\mcM_i$ for $i\geq 2$.
+
+
+
+
+\vspace{0.2cm}
+
+
+
+
 
 
 \bigskip
@@ -2130,11 +2153,6 @@ In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the
 
 
 \end{comment}
-
-
-
-
-
 
 
 
