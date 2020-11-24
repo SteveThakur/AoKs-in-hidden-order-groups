@@ -859,7 +859,7 @@ In the next protocol, we generalize the protocol \verb|PolyDLog| to multiple dis
 
 \noindent \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$.
 
-\noindent \textbf{Inputs:} Elements $a\in\mb{G} $, $(b_1,\cdots,b_n)\in \mb{G}^n$ for some integer $n\geq 1$; public $n$-variate polynomial $f_j(X_1,\cdots,X_n)\in \bz[X_1,\cdots,X_n]$ ($j=1,\cdots,n$).
+\noindent \textbf{Inputs:} Elements $a\in\mb{G} $, $(b_1,\cdots,b_n)\in \mb{G}^n$ for some integer $n\geq 1$; public $n$-variate polynomials $f_j(X_1,\cdots,X_n)\in \bz[X_1,\cdots,X_n]$ ($j=1,\cdots,n$).
 
 \noindent \textbf{Claim:} The Prover possesses integers $d_1,\cdots, d_n$ such that:
 
@@ -1406,11 +1406,18 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \bigskip
 
-\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. 
+\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\slim_{i=1}^n e_id_i = d ).$$ Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left(\frac{d_1}{d},\cdots, \frac{d_n}{d}\right)\in \bz^n\;\bigwedge\; \GCD\left(\frac{d_n}{d},\cdots, \frac{d_n}{d}\right)=1.$$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So one way the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ is as follows:
 
-Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; (\exists\;(e_1,\cdots,e_n)\in\bz^n:\;\slim_{i=1}^n e_id_i = d ).$$ Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left(\frac{d_1}{d},\cdots, \frac{d_n}{d}\right)\in \bz^n\;\bigwedge\; \GCD\left(\frac{d_n}{d},\cdots, \frac{d_n}{d}\right)=1.$$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So one way the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ is as follows:
 
-\noin 1. The Prover $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[a,\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
+\begin{Prot} Protocol for the intersection of multisets.\end{Prot} \vspace{-0.3cm}
+
+\noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
+
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mcM_i) := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$ whose elements are $\lam$-bit primes; an element $A_{\tt{\cap}}\in\mb{G}$
+
+\noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
+
+\begin{prf1}\normalfont \noin 1. The Prover $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[a,\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
 
 \noin 2. $\mP$ computes integers $e_1,\cdots,e_n$ such that $\;\slim_{i=1}^n e_id_i = 1$.
 
@@ -1418,9 +1425,9 @@ Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge
 
 \noin 4. $\mP$ generates a non-interactive proof for $\ttt{MultPolyDLog}[a,\; (A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n),\;f]$ where \vs $$f(X_1,\cdots,X_{2n}):= \slim_{i=1}^n X_iX_{n+i} - 1. $$
 
-\noin 5. $V$ verifies the proofs and accepts if and only if they are all valid.\vspace{0.2cm}
+\noin 5. $V$ verifies the proofs and accepts if and only if they are all valid.\end{prf1}
 
-This proof entails $\bO(n)$ group elements. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(a,\pl_{i=1}^n A_i^{\gamma^i}),\;(a, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
+This proof entails $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(a,\pl_{i=1}^n A_i^{\gamma^i}),\;(a, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
 
 \begin{comment}
 However, this is no longer true when the integers $\Pi(\mcM_i)$ have prime divisors of bit-size $< \lam$. While such a protocol would be \textit{sound} in the sense that a Prover could not forge a fake proof, it would not be \textit{correct}, meaning an honest Prover might not be able to efficiently generate a proof. To get around this problem, we use lemma 1.3. 
@@ -1430,7 +1437,7 @@ For an arbitrary $\lam$-bit integer $\gamma$, consider the integer $\slim_{i=1}^
 For a randomly chosen $\gamma$, suppose we have \vs $$ e:= \GCD(\slim_{i=1}^n d_i\gamma^i, d_1) > 1 .$$ Let $p$ be any prime divisor of $e$. Since $p$ does not divide all of the coefficients of the polynomial $\slim_{i=1}^n d_i^{n\lam}X_i\in\bz[X]$, it follows that \vspace{-0.25cm} $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p^{n\lam}} \big) = \negl(\lam).$$ The Prover can efficiently compute \vs $$e:= \GCD(\slim_{i=1}^n d_i\gamma^i, d_1)\;,\;\wti{e}:= \GCD(\slim_{i=1}^n d_i\gamma^i, e^{n\lam}).$$ He sends the commitments to these integers and demonstrates the relations between the discrete logarithms using the protocols $\ttt{PoGCD}$ and $\ttt{MultPolyDlog}$. Now, $$e^{n\lam-1}\equiv 0\Mod{\wti{e}} \imp \GCD(d_1,\cdots,d_n) = 1.$$ To see this, let $p$ be a prime dividing $\GCD(d_1,\cdots,d_n)$ and let $k$ be the largest integer such that $p^k$ divides $e$. Then $p^{kn\lam}$ divides every $d_i^{n\lam}$ and hence, $p^{kn\lam}$ divides $\wti{e}$. On the other hand, $p^{kn\lam}$ does not divide $e^{n\lam-1}$, a contradiction.  \end{comment} 
 
 
-As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi(\mcM)$ is $\lam$-rough or equivalently, all elements of $\mcM$ are primes $> 2^{\lam-1}$.
+As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi(\mcM)$ is $\lam$-rough or equivalently, if all elements of $\mcM$ are primes $> 2^{\lam-1}$.
 
 \begin{Prot} Protocol for the intersection of $\lam$-rough multisets.\end{Prot} \vspace{-0.3cm}
 
@@ -1508,6 +1515,7 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \noin The proof consists of a constant number of $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integers. A server node storing the data multisets $\mcM_i$ can use this protocol to verifiably send the succinct commitment for the union $\bigcup\limits_{i=1}^n \mcM_i$. The validity of this commitment can be verified against the commitments to the $\mcM_i$ held by the client.
 
+If the multisets $\mcM_i$ are not $\lam$-rough, the proof would consist of $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers.
 
 \bigskip
 
