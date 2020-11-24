@@ -823,7 +823,7 @@ We call the following protocol the \textit{Proof of Aggregated Knowledge of the 
 
 \noindent 8. $\mc{V}$ verifies that $(r_1,\cdots,r_n)\in [l]^n$ and independently computes \vs $$b := \prod\limits_{i=1}^n b_i^{\gamma^i}\;,\;b_0 := \prod\limits_{i=1}^n b_i^{\gamma_0^i}\;,$$ \vspace{-0.2cm} $$\wti{r}:= \slim_{i=1}^n r_i^{n\lam}\gamma^i\Mod{l}\;,\;r:= \slim_{i=1}^n r_i\gamma^i\Mod{l}\;,\;r_0:=\slim_{i=1}^n r_i\gamma_0^i\Mod{l}.$$ 
 
-\noin 9. $V$ verifies the equations \vs $$Q^la^r\sta b\;\bigwedge\;(Q_0)^la^{r_0}\sta b_0\;\bigwedge\; (\weck{g})^lg^{\wti{r}}\sta\wti{g}.$$ He accepts if and only if all equations hold.\end{prf1}
+\noin 9. $\V$ verifies the equations \vs $$Q^la^r\sta b\;\bigwedge\;(Q_0)^la^{r_0}\sta b_0\;\bigwedge\; (\weck{g})^lg^{\wti{r}}\sta\wti{g}.$$ He accepts if and only if all equations hold.\end{prf1}
 
 Thus, the proof consists of three $\mb{G}$-elements and $n$ $\lam$-bit integers. In particular, the number of $\mb{G}$-elements is constant-sized and independent of the number of exponents. For the security of the protocol, it is necessary that the challenge $\gamma_0$ is generated \textit{after} the remainders $r_1,\cdots,r_n$ have been committed. In a non-interactive setting, this means the hashing algorithm that generates $\gamma_0$ takes the set of remainders modulo $l$ as one of its inputs. Hence, the remainders $r_i:= d_i\Mod{l}$ must be honestly computed to succeed at the additional task of computing the element $Q_0\in\mb{G}$ such that $(Q_0)^la^{r_0} = b_0$.
 
@@ -1177,7 +1177,7 @@ Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i
 
 \noin 3. $\mP$ computes a non-interactive proof for \verb|AggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and sends it to $\V$.
 
-\noin 4. $\mP$ computes a non-interactive proof for \verb|MultPolyDLog|$[a,\;(a_1,\cdots,a_n,A, \what{A}),\; (f,\what{f})]$ where \vs $$f(X_1,\cdots,X_{n+2}):= \big(\pl_{i=1}^n X_i\big) -X_{n+1}\;\;,\;\;\what{f}(X_1,\cdots, X_{n+2}):= \big(\slim_{i=1}^n \pl_{\substack{1\leq j\leq n \\ j\neq i}} X_j\big) - X_{n+2}$$ and sends the proof to $V$.
+\noin 4. $\mP$ computes a non-interactive proof for \verb|MultPolyDLog|$[a,\;(a_1,\cdots,a_n,A, \what{A}),\; (f,\what{f})]$ where \vs $$f(X_1,\cdots,X_{n+2}):= \big(\pl_{i=1}^n X_i\big) -X_{n+1}\;\;,\;\;\what{f}(X_1,\cdots, X_{n+2}):= \big(\slim_{i=1}^n \pl_{\substack{1\leq j\leq n \\ j\neq i}} X_j\big) - X_{n+2}$$ and sends the proof to $\V$.
 
 \begin{comment}
 
@@ -1417,17 +1417,19 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Claim:} $A_{\tt{\cap}} = \protect{\verb|Com|}(g, {\bigcap\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}$.
 
-\begin{prf1}\normalfont \noin 1. The Prover $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[a,\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
+\begin{prf1}\normalfont \noin 1. The Prover $\mP$ computes the integers \vs $$d_i:= \frac{\Pi(\mc{M}_i)}{\Pi({\bigcap\limits_{i=1}^n} \mc{M}_i)}\;\; (i=1,\cdots,n).$$
 
-\noin 2. $\mP$ computes integers $e_1,\cdots,e_n$ such that $\;\slim_{i=1}^n e_id_i = 1$.
+\noin 2. The Prover $\mP$ generates a non-interactive proof for $\ttt{AggKE-1}[A_{\tt{\cap}},\;(A_1,\cdots,A_n)]$ and sends it to the Verifier $\V$.
 
-\noin 3. $\mP$ computes the elements $\weck{A}_i := a^{e_i}\; (i=1,\cdots,n)$ and sends them to the $\V$.
+\noin 3. $\mP$ uses Bezout's algorithm to compute integers $e_1,\cdots,e_n$ such that $\;\slim_{i=1}^n e_id_i = 1$.
 
-\noin 4. $\mP$ generates a non-interactive proof for $\ttt{MultPolyDLog}[a,\; (A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n),\;f]$ where \vs $$f(X_1,\cdots,X_{2n}):= \slim_{i=1}^n X_iX_{n+i} - 1. $$
+\noin 4. $\mP$ computes the elements $\weck{A}_i := a^{e_i}\; (i=1,\cdots,n)$ and sends them to the $\V$.
 
-\noin 5. $V$ verifies the proofs and accepts if and only if they are all valid.\end{prf1}
+\noin 5. $\mP$ generates a non-interactive proof for $\ttt{MultPolyDLog}[A_{\tt{\cap}},\; (A_1,\cdots,A_n, \weck{A}_1,\cdots,\weck{A}_n),\;f]$ where \vs $$f(X_1,\cdots,X_{2n}):= \slim_{i=1}^n X_iX_{n+i} - 1. $$
 
-This proof entails $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(a,\pl_{i=1}^n A_i^{\gamma^i}),\;(a, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
+\noin 6. $\V$ verifies the proofs and accepts if and only if they are all valid.\end{prf1}
+
+This proof entails $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(A_{\tt{\cap}},\pl_{i=1}^n A_i^{\gamma^i}),\;(A_{\tt{\cap}}, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\mbf{Prob}\big(\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \big) = \negl(\lam). $$ 
 
 \begin{comment}
 However, this is no longer true when the integers $\Pi(\mcM_i)$ have prime divisors of bit-size $< \lam$. While such a protocol would be \textit{sound} in the sense that a Prover could not forge a fake proof, it would not be \textit{correct}, meaning an honest Prover might not be able to efficiently generate a proof. To get around this problem, we use lemma 1.3. 
@@ -1453,9 +1455,9 @@ As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi
 
 \noin 3. $\mP$ samples $\lam$-bit primes $\gamma$ until he finds one such that \vs $$ \GCD(\pl_{i=1}^n d_i, \slim_{i=1}^n d_i\gamma^i) = 1.$$ He sends $\gamma$ to $\V$.
 
-\noin 4. $\mP$ computes $\wti{A}:= g^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[g,\; (A_1,\cdots,A_n, \wti{A}),\;(\pl_{i=1}^n X_i)-X_{n+1}]$.
+\noin 4. $\mP$ computes $\wti{A}:= g^{\pl_{i=1}^n d_i}$ and sends $\wti{A}$ to $\V$ along with a non-interactive proof for\\ $\ttt{MultPolyDLog}[A_{\tt{\cap}},\; (A_1,\cdots,A_n, \wti{A}),\;(\pl_{i=1}^n X_i)-X_{n+1}]$.
 
-\noin 5. $\mP$ generates a non-interactive proof for $\ttt{RelPrimeDLog}[(g, \wti{A}),\;(g, \pl_{i=1}^n A_i^{\gamma^i})]$ and sends it to $\V$.
+\noin 5. $\mP$ generates a non-interactive proof for $\ttt{RelPrimeDLog}[(A_{\tt{\cap}}, \wti{A}),\;(A_{\tt{\cap}}, \pl_{i=1}^n A_i^{\gamma^i})]$ and sends it to $\V$.
 
 \noin 6. $\V$ verifies all the proofs he receives and accepts if and only if they are all valid.\end{prf1}
 
@@ -1471,7 +1473,7 @@ As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi
 \bigskip
 
 
-\noin \textbf{Multiset unions:} The techniques in the last protocol also allow a server node to verifiably send over a commitment for the union of multisets $\mcM_1.\cdots,\mcM_n$. The proof that this commitment is valid can be publicly verified against the commitments $\ttt{Com}(g,\mc{M}_i)\;(i=1,\cdots,n)$ which the client stores. The basic idea here is as follows.
+\noin \textbf{Multiset unions:} The techniques in the last protocol also allow a server node to verifiably send over a commitment for the union of multisets $\mcM_1,\cdots,\mcM_n$. The proof that this commitment is valid can be publicly verified against the commitments $\ttt{Com}(g,\mc{M}_i)\;(i=1,\cdots,n)$ which the client stores. The basic idea here is as follows.
 
 \begin{Lem} For integers $d_1,\cdots,d_n$, set $\what{d}_j:= \pl_{\substack{1\leq i\leq n \\ i\neq j}} d_i \;\;(j=1,\cdots,n)$. Then we have \vspace{-0.2cm} $$ \LCM(d_1,\cdots,d_n)\cdot \GCD(\what{d}_1,\cdots,\what{d}_n) = \pl_{i=1}^n d_i.$$ \end{Lem}
 
@@ -1491,17 +1493,47 @@ Thus, the following are equivalent:\vspace{0.1cm}
 
 \vspace{0.1cm}
 
+
 \begin{Prot} Protocol for the union of $\lam$-rough multisets.\end{Prot} \vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
 
-\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mc{M}_i) := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; an element $A_{\tt{\cup}}\in\mb{G}$
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mc{M}_i) := g^{\Pi(\mc{M}_i)}$ for lam$-rough $ multisets $\mc{M}_i$; an element $A_{\tt{\cup}}\in\mb{G}$
 
 \noin \textbf{Claim:} $A_{\tt{\cup}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
 
 \begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vspace{-0.25cm} $$d:= \Pi(\bigcup\limits_{i=1}^n \mc{M}_i)\;,\;\weck{d}_i:= \frac{\Pi(\bigcup\limits_{i=1}^n \mc{M}_i)}{\Pi(\mcM_i)}\;\;(i=1,\cdots,n).$$
 
-\noin 2. $\mP$ generates a non-interactive proof for the rlation $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$.
+\noin 2. $\mP$ generates a non-interactive proof for the relation $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$. 
+
+\noin 3. $\mP$ uses Bezout's algorithm to compute integers $\weck{e}_1,\cdots, \weck{e}_n$ such that \vs $$\slim_{i=1}^n \weck{e}_i\weck{d}_i = 1.$$
+
+\noin 4. $\mP$ computes the elements $\weck{A}_i:= g^{\weck{e}_i}$ and sends them to $\V$.
+
+\noin 5. $\mP$ generates a non-interactive proof for $\ttt{MultPolyDLog}[g,\;(A_1,\cdots,A_n,\weck{A}_1,\cdots,\weck{A}_n,A_{\tt{\cup}}), \weck{f}]$ where \vs $$\weck{f}(X_1,\cdots,X_{2n+1}):= X_{2n+1}\Big(\slim_{i=1}^n X_{n+i}\big(\pl_{\substack{1\leq j\leq n\\ j\neq i}} X_{j}\big)\Big) - \pl_{i=1}^n X_i$$ and sends the proof to $\V$.
+
+\noin 4. $\V$ verifies all of the proofs he receives and accepts if and only if they are valid.\end{prf1}
+
+
+
+
+
+
+
+
+\vspace{0.1cm}
+
+\begin{Prot} Protocol for the union of $\lam$-rough multisets.\end{Prot} \vspace{-0.3cm}
+
+\noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb)$,\; $g\in \mb{G}$.
+
+\noin \textbf{Inputs:} Commitments $A_i = \ttt{Com}(g, \mc{M}_i) := g^{\Pi(\mc{M}_i)}$ for lam$-rough $ multisets $\mc{M}_i$; an element $A_{\tt{\cup}}\in\mb{G}$
+
+\noin \textbf{Claim:} $A_{\tt{\cup}} = \protect{\verb|Com|}(g, {\bigcup\limits_{i=1}^n} \mc{M}_i) := g^{\Pi({\bigcup\limits_{i=1}^n} \mc{M}_i)}$.
+
+\begin{prf1} \normalfont \noin 1. The Prover $\mP$ computes the integers \vspace{-0.25cm} $$d:= \Pi(\bigcup\limits_{i=1}^n \mc{M}_i)\;,\;\weck{d}_i:= \frac{\Pi(\bigcup\limits_{i=1}^n \mc{M}_i)}{\Pi(\mcM_i)}\;\;(i=1,\cdots,n).$$
+
+\noin 2. $\mP$ generates a non-interactive proof for the relation $\ttt{AggKE-2}[(A_1,\cdots,A_n),\;A_{\tt{\cup}}]$ and sends it to the Verifier $\V$.
 
 
 \noin 3. $\mP$ samples $\lam$-bit integers $\gamma$ until he finds one such that \vs $$ \GCD(d, \slim_{i=1}^n \weck{d}_i\gamma^i) =1.$$ He sends $\gamma$ to $\V$.
@@ -1895,7 +1927,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]   
 
-\noin 14. Protocol for the intersection of $\lam$-rough multisets \vspace{-0.3cm}
+\noin 14. Protocol for the intersection of multisets \vspace{-0.3cm}
 
 \[
   \mc{R}_{\tt{\cap}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cap}}] = \left\{\begin{array}{l}
@@ -1908,7 +1940,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 15. Protocol for the union of $\lam$-rough multisets \vspace{-0.3 cm}
+\noin 15. Protocol for the union of multisets \vspace{-0.3 cm}
 
 \[
   \mc{R}_{\tt{\cup}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cup}}] = \left\{\begin{array}{l}
