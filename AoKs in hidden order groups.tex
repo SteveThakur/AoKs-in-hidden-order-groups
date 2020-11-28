@@ -1398,7 +1398,7 @@ As before, $\mb{G}$ is a group of hidden order in which we assume the adaptive r
 
 \noin \textbf{Updates:} When the data multiset is to be updated, the client sends the changes to the server. The server stores these changes and sends back the updated commitment to the multiset, along with a non-interactive proof of exponentiation (\verb|PoE|) so that the client can verify that the new commitment is the correct one. \vspace{0.15cm}
 
-\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\Pi}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \Big\{\big(\sum\limits_{i=1}^n \mul(\mc{M}_i, x)\big)\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\Big\} $$ using the Protocol \vs $$\ttt{PoMultPolyDLog}[(g, A_1),\cdots,(g,A_n), (g,A_{\Pi}),\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
+\noin \textbf{Multiset sums:} For multisets $\mc{M}_1,\cdots,\mc{M}_n$, the server node can verifiably send the client the commitment $A_{\Pi}$ for the sum \vs $$\sum\limits_{i=1}^n \mc{M}_i = \Big\{\big(\sum\limits_{i=1}^n \mul(\mc{M}_i, x)\big)\times x:\; x\in\bigcup\limits_{i=1}^n \sett(\mc{M}_i)\Big\} $$ using the Protocol \vs $$\ttt{PoMultPolyDLog}[g,\; (A_1,\cdots,A_n,A_{\Pi}),\;(\pl_{i=1}^{n}X_i)-X_{n+1})].$$ The proof consists of a constant number of $\mb{G}$-elements and $2n$ $\lam$-bit integers.
 
 \bigskip
 
@@ -1555,7 +1555,9 @@ Thus, to summarize, the protocols in this paper allow the server node to verifia
 
 \subsubsection{\fontsize{11}{11} Frequencies of elements}
 
-As before, let $\mc{M}_1,\cdots, \mc{M}_n$ be data multisets and let \vs $$A_i:= \ttt{Com}(g,\mc{M}_i) = g^{\Pi(\mc{M}_i)}\;\;(i=1,\cdots,n) $$ be the commitments. Suppose the server node storing the data for the client needs to identify the data multiset with the highest frequency of a data set $\mc{D}$. The protocols we have developed so far allows him to do so with a proof that the client can verify against the commitments $A_1,\cdots,A_n$.\vspace{0.1cm}
+Consider a setting where a client node needs to keep track of the occurrences of a certain keyword or certain blocks of keywords in the files that he possesses. If the client node suffers from a low storage capacity or weak computational power, he would prefer to outsource the files to an untrusted server node. As before, he stores succinct commitments to the data sets/multisets derived from hashing the files. This allows the server node storing his data sets/multisets to send publicly verifiable proofs about the occurrences of batches of elements in the data sets/multisets.
+
+Let $\mc{M}_1,\cdots, \mc{M}_n$ be data multisets and let \vs $$A_i:= \ttt{Com}(g,\mc{M}_i) = g^{\Pi(\mc{M}_i)}\;\;(i=1,\cdots,n) $$ be the commitments. Suppose the server node storing the data for the client needs to identify the data multiset with the highest frequency of a data set $\mc{D}$. The protocols we have developed so far allows him to do so with a proof that the client can verify against the commitments $A_1,\cdots,A_n$.\vspace{0.1cm}
 
 \begin{Prot} Protocol for frequency of elements in multisets $1$.\end{Prot} \vspace{-0.3cm}
 
@@ -1666,9 +1668,7 @@ This preserves a common base for the $n$ commitments. The runtime complexity is 
 \subsection{\fontsize{11}{11} Sharded stateless blockchains}
 
 
-We briefly discuss the concept of a stateless blockchain and the need for it. 
-
-Currently, in every existing blockchain, every full node in the system needs to store the entire state of the blockchain in order to validate incoming transactions. This has already become cumbersome as the size of the state grows. To this end, [Tod13] suggested the concept of a \textit{stateless} blockchain. In this proposed model, every node stores the data relevant to itself and the accumulated digest. 
+We briefly discuss the concept of a stateless blockchain and the need for it. Currently, in every existing blockchain, every full node in the system needs to store the entire state of the blockchain in order to validate incoming transactions. This has already become cumbersome as the size of the state grows. To this end, [Tod13] suggested the concept of a \textit{stateless} blockchain. In this proposed model, every node stores the data relevant to itself and the accumulated digest. 
 
 While this would drastically alleviate the problem of state bloat, the big tradeoff would be that in such a model, a node sending over transactions must also send over proofs attesting to the validity of these transactions. At the moment, the authentication data structure used by blockchains is that of a Merkle tree and the membership proofs are what we call Merkle branches/paths. Despite the several advantages that Merkle trees provide, a drawback is that the membership proofs cannot be batched or aggregated. Thus, a stateless model that continues to use Merkle trees as the accumulator would suffer from a bandwidth bottleneck. To this end, [BBF19] etc. have proposed using a cryptographic accumulator with batchable/aggregable membership and non-membership proofs. In this regard, accumulators hinging on groups of unknown order have an important advantage over bilinear accumulators in that they can be transparent, have constant-sized public parameters and are dynamic. 
 
@@ -2211,7 +2211,6 @@ In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the
 
 
 \end{document}
-
 
 
 
