@@ -688,7 +688,10 @@ In the following protocol, we show how a Prover could probabilistically demonstr
 \begin{Prop} The protocol \verb|PoPolyDLog| is an argument of knowledge in the generic group
 model.\end{Prop}
 
-\begin{prf} (Sketch) The Verifier independently computes $r_2:= f(r_1)\Mod{l}$ in Step 6. Hence, the equations $$Q_1^{l}a_1^{r_1}\stackrel{?}{=} b_1\;\;\bigwedge\;\; Q_2^{l}a_2^{r_2} = b_2$$ imply that with \op, the Prover possesses rationals $d_1,d_2$ such that $$a^{d_1} = b_1\;,\;a_2^{d_2} = b_2,\;,\;d_2\equiv f(d_1)\Mod{l}.$$ Furthermore, the equations \vs $$(g_1)^lg^{r_1} \stackrel{?}{=} g^{d_1}\;\;\bigwedge\;\; (g_2)^lg^{r_2} \stackrel{?}{=} g^{d_2} $$ imply that with \op, \vs $$\wti{g}_1 = g^{d_1}\;\bigwedge\;\wti{g}_2 = g^{d_2}. $$ The fractional root assumption now implies that with \op, $d_1,d_2\in \bz$.\end{prf}
+\begin{prf} This is a special case of the protocol $\ttt{PoMultPolyDLog}$, which we provide a security proof for in the next section.\end{prf}
+
+
+\begin{comment}\begin{prf} (Sketch) The Verifier independently computes $r_2:= f(r_1)\Mod{l}$ in Step 6. Hence, the equations $$Q_1^{l}a_1^{r_1}\stackrel{?}{=} b_1\;\;\bigwedge\;\; Q_2^{l}a_2^{r_2} = b_2$$ imply that with \op, the Prover possesses rationals $d_1,d_2$ such that $$a^{d_1} = b_1\;,\;a_2^{d_2} = b_2,\;,\;d_2\equiv f(d_1)\Mod{l}.$$ Furthermore, the equations \vs $$(g_1)^lg^{r_1} \stackrel{?}{=} g^{d_1}\;\;\bigwedge\;\; (g_2)^lg^{r_2} \stackrel{?}{=} g^{d_2} $$ imply that with \op, \vs $$\wti{g}_1 = g^{d_1}\;\bigwedge\;\wti{g}_2 = g^{d_2}. $$ The fractional root assumption now implies that with \op, $d_1,d_2\in \bz$.\end{prf}\end{comment}}
 
 \noin In the next section, we will generalize this protocol to multivariate polynomial relations for multiple discrete logarithms. We briefly discuss an application of the last protocol.\\
 
@@ -755,7 +758,7 @@ The first protocol in this section allows us demonstrate the knowledge of multip
     a_i = a^{d_i}\;\forall\; i
   \end{array}\right\}
 \]
-\vspace{0.05cm}
+
 
 
 \begin{Prot} \normalfont \textit{Proof of aggregated knowledge of exponents} 1 (\verb|PoAggKE-1|):\end{Prot} \vspace{-0.3cm}
@@ -970,7 +973,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \noindent 3. $\mc{P}$ generates non-interactive proofs for \verb|PoKE|$[b_{1,3},\;b_1 ]$ and \verb|PoKE|$[b_{1,3},\;b_{1,2} ]$ and sends them to $\V$.
 
-\noindent 4. $\mc{P}$ uses Bezout's algorithm to compute integers $e_1, e_2$ such that \vs $$e_1d_1 + e_2d_2 = d_3\;\;,\;\; |e_1| < d_2,\; |e_2| < d_1 .$$
+\noindent 4. $\mc{P}$ uses the Eulidean algorithm to compute integers $e_1, e_2$ such that \vs $$e_1d_1 + e_2d_2 = d_3\;\;,\;\; |e_1| < d_2,\; |e_2| < d_1 .$$
 
 \noindent 5. $\mc{P}$ computes \vs $$\wti{b}_1:= b_1^{e_1},\;\; \wti{b}_{1,2}:= b_{1,2}^{e_2} $$ and sends them to $\V$. He generates non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$. He sends these proofs to $\mc{V}$.
 
@@ -978,7 +981,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \noindent An important special case is where $\GCD(d_1, d_2) = 1$. In this case, Step 3 is redundant and hence, the proof size is smaller. We call this special case the Protocol for \textit{Relatively Prime Discrete Logarithms} or \verb|RelPrimeDLog| for short: $$\mc{R}_{{\ttt{RelPrimeDLog}}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$ 
 
-\vspace{0.1cm}
+
 
 \begin{Prot} \normalfont \textit{Proof of Relatively Prime Discrete Logarithms} (\verb|PoRelPrimeDLog|):\end{Prot} \vspace{-0.3cm}
 
@@ -996,7 +999,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 
 \noindent 2. $\mP$ computes a non-interactive proof for \verb|EqDLog|$[(a_2, b_2),\; (a_1, b_{1,2})]$ and sends it to $\mc{V}$.
 
-\noindent 3. $\mc{P}$ uses the algorithm \verb|Bezout|  to compute integers $e_1, e_2$ such that $e_1d_1 + e_2d_2 = 1$.
+\noindent 3. $\mc{P}$ uses the Euclidean algorithm to compute integers $e_1, e_2$ such that $e_1d_1 + e_2d_2 = 1$.
 
 \noin 4. $\mc{P}$ computes \vs $$\wti{b}_1:= b_1^{e_1}\;\;,\;\; \wti{b}_{1,2}:= b_{1,2}^{e_2} $$ and sends them to $\V$. 
 
@@ -1484,7 +1487,7 @@ The protocol hinges on the simple observation that for integers $d,d_1,d_2$, the
 
 \noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; a data set $\mc{D}$.
 
-\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a higher frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
+\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a higher frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.\vs
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs
 
@@ -1506,7 +1509,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin \textbf{Inputs:} Commitments $A_i := g^{\Pi(\mc{M}_i)}$ for multisets $\mc{M}_i$; a data set $\mc{D}$.
 
-\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
+\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$. \vs
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs
 
@@ -1548,7 +1551,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin \textbf{Inputs:} Membership witnesses $w_i$ for multisets $\mc{M}_i$ with respect to an accumulated digest $A$; a data set $\mc{D}$.
 
-\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$.
+\noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$. \vs
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs
 
@@ -1592,7 +1595,7 @@ This preserves a common base for the $n$ commitments. The runtime complexity is 
 \subsection{\fontsize{11}{11} Sharded stateless blockchains}
 
 
-We briefly discuss the concept of a stateless blockchain and the need for it. Currently, in every existing blockchain, every full node in the system needs to store the entire state of the blockchain in order to validate incoming transactions. This has already become cumbersome as the size of the state grows. To this end, [Tod13] suggested the concept of a \textit{stateless} blockchain. In this proposed model, every node stores the data relevant to itself and the accumulated digest. 
+We briefly discuss the concept of a stateless blockchain and the need for it. Currently, in every existing blockchain, every full node in the system needs to store the entire state of the blockchain in order to validate incoming transactions. This has already become cumbersome as the size of the state grows. To this end, [Tod16] suggested the concept of a \textit{stateless} blockchain. In this proposed model, every node stores the data relevant to itself and the accumulated digest. The miners no longer need to store the state since the concerns of state storage and conensus are decoupled.
 
 While this would drastically alleviate the problem of state bloat, the big tradeoff would be that in such a model, a node sending over transactions must also send over proofs attesting to the validity of these transactions. At the moment, the authentication data structure used by blockchains is that of a Merkle tree and the membership proofs are what we call Merkle branches/paths. Despite the several advantages that Merkle trees provide, a drawback is that the membership proofs cannot be batched or aggregated. Thus, a stateless model that continues to use Merkle trees as the accumulator would suffer from a bandwidth bottleneck. To address this problem, [BBF19] etc. have proposed using a cryptographic accumulator with batchable/aggregable membership and non-membership proofs. In this regard, accumulators hinging on groups of unknown order have an important advantage over bilinear accumulators in that they can be transparent, have constant-sized public parameters and are dynamic. 
 
