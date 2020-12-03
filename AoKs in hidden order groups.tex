@@ -561,7 +561,7 @@ Write $w = g^x$. Then \vs $$ x D_0 +
 
 We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap\limits_{i=1}^g \mfp_i^{ek} = p^{k}\bz$.
 
-For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ S_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $S_{\lam}$. Hence, \vs $$ \mbf{Prob}\big( f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big)\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
+For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ S_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $S_{\lam}$. Hence, \vs $$ \mbf{Prob}\big( f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big)\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
 
 \begin{Lem}$\mbf{1}$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if \vs$$\sum\limits_{i=1}^n d_i\gamma^i\; \in \;\bzlam,$$ with \op, $(d_1,\cdots, d_n)\in \bzlam^n$.\vspace{0.1cm}
 
@@ -882,7 +882,7 @@ As was the case with $\ttt{AggKE-1}$, in the special case where $a = g$, the sub
 
 \noin - $\sum\limits_{i=1}^n d_i\gamma_0^i\equiv \sum\limits_{i=1}^n r_i\gamma_0^i\Mod{l}.$ 
 
-Since the challenge $\gamma_0$ is randomly generated after the Prover has sent $(r_1,\cdots,r_n)$, $\gamma_0$ is randomly and uniformly distributed modulo $l$. Hence, it follows that with \op, $d_i\equiv r_i\Mod{l}$ for every index $i$. Now, since the prime $l$ is randomly generated, \vs $$\Prob\left(f_j(d_1,\cdots,d_n)\equiv 0\Mod{l} \;\Big|\; f_j(d_1,\cdots,d_n)\neq 0 \right) = \negl(\lam) .$$ Hence, $$f_j(d_1,\cdots,d_n)\equiv 0\Mod{l}\;\forall\;j\;\impop\; f_j(d_1,\cdots,d_n) = 0 \;\forall\;j.$$ Furthermore, the equation \vs $$\wti{g} = (\weck{g})^lg^{\wti{r}} $$ implies that the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;,\;\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{l}.$$ The fractional root assumption implies that $\wti{d}\in\bz$ and since the prime $l$ is randomly generated after $\wti{g}$ is sent, it follows that with \op, $\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{l}.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and Lemma 1.3 then implies that with \op, $\slim_{i=1}^n d_i\in \bz\;\forall\;i$. \end{prf} 
+Since the challenge $\gamma_0$ is randomly generated after the Prover has sent $(r_1,\cdots,r_n)$, $\gamma_0$ is randomly and uniformly distributed modulo $l$. Hence, it follows that with \op, $d_i\equiv r_i\Mod{l}$ for every index $i$. Now, since the prime $l$ is randomly generated, \vs $$\Prob\left(f_j(d_1,\cdots,d_n)\equiv 0\Mod{l} \;\Big|\; f_j(d_1,\cdots,d_n)\neq 0 \right) = \negl(\lam) .$$ Hence, $$f_j(d_1,\cdots,d_n)\equiv 0\Mod{l}\;\forall\;j\;\impop\; f_j(d_1,\cdots,d_n) = 0 \;\forall\;j.$$ Furthermore, the equation \vs $$\wti{g} = (\weck{g})^lg^{\wti{r}} $$ implies that the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;,\;\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{l}.$$ The fractional root assumption implies that $\wti{d}\in\bz$ and since the prime $l$ is randomly generated after $\wti{g}$ is sent, it follows that with \op, $\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{l}.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and Lemma 1.3 then implies that with \op, $ d_i\in \bz\;\forall\;i$. \end{prf} 
 
 \vspace{0.2cm}
 
@@ -915,7 +915,7 @@ Since the challenge $\gamma_0$ is randomly generated after the Prover has sent $
 
 \noin 3. $\mc{P}$ computes $$p:= \ttt{NextPrime}(n\lam)\;\;,\;\;\wti{g} := g^{\slim_{i=1}^n d_i^{p}\gamma^i}$$ and sends it to the Verifier $\mc{V}$. 
 
-\noin 4. $\mc{P}$ computes a non-interactive proof for \verb|AggKE-1|$[a,\;\{a_1,\cdots,a_n\}]$ and sends it to $\mc{V}$.
+\noin 4. $\mc{P}$ computes a non-interactive proof for \verb|AggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and sends it to $\mc{V}$.
 
 \noin 5. The Fiat-Shamir heuristic generates a $\lam$-bit prime $l\not\equiv 1\Mod{p}$.
 
@@ -1622,13 +1622,17 @@ The proof consists of $\bO(1)$ $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integer
 
 \bigskip
 
-\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. The Prover can reduce the effective runtime of this computation by pre-computing the set \vs $$\{g^{2^{i}}\;:\; 1\leq i\leq N \} $$ for an appropriately large integer $N$. 
+\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. The Prover can reduce the effective runtime of this computation by pre-computing and storing the set \vs $$\{g^{2^{i}}\;:\; 1\leq i\leq N \} $$ for an appropriately large integer $N$. 
 
 
 
 \bigskip
 
-\noin \textbf{Conclusion:} We hope that the techniques will find more applications than what we have discussed in this paper. To this end, we have tried to keep the setting general, in the hope of finding a wider variety of applications.  Several open questions remain, the foremost of which is whether the computational burden of the Prover can be alleviated. Furthermore, most of our proofs consist of a constant number of group elements and $\bO(n)$ $\lam$-bit integers, where $n$ is the number of comitted sets/multisets involved. It would be desirable to compress the proof sizes further so that the proofs are genuinely constant-sized, independent of $n$. A closely related line of research is to further explore class groups and Jacobians as candidates for hidden order groups.
+\noin \textbf{Conclusion:} We hope that at least some the techniques will find more applications than what we have discussed in this paper. To this end, we have tried to keep the setting general, in the hope of finding a wider variety of applications.  Several open questions remain, the foremost of which is whether the computational burden of the Prover can be alleviated. Furthermore, most of our proofs consist of a constant number of group elements and $\bO(n)$ $\lam$-bit integers, where $n$ is the number of comitted sets/multisets involved. It would be desirable to compress the proof sizes further so that the proofs are genuinely constant-sized, independent of $n$. 
+
+The protocols involving disjointness of the committed sets/multisets inherently rely on the Prover having access to the entirety of the data. It would be interesting to see if we can modify the protocols so that they are amenable to proof generation in a distributed setting.
+
+A closely related line of research is to further explore class groups and Jacobians as candidates for transparent hidden order groups. The adaptive root assumption in these groups and the weaker assumptions such as low order and fractional root need further scrutiny.
 
 
 
@@ -1742,6 +1746,8 @@ Email: stevethakur01@gmail.com
 \noin $\Pi(\mc{M})$: The product of all elements of a multiset $\mc{M}$ \vspace{0.1cm}
 
 \noin $\mr{mult}(\mc{M},x)$: The multiplicity of an element $x$ in a multiset $\mc{M}$ \vspace{0.1cm}
+
+\noin $\mr{val}_p(n)$: The largest intger $k$ such that $p^k$ divides $n$ \vspace{0.1cm}
 
 \noin \verb|PoE|: Proof of Exponentiation ([Wes18], [BBF19])
 
