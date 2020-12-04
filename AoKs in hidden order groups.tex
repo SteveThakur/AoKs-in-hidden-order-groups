@@ -555,9 +555,9 @@ Write $w = g^x$. Then \vs $$ x D_0 +
 
 \noin We will need the next two lemmas repeatedly in the subsequent protocols.
 
-\begin{Lem} Let $p$ be a prime and let $f(X)$ be a univariate degree $n$ polynomial in $\bz[X]$ such that not all coefficients are divisible by $p$. For a randomly generated integer $\gamma$, the probability that $f(\gamma)\equiv 0\Mod{p^{n\lam}}$ is \normalfont $\ttt{negl}(\lam)$. \end{Lem}
+\begin{Lem} Let $p$ be a prime and let $f(X)$ be a monic univariate degree $n$ polynomial in $\bz[X]$. For a randomly generated integer $\gamma$, the probability that $f(\gamma)\equiv 0\Mod{p^{n\lam}}$ is \normalfont $\ttt{negl}(\lam)$. \end{Lem}
 
-\begin{prf} Let $F$ be a splitting field of $f(X)$ and let \vs $${f}(X) = \pl_{i=1}^n (X-\al_i)$$ be the factorization of ${f}(X)$ over $F$. Let $\mfp_{1},\cdots,\mfp_g$ be the distinct primes of $F$ lying over $p$. Since the extension $F/\bq$ is Galois, we have \vs $$p\mc{O}_F = \pl_{i=1}^{g} \mfp_i^e = \bigcap\limits_{i=1}^{g} \mfp_i^e$$ where $e\geq 1$ is the ramification degree and the Galois group $\Gal(F/\bq)$ acts transitively on the set $\{ \mfp_1,\cdots,\mfp_g\}$.
+\begin{prf} Let $F$ be a splitting field of $f(X)$, $p\mc{O}_F$ its ring of integers and let \vs $${f}(X) = \pl_{i=1}^n (X-\al_i)$$ be the factorization of ${f}(X)$ over $F$. Let $\mfp_{1},\cdots,\mfp_g$ be the distinct primes of $F$ lying over $p$. Since the extension $F/\bq$ is Galois, we have \vs $$p\mc{O}_F = \pl_{i=1}^{g} \mfp_i^e = \bigcap\limits_{i=1}^{g} \mfp_i^e$$ where $e\geq 1$ is the ramification degree and the Galois group $\Gal(F/\bq)$ acts transitively on the set $\{ \mfp_1,\cdots,\mfp_g\}$.
 
 We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap\limits_{i=1}^g \mfp_i^{ek} = p^{k}\bz$.
 
@@ -584,7 +584,7 @@ In a setting where the Verifier is not satisfied with the elements $d_1,\cdots, 
 
 \section{\fontsize{12}{12}\selectfont Arguments of Knowledge  }
 
-\noindent We briefly review the protocol \verb|PoKE| from [BBF19]. 
+\noindent We briefly review the protocol \verb|PoKE| (from [BBF19]) which we will need repreatedly in this paper.
 
 \begin{Prot} \normalfont \textit{Proof of Knowledge of the Exponent} (\verb|PoKE|) \end{Prot} \vspace{-0.3cm}
 
@@ -608,7 +608,7 @@ The part where $\mc{P}$ computes $g^x$ and sends it to $\mc{V}$ \textit{before} 
 
 Clearly, the relation \textit{Knowledge of the Exponent} is transitive in the sense that for elements $a_1,a_2,a_3\in\mb{G}$, if a prover $\mP$ possesses integers $d_1,d_2$ such that $a_1^{d_1} = a_2\;,\;a_2^{d_2} = a_3$, then he possesses the integer $d_1d_2$ which fulfills the equation $a_1^{d_1d_2} = a_3$. Henceforth, we denote the proof of knowledge of the discrete logarithm between $a,b\in\mb{G}$ by $\verb|PoKE|[a,b]$. 
 
-In the following protocol, we show how a Prover could probabilistically demonstrate that two discrete logarithms are equal with a constant-sized proof. We provide an argument of knowledge for  the following relation:
+We start out with a farily simple protocol. We show how a Prover could probabilistically demonstrate that two discrete logarithms are equal, with a constant-sized proof. In other words, the protocol allows a Prover to show that two pairs $[a_1, b_1]$, $[a_2, b_2]$ of $\bG$-elements are commitments to the same set/multiset. We provide an argument of knowledge for  the following relation:
 
 \[
   \mc{R}_{\ttt{EqDLog}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
@@ -709,7 +709,7 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 \noin Before we describe the protocols, we note a few basic facts. Clearly, we have \vs $$\sett(\mc{M}) = \sett(\mc{N})\LRA \sett(\mc{M}) \sub \sett(\mc{N})\;\bigwedge\; \sett(\mc{N}) \sub \sett(\mc{M}).$$ Furthermore, with notations as before, we have \vs $$\sett(\mc{M})\sub \sett(\mc{N})\LRA \exists\; N:\;\Pi(\mc{M})^N\equiv 0\Mod{\Pi(\mc{N})}.$$ Likewise, to show that $\sett(\mc{M})\nsub \sett(\mc{N})$, it suffices to show that there exists an integer $p$ such that \vs $$p\notin \{-1,1\}   \;\;\bigwedge\;\;\Pi(\mc{M})\equiv 0\Mod{p} \;\;\bigwedge\;\; \GCD(\Pi(\mc{N}),{p})=1.$$ 
 
-\begin{Prot} Protocol for the containment of underlying sets.\end{Prot} \vspace{-0.3cm}
+\begin{Prot} Protocol for the containment of underlying sets $(\tt{PoEqSets})$.\end{Prot} \vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$.
 
@@ -727,7 +727,7 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 
 
-\begin{Prot} Protocol for the non-containment of underlying sets.\end{Prot}\vspace{-0.3cm}
+\begin{Prot} Protocol for the non-containment of underlying sets $(\tt{PoIneqSets})$.\end{Prot}\vspace{-0.3cm}
 
 \noin \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$. 
 
@@ -750,7 +750,7 @@ Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \v
 
 In this section, we discuss protocols for aggregating the proofs of knowledge of multiple exponents and proofs of certain relations between these exponents. This amounts to demonstrating relations between multiple sets/multisets through non-interactive proofs that can be publicly verified against the commitments to these sets/multisets. The proofs consist of elements of the hidden order $\mb{G}$ and $\lam$-bit integers arising from the remainders of the exponents modulo the prime challenges. Using Lemma 1.3 and a few more techniques, we have designed the protocols so that the number of $\mb{G}$-elements is constant and hence, independent of the number of exponents involved. The proof sizes are $\bO(n)$ since they consist of $\bO(n)$ $\lam$-bit integers. However, in practice, this is a lot more efficient in terms of the communication complexity than proofs with $\bO(n)$ group elements.
 
-The first protocol in this section allows us demonstrate the knowledge of multiple integer exponents when they share a common base. We call this protocol the \textit{Proof of Aggregated Knowledge of the Exponents} 1 or \verb|AggKE-1| for short. We provide an argument of knowledge for the relation:
+The first protocol in this section allows us demonstrate the knowledge of multiple integer exponents when they share a common base. We call this protocol the \textit{Proof of Aggregated Knowledge of the Exponents} 1 or \verb|AggKE-1| for short. We provide an argument of knowledge for the relation: \vs
 
 \[
   \mc{R}_{{\ttt{AggKE-1}}}[a,\; \mc{A}] = \left\{\begin{array}{l}
@@ -858,9 +858,9 @@ Thus, the proof consists of five $\mb{G}$-elements and $n$ $\lam$-bit integers. 
 
 \noin 1. $\mP_{\mr{mal}}$ computes integers $r_1,\cdots,r_n\in[l]$ such that \vs $$ \slim_{i=1}^n d_i^{p}\gamma^i\equiv\slim_{i=1}^n r_i^{p}\gamma^i\Mod{l} \;,\;\Big( \bigwedge\limits_{j=1}^k f_j(r_1,\cdots,r_n) \equiv 0\Mod{l}$$ but $d_i\not\equiv r_i\Mod{l}\Big)$ for some or all indices $i$. The malicious Prover can succeed in this task with non-negligible probability.
 
-\noin 2. $\mP_{\mr{mal}}$ then sends $r_1,\cdots,r_n$ to the Verifier.
+\noin 2. $\mP_{\mr{mal}}$ then sends $(r_1,\cdots,r_n)$ to the Verifier.
 
-\noin 3. The Verifier is thus tricked into believing that $f(d_1,\cdots,d_n) = 0$, which might not necessarily be the case.
+\noin 3. The Verifier is thus tricked into believing that $f_j(d_1,\cdots,d_n) = 0$, which might not necessarily be the case.
 
 Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuristic \textit{after} the Prover sends $(r_1,\cdots,r_n)$. In a non-interactive setting, this means the hashing algorithm that generates the challenge $\gamma_0$ takes the $\lam$-bit integers $(r_1,\cdots,r_n)$ as one of its inputs. Hence, we have \vs $$\Prob\Big(\slim_{i=1}^n d_i\gamma_0^i \equiv \slim_{i=1}^n r_i\gamma_0^i \Mod{l}\;\Big|\; d_i\not\equiv r_i\Mod{l}\;\text{for some } i\Big) = \negl(\lam). $$ Hence, the elements $(r_1,\cdots,r_n)$ must be honestly computed in order to succeed at the additional task of computing the element $\what{Q}_0$ such that \vs $$(\what{Q}_0)^la^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_0^i} $$ with a non-negligible probability.
 
@@ -954,7 +954,7 @@ Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuris
 
 \begin{prf} (Sketch) The subprotocol \verb|PoAggKE-1|$[a,\;\{a_1,\cdots,a_n\}]$ demonstrates that with \op, the Prover possesses integers $\what{d}_1,\cdots,\what{d}_n$ such that \vs $$a_i = a^{\what{d}_i}\; (i=1.\cdots,n)$$ Furthermore, since $\gamma_0$ is randomly generated and the equation \vs $$\what{Q}_0^la^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_0^i} $$ holds, the adaptive root assumption implies that with \op, \vs $$\slim_{i=1}^n\what{r}_i\gamma_0^i\equiv \slim_{i=1}^n \what{d}_i\gamma_0^i\Mod{l}.$$ Hence, with \op, $\what{r}_i\equiv \what{d}_i\Mod{l}$ (Schwartz-Zippel).
 
-The equation $(\weck{a})^la^R= A $ implies that with \op, the Prover possesses a rational $D\equiv R\Mod{l}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d_n}^{-1}$ satisfy \vs $$a_i^{D\what{d_i}^{-1}} = A \text{ for every }i.$$ Now, the Verifier independently computes \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{l}\;(i=1,\cdots,n),\;\;r:= \slim_{i=1}^n r_i\gamma^i\equiv \slim_{i=1}^n D\what{d}_i^{-1}\Mod{l},$$\vspace{-0.3cm} $$\wti{r}:= {\slim_{i=1}^n r_i^{p}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{p}\gamma^i}\Mod{l}.$$ Hence, the equation $(\weck{g})^lg^{\wti{r}} = \wti{g}$ implies that with \op, \vs $$\wti{g} = g^{\slim_{i=1}^n (D\what{d_i}^{-1})^{^{p}}\gamma^i}g^{kl} $$ for some integer $k$. Since the prime $l$ is randomly generated, the Schwartz-Zippel lemma implies that with \op, \vs $$\wti{g} = g^{\slim_{i=1}^n (D\what{d_i}^{-1})^{^{p}}\gamma^i}. $$ The fractional root assumption implies that the rational \vs $$\slim_{i=1}^n (D\what{d_i}^{-1})^{^{p}}\gamma^i$$ is a an integer and by lemma 1.3, it follows that with \op, the rationals $D\what{d_i}^{-1}$ are integers.\end{prf}
+The equation $(\weck{a})^la^R= A $ implies that with \op, the Prover possesses a rational $D\equiv R\Mod{l}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d_n}^{-1}$ satisfy \vs $$a_i^{D\what{d_i}^{-1}} = A \text{ for every }i.$$ Now, the Verifier independently computes \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{l}\;(i=1,\cdots,n),\;\;r:= \slim_{i=1}^n r_i\gamma^i\equiv \slim_{i=1}^n D\what{d}_i^{-1}\Mod{l},$$\vspace{-0.3cm} $$\wti{r}:= {\slim_{i=1}^n r_i^{p}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{p}\gamma^i}\Mod{l}.$$ Hence, the equation $(\weck{g})^lg^{\wti{r}} = \wti{g}$ implies that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i\Mod{l}$$ Since the prime $l$ is randomly generated, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i. $$ The fractional root assumption implies that the rational \vs $$\slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i$$ is a an integer and by lemma 1.3, it follows that with \op, the rationals $D\what{d_i}^{-1}$ are integers.\end{prf}
 
 
 
@@ -1177,7 +1177,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
   \end{array}\right\}
 \] 
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 
 
@@ -1219,7 +1219,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \noin 13. $\mP$ computes the integers $\what{q}_0, \what{r}_0$ such that \vs $$\slim_{i=1}^n \what{d}_i\gamma^i = \what{q}_0 l+\what{r}_0\;\;,\;\;\what{r}_0\in [l]$$ He computes $\what{Q}_0:= w^{\what{q}_0} $ and sends it to $\V$.
 
-\noin 14. $\V$ verifies that $(r_1,\cdots,r_n)\in [l]^{n}$. He independently computes \vs $$R:= \pl_{i=1}^n r_i\Mod{l} \;,\;\what{r}_i = Rr_i^{-1}\Mod{l}\;\;(i=1,\cdots,n),$$\vspace{-0.3cm} $$\wti{r}:= \slim_{i=1}^n {r}_i^{p}\gamma^i\Mod{l} \;,\; \what{r}:= \slim_{i=1}^n \what{r}_i\gamma^i\Mod{l}\;,\;\what{r}_0:= \slim_{i=1}^n \what{r}_i\gamma_0^i\Mod{l}.$$
+\noin 14. $\V$ verifies that $(r_1,\cdots,r_n)\in [l]^{n}$ and independently computes \vs $$R:= \pl_{i=1}^n r_i\Mod{l} \;,\;\what{r}_i = Rr_i^{-1}\Mod{l}\;\;(i=1,\cdots,n),$$\vspace{-0.3cm} $$\wti{r}:= \slim_{i=1}^n {r}_i^{p}\gamma^i\Mod{l} \;,\; \what{r}:= \slim_{i=1}^n \what{r}_i\gamma^i\Mod{l}\;,\;\what{r}_0:= \slim_{i=1}^n \what{r}_i\gamma_0^i\Mod{l}.$$
 
 \noin 15. $\V$ verifies the equations \vs $$(\what{Q})^lw^{\what{r}}\sta \pl_{i=1}^n w_i^{\gamma^i} \;\bigwedge\; (\what{Q}_0)^lw^{\what{r}_0}\sta \pl_{i=1}^n w_i^{\gamma_0^i}\;\bigwedge\; A_0\cdot W\sta w\;\bigwedge\; (\weck{w})^lw^R\sta A\;\bigwedge\; (\weck{g})^lg^{\wti{r}}\sta\wti{g}$$ and the two \verb|PoKE|s from Step 4. He accepts if and only if all five equations hold and the two \verb|PoKE|s are valid. 
 \qed \end{enumerate}
@@ -1469,7 +1469,11 @@ Let $p$ be a prime and let $\mr{val}_p(N)$ denote the largest integer $x$ such t
 
 \bigskip
 
-Thus, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds succinct commitments.  The communication complexity is linear in the number of the committed multisets but independent of the sizes of these multisets.
+\noin \textbf{Underlying sets:} Given commitments to two multisets $\mc{M}$, $\mc{N}$, if the client needs to know whether the underlying sets coincide or if one is contained in the other, the server  node can demonstrate this using the protocol $\tt{PoEqSets}$ or  $\tt{PoIneqSets}$. The proof is constant-sized in each case.
+
+\bigskip
+
+Thus, to summarize, the protocols in this paper allow the server node to verifiably send the client succinct commitments to unions, intersections, sums (and combinations thereof) of multisets for which the client holds succinct commitments.  
 
 \subsubsection{\fontsize{11}{11} Frequencies of elements}
 
@@ -1622,7 +1626,7 @@ The proof consists of $\bO(1)$ $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integer
 
 \bigskip
 
-\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. The Prover can reduce the effective runtime of this computation by pre-computing and storing the set \vs $$\{g^{2^{i}}\;:\; 1\leq i\leq N \} $$ for an appropriately large integer $N$. 
+\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. We use this step in quite a few of the protocols in this paper with the sole purpose of demonstrating that the $d_i$ are integers rather than merely rationals. The Prover can reduce the effective runtime of this computation by pre-computing and storing the set \vs $$\{g^{2^{i}}\;:\; 1\leq i\leq N \} $$ for an appropriately large integer $N$. 
 
 
 
@@ -1754,15 +1758,13 @@ Email: stevethakur01@gmail.com
 \noin \verb|PoKE|: Proof of Knowledge of the Exponent ([BBF19])
 
 \bigskip \begin{center} \textbf{List of Protocols:}
-
-
-
-
 \end{center}
 
-The following is a list of the protocols in this paper and the relations that the protocols are arguments of knowledge for, in the generic group model.\\
+The following is a list of the protocols in this paper and the relations that the protocols are arguments of knowledge for, in the generic group model.
 
-\noin 1. $\ttt{PoEqDLog}$ (\textit{Proof of equality of discrete logarithms}) \vspace{-0.3cm}
+\begin{enumerate}[wide, labelwidth=!, labelindent=0pt]
+
+\item $\ttt{PoEqDLog}$ (\textit{Proof of equality of discrete logarithms}) \vspace{-0.3cm}
 
 \[
   \mc{R}_{{\ttt{EqDLog}}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
@@ -1772,19 +1774,9 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 2. $\ttt{PoAggEqDLog}$ (\textit{Proof of aggregated equality of discrete logarithms}) \vspace{-0.3cm}
-
-\[
-  \mc{R}_{\ttt{AggEqDLog}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
-  	((a, b)\in\mb{G}^2\\
-    \mc{A} = (a_1, \cdots, a_n),\;\mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\
-    d\in\mb{Z}): \\
-    b_i = a_1^{d} \;\forall\;i
-  \end{array}\right\}
-\]
  
 
-\noin 3. $\ttt{PoPolyDLog}$ (\textit{Proof of polynomial relation between} (\textit{two}) \textit{discrete logarithms})\vspace{-0.3cm}
+\item $\ttt{PoPolyDLog}$ (\textit{Proof of polynomial relation between} (\textit{two}) \textit{discrete logarithms})\vspace{-0.3cm}
 
 \[
   \mc{R}_{{\ttt{PolyDLog}}}[(a_1, b_1),\;(a_2,b_2),\;f] = \left\{\begin{array}{l}
@@ -1794,7 +1786,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 4. $\ttt{PoAggKE-1}$ (\textit{Proof of aggregated knowledge of exponents}-1) \vspace{-0.3cm}
+\item $\ttt{PoAggKE-1}$ (\textit{Proof of aggregated knowledge of exponents}-1) \vspace{-0.3cm}
 
 \[
   \mc{R}_{{\ttt{AggKE-1}}}[a,\; \mc{A}] = \left\{\begin{array}{l}
@@ -1804,7 +1796,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 5. $\ttt{PoAggKE-2}$ (\textit{Proof of aggregated knowledge of exponents}-2) \vspace{-0.3cm}
+\item $\ttt{PoAggKE-2}$ (\textit{Proof of aggregated knowledge of exponents}-2) \vspace{-0.3cm}
 
 \[
   \mc{R}_{{\ttt{AggKE-2}}}[\mc{A},\;A] = \left\{\begin{array}{l}
@@ -1814,7 +1806,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 6. $\ttt{PoMultPolyDLog}$ (\textit{Proof of multivariate polynomial relations between discrete logs})\vspace{-0.3cm}
+\item $\ttt{PoMultPolyDLog}$ (\textit{Proof of multivariate polynomial relations between discrete logs})\vspace{-0.4cm}
 
 \[
   \mc{R}_{\ttt{MultPolyDLog}}[a,\; (b_1,\cdots, b_n),\; (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
@@ -1825,29 +1817,18 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\noin 7. $\ttt{PoEqDLogPairs}$ (\textit{Proof of equality of discrete log pairs}) \vspace{-0.3cm}
 
-\[
-  \mc{R}_{{\ttt{EqDLogPairs}}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
-  	(a_1,a_2\in\mb{G};\\
-    (b_1,\cdots, b_n),\;(c_1,\cdots, c_n)\in\mb{G}^n);\\
-    (d_1,\cdots,d_n)\in \bz^n)\;: \\
-    b_i = a_1^{d_i}\;,\;c_i= a_2^{d_i} \;\forall\; i
-  \end{array}\right\}
-\]
+\item $\ttt{PoGCD}$ (\textit{Proof of GCD}) \vspace{-0.5cm} 
 
-\noin 8. $\ttt{PoGCD}$ (\textit{Proof of GCD}) \vspace{-0.5cm} 
-
-\[\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} .\]
+$$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} $$
 
 
-\noin 9. $\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logs}; special case of \verb|PoGCD|) \vspace{-0.7cm}
+\item $\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logs}; special case of \verb|PoGCD|) \vspace{-0.5cm}
 
-\[
-\mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .
-\]
+$$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$
 
-\noin 10. $\ttt{PoAggRelPrimeDLog-1}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-1) \vspace{-0.2cm}
+
+\item $\ttt{PoAggRelPrimeDLog-1}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-1) \vspace{-0.2cm}
 
 \[
   \mc{R}_{\ttt{AggRelPrimeDLog-1}}[a, \mc{A}] = \left\{\begin{array}{l}
@@ -1857,7 +1838,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 11. $\ttt{PoAggRelPrimeDLog-2}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-2) \vspace{-0.6cm}
+\item $\ttt{PoAggRelPrimeDLog-2}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-2) \vspace{-0.35cm}
 
 \[
   \mc{R}_{{\ttt{AggRelPrimeDLog-2}}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
@@ -1868,7 +1849,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 12.${\ttt{PoAggRelPrimeDLog-3}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-3) \vspace{-0.3cm}
+\item ${\ttt{PoAggRelPrimeDLog-3}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-3) \vspace{-0.2cm}
 
 \[
   \mc{R}_{{\ttt{AggRelPrimeDLog-3}}}[(w_1,\cdots, w_n), A] = \left\{\begin{array}{l}
@@ -1879,7 +1860,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 13. ${\ttt{PoAggRelPrimeDLog-4}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-4) \vspace{-0.5cm}
+\item ${\ttt{PoAggRelPrimeDLog-4}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-4) \vspace{-0.4cm}
 
 \[
   \mc{R}_{{\ttt{AggRelPrimeDLog-4}}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
@@ -1890,7 +1871,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]   
 
-\noin 14. \textit{Protocol for the intersection of multisets} \vspace{-0.3cm}
+\item \textit{Protocol for the intersection of multisets} \vspace{-0.2cm}
 
 \[
   \mc{R}_{\tt{\cap}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cap}}] = \left\{\begin{array}{l}
@@ -1903,7 +1884,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 15. \textit{Protocol for the union of multisets }\vspace{-0.3 cm}
+\item \textit{Protocol for the union of multisets }\vspace{-0.2cm}
 
 \[
   \mc{R}_{\tt{\cup}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cup}}] = \left\{\begin{array}{l}
@@ -1916,19 +1897,41 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \] 
 
-\noin 16. \textit{Protocol for equality/inequality of underlying sets} \vspace{0.1cm}
+\item $\ttt{PoEqSets}$/ $\ttt{PoIneqSets}$ (\textit{Protocol for the containment/non-containment of the underlying sets})\vspace{0.05cm}
 
-\noin Given elements $a_1,a_2\in\bG$ and multisets $\mcM_1, \mcM_2$ with commitments $\ttt{Com}(a_i, \mcM_i) = a_i^{\Pi(\mcM_i)}$, the Prover can demonstrate the equality/inequality of the underlying sets $\sett(\mcM_1)$, $\sett(\mcM_2)$.\vspace{0.25cm}
+\noin If the Verifier has access to the commitments $\ttt{Com}(g, \mcM_i)= g^{\Pi(\mcM_i)}$ for multisets $\mcM_1, \mcM_2$, the Prover can verifiably show whether $\sett(\mcM_1)\sub \sett(\mcM_2)$ or $\sett(\mcM_1)\not\sub \sett(\mcM_2)$.\vspace{0.25cm}
 
-\noin 17. \textit{Protocol for the highest/lowest frequency of elements in multisets} \vspace{0.1cm}
+\item \textit{Protocol for the highest/lowest frequency of elements in multisets} \vspace{0.1cm}
 
 \noin If the Verifier has access to the commitments $\ttt{Com}(g, \mcM_i)= g^{\Pi(\mcM_i)}$ to multisets $\mcM_1,\cdots,\mcM_n$ and a data set $\mc{D}$, the Prover can show that every element of $\mc{D}$ occurs with a higher/lower frequency in $\mcM_1$ than in any $\mcM_i$ for $i\geq 2$.
 
-\noin Similarly, given a single accumulated digest $A$ and witnesses $w_i$ for multisets $\mcM_i$ such that $w_i^{\Pi(\mcM_i)} = A $, the Prover can show that every element of $\mc{D}$ occurs with a higher/lower frequency in $\mcM_1$ than in any $\mcM_i$ for $i\geq 2$.\vspace{0.25cm}
+\noin Similarly, given a single accumulated digest $A$ and witnesses $w_i$ for multisets $\mcM_i$ such that $w_i^{\Pi(\mcM_i)} = A $, the Prover can show that every element of $\mc{D}$ occurs with a higher/lower frequency in $\mcM_1$ than in any $\mcM_i$ for $i\geq 2$.
 
-\noin 18. \textit{Protocol for the containment/non-containment of the underlying sets} \vspace{0.1cm}
+\item $\ttt{PoAggEqDLog}$ (\textit{Proof of aggregated equality of discrete logarithms}) \vspace{-0.3cm}
 
-\noin If the Verifier has access to the commitments $\ttt{Com}(g, \mcM_i)= g^{\Pi(\mcM_i)}$ for multisets $\mcM_1, \mcM_2$, the Prover can verifiably show whether $\sett(\mcM_1)\sub \sett(\mcM_2)$ or $\sett(\mcM_1)\not\sub \sett(\mcM_2)$.
+\[
+  \mc{R}_{\ttt{AggEqDLog}}[(a, b),\;(\mc{A},\;\mc{B})] = \left\{\begin{array}{l}
+  	((a, b)\in\mb{G}^2\\
+    \mc{A} = (a_1, \cdots, a_n),\;\mc{B} = (b_1,\cdots, b_n)\in\mb{G}^n);\\
+    d\in\mb{Z}): \\
+    b_i = a_1^{d} \;\forall\;i
+  \end{array}\right\}
+\]
+
+
+\item $\ttt{PoEqDLogPairs}$ (\textit{Proof of equality of discrete log pairs}) \vspace{-0.3cm}
+
+\[
+  \mc{R}_{{\ttt{EqDLogPairs}}}[(a_1, \mc{B}),\; (a_2, \mc{C})] = \left\{\begin{array}{l}
+  	(a_1,a_2\in\mb{G};\\
+    (b_1,\cdots, b_n),\;(c_1,\cdots, c_n)\in\mb{G}^n);\\
+    (d_1,\cdots,d_n)\in \bz^n)\;: \\
+    b_i = a_1^{d_i}\;,\;c_i= a_2^{d_i} \;\forall\; i
+  \end{array}\right\}
+\]
+
+\end{enumerate}
+
 
 
 
