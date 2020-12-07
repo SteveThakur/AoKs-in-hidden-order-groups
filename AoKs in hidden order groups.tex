@@ -42,6 +42,9 @@
 
 \usepackage{appendix}
 
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{bookmark}
+
 \DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
 \DeclareFontShape{U}{mathx}{m}{n}{
       <5> <6> <7> <8> <9> <10>
@@ -330,6 +333,8 @@ qed=\qedsymbol%
 
 
 \begin{document}
+
+
  
 \title{Arguments of Knowledge\\ in hidden order groups}
 \author{Steve Thakur}
@@ -384,7 +389,7 @@ A $6656$-bit discriminant $d$ yields a security level of $128$-bits at the momen
 
 \item \textbf{Jacobians:} Recently, the group of $\bFp$-valued points of the Jacobian of a genus three hyperelliptic curve over a prime field $\bFp$ has been proposed as a candidate ([DGS20]). While this idea needs more scrutiny, it seems promising because of the transparent setup, the smaller key sizes and the fact that the group operations are 28 times faster than those in class groups for the same level of security.
 
-For an irreducible polynomial $f(X)\in \bz[X]$ of degree $7$ with Galois group $S_7$ and a prime $p$ such that $f(X)\Mod{p}$ is separable, the hyperelliptic curve $C:Y^2 = f(X)$ over $\bFp$ yields a Jacobian that is resistant to the known attacks. At the moment, such a genus three hyperelliptic Jacobian over a prime field $\bFp$ of bit-size $1100$ allows for a security level of $128$-bits. This group $\Jac(C)(\bFp)$ is roughly of size $p^3$.
+For an irreducible polynomial $f(X)\in \bz[X]$ of degree $7$ with Galois group $\mbf{S}_7$ and a prime $p$ such that $f(X)\Mod{p}$ is separable, the hyperelliptic curve $C:Y^2 = f(X)$ over $\bFp$ yields a Jacobian that is resistant to the known attacks. At the moment, such a genus three hyperelliptic Jacobian over a prime field $\bFp$ of bit-size $1100$ allows for a security level of $128$-bits. This group $\Jac(C)(\bFp)$ is roughly of size $p^3$.
 
 Unfortunately, the adaptive root assumption fails in the group $\Jac(C)(\bFp)$. However, the group obtained by replacing it by an appropriate quotient group appears to satisfy the adaptive root assumption and the weaker assumptions such as the fractional root and low order assumptions. \end{enumerate}
 
@@ -500,11 +505,9 @@ The most important special case is when $A$ is the accumulated digest $g^{\Pi(\m
 \noin Note that if there exists an element $a\in\mb{G}$ and distinct rationals $\frac{d_1}{d_2}, \frac{d_3}{d_4}\;(d_i\in\bz)$ such that \vs $$a^{\frac{d_1}{d_2}} = a^{\frac{d_3}{d_4}},$$ then $a^{d_1d_4-d_2d_3} = 1$ and $d_1d_4-d_2d_3\neq 0$. So the adaptive root assumption implies that a PPT algorithm cannot generate such a tuple $(a,d_1,d_2,d_3,d_4)$ except with negligible probability. Furthermore, by Shamir's trick, the condition is equivalent to the Prover $\mP$ being able to compute an element $a_0\in\mb{G}$ and co-prime integers $d_1,d_2$ such that \vs $$\al = \frac{d_1}{d_2}\;\;,\;\;a_0^{d_2} =a\;,\; a_0^{d_1} =b\;,\; $$
 
 
-\begin{Def} An integer is said to be \textbf{$\lamb$-smooth} is all of its prime divisors are $\leq 2^{\lamb-1}$. An integer is said to be \textbf{$\lamb$-rough} is all of its prime divisors are $> 2^{\lam-1}$.\end{Def}
+\begin{Def} An integer is said to be \textbf{$\lamb$-smooth} is all of its prime divisors are $\leq 2^{\lamb-1}$. An integer is said to be \textbf{$\lamb$-rough} is all of its prime divisors are $> 2^{\lam-1}$. We say a set/multiset $\mcM$ of primes is $\lam$-rough if the integer $\Pi(\mcM)$ is $\lam$-rough. \end{Def}
 
-Similarly, we say a set/multiset $\mcM$ of primes is $\lam$-rough if the integer $\Pi(\mcM)$ is $\lam$-rough. This is equivalent to each prime of $\mcM$ being larger than $2^{\lam-1}$.
-
-The properties of $\lamb$-smoothness and $\lamb$-roughness are clearly preserved under products, greatest common divisors and least common multiples. Furthermore, any positive integer $n$ is uniquely expressible as a product $n_{{\lam,s}}n_{{\lam,r}}$ of a $\lam$-smooth integer $n_{{\lam,s}}\geq 0$ and a $\lam$-rough integer $n_{{\lam,r}}\geq 0$.
+Clearly, $\mcM$ being $\lam$-rough is equivalent to each prime of $\mcM$ being larger than $2^{\lam-1}$. The properties of $\lamb$-smoothness and $\lamb$-roughness are clearly preserved under products, greatest common divisors and least common multiples. Furthermore, any positive integer $n$ is uniquely expressible as a product $n_{{\lam,s}}n_{{\lam,r}}$ of a $\lam$-smooth integer $n_{{\lam,s}}\geq 0$ and a $\lam$-rough integer $n_{{\lam,r}}\geq 0$.
 
 \begin{Def} For a security parameter $\lamb$, we denote by $\bz_{(\lamb)}$ the integral domain obtained by localizing $\bz$ away from all primes $\geq 2^{\lamb-1}$. \end{Def}
 
@@ -536,7 +539,7 @@ For elements $a,b\in\mb{G}$ the following are equivalent:\begin{enumerate}[wide,
 
 Furthermore, if a PPT algorithm is able to output an element $a\in\mb{G}$ and integers $d_1,d_2$ such that $a^{d_1}\eqlam a^{d_2}$, then with \op, $\frac{d_1}{d_2}\in\bzlam^{\times}$. In particular, no PPT algorithm can output an element $a\in \mb{G}$ and distinct $\lam$-rough integers $d_1,d_2$ such that $a^{d_1}\eqlam a^{d_2}$.
 
-We note, however, that the relation $(\equiv_{\lam})$ is not homomorphic, meaning that $a_1 \equiv_{\lam} a_2$, $b_1 \equiv_{\lam} b_2$ does not imply $a_1a_2 \eqlam b_1b_2$. But the relation is \textit{partly} homomorphic in the sense that for any integer $d$, \vs $$ a \equiv_{\lam} b \LRA a^d \equiv_{\lam} b^d .$$ \vspace{0.1cm}
+We note, however, that the relation $(\equiv_{\lam})$ is not homomorphic, meaning that $a_1 \equiv_{\lam} a_2$, $b_1 \equiv_{\lam} b_2$ does not imply $a_1a_2 \eqlam b_1b_2$. But the relation is \textit{partly} homomorphic in the sense that for any integer $d$, \vs $$ a \equiv_{\lam} b \LRA a^d \equiv_{\lam} b^d ..$$ 
 
 
 \noin \textbf{Non-membership proofs in accumulators:} The  best-known application of the knowledge of exponent protocol is constant-sized batched non-membership proofs in accumulators ([BBF19]). We discuss the implications of replacing equality of $\mb{G}$-elements with the equivalence relation $\eqlam$ in this regard. 
@@ -561,7 +564,7 @@ Write $w = g^x$. Then \vs $$ x D_0 +
 
 We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap\limits_{i=1}^g \mfp_i^{ek} = p^{k}\bz$.
 
-For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ S_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $S_{\lam}$. Hence, \vs $$ \mbf{Prob}\big( f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big)\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
+For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ \mbf{S}_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $\mbf{S}_{\lam}$. Hence, \vs $$ \mbf{Prob}\big( f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big)\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
 
 \begin{Lem}$\mbf{1}$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if \vs$$\sum\limits_{i=1}^n d_i\gamma^i\; \in \;\bzlam,$$ with \op, $(d_1,\cdots, d_n)\in \bzlam^n$.\vspace{0.1cm}
 
@@ -606,9 +609,11 @@ In a setting where the Verifier is not satisfied with the elements $d_1,\cdots, 
 
 The part where $\mc{P}$ computes $g^x$ and sends it to $\mc{V}$ \textit{before} receiving the challenge $l$ is necessary for the security of the protocol. Without this step, a malicious Prover could convince the Verifier that $x$ is an integer, which might not necessarily be the case.
 
-Clearly, the relation \textit{Knowledge of the Exponent} is transitive in the sense that for elements $a_1,a_2,a_3\in\mb{G}$, if a prover $\mP$ possesses integers $d_1,d_2$ such that $a_1^{d_1} = a_2\;,\;a_2^{d_2} = a_3$, then he possesses the integer $d_1d_2$ which fulfills the equation $a_1^{d_1d_2} = a_3$. Henceforth, we denote the proof of knowledge of the discrete logarithm between $a,b\in\mb{G}$ by $\verb|PoKE|[a,b]$. 
+Clearly, the relation \textit{Knowledge of the Exponent} is transitive in the sense that for elements $a_1,a_2,a_3\in\mb{G}$, if a prover $\mP$ possesses integers $d_1,d_2$ such that $a_1^{d_1} = a_2\;,\;a_2^{d_2} = a_3$, then he possesses the integer $d_1d_2$ which fulfills the equation $a_1^{d_1d_2} = a_3$. Henceforth, we denote the proof of knowledge of the discrete logarithm between $a,b\in\mb{G}$ by $\verb|PoKE|[a,b]$.
 
-We start out with a farily simple protocol. We show how a Prover could probabilistically demonstrate that two discrete logarithms are equal, with a constant-sized proof. In other words, the protocol allows a Prover to show that two pairs $[a_1, b_1]$, $[a_2, b_2]$ of $\bG$-elements are commitments to the same set/multiset. We provide an argument of knowledge for  the following relation:
+The knowledge of exponents can easily be aggregated when they share a common base. Given elements \vs $$a\in\mb{G}\;,\;(b_1,\cdots,b_n)\in\mb{G}^n, $$ and a radomly generate integer $\gamma$, if the Prover possesses a rational $\wti{d}$ such that \vs $$a^{\wti{d}} = \pl_{i=1}^n b_i^{\gamma^i},$$ then the Prover, with overwhelming probability, possesses rationals $d_i$ such that $a^{d_i} = b_i\;\forall\;i$. In the special case where $a = g$, a randomly generated element of the group $\bG$, the fractional root assumption implies that the $d_i$ must be integers. In the more general case, we use lemma 1.3 to show that the $d_i$ are integers rather than merely rationals.
+
+We start out with a fairly simple protocol. We show how a Prover could probabilistically demonstrate that two discrete logarithms are equal, with a constant-sized proof. In other words, the protocol allows a Prover to show that two pairs $[a_1, b_1]$, $[a_2, b_2]$ of $\bG$-elements are commitments to the same set/multiset. We provide an argument of knowledge for  the following relation:
 
 \[
   \mc{R}_{\ttt{EqDLog}}[(a_1, b_1),\;(a_2,b_2)] = \left\{\begin{array}{l}
@@ -662,7 +667,7 @@ We start out with a farily simple protocol. We show how a Prover could probabili
 \vspace{0.2cm}
 
 
-\begin{Prot} \normalfont \textit{Proof of Polynomial equation between discrete logarithms} (\verb|PoPolyDLog|) :\end{Prot} \vspace{-0.3cm}
+\begin{Prot} \normalfont \textit{Proof of Polynomial relation between discrete logarithms} (\verb|PoPolyDLog|) :\end{Prot} \vspace{-0.3cm}
 
 \noindent \textbf{Parameters:} $\mb{G}\xleftarrow{\$} \mr{GGen}(\lamb), \; g\in \mb{G}$.
 
@@ -768,7 +773,7 @@ The first protocol in this section allows us demonstrate the knowledge of multip
 
 \noindent \textbf{Inputs:} Elements $a\in\mb{G} $, $(b_1,\cdots,b_n)\in \mb{G}^n$ for some integer $n\geq 1$.
 
-\noindent \textbf{Claim:} The Prover possesses integers $d_1,\cdots, d_n$ such that $a^{d_i} = b_i$ for $i = 1,\cdots, n$
+\noindent \textbf{Claim:} The Prover possesses integers $d_1,\cdots, d_n$ such that $a^{d_i} = b_i$ for $i = 1,\cdots, n$.
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt]\vs \item \normalfont The Fiat-Shamir heuristic generates $\lamb$-bit challenge $\gamma$.
 
@@ -792,12 +797,13 @@ Thus, the proof consists of three $\mb{G}$-elements and $n$ $\lam$-bit integers.
 
 In the special case where $a = g$, the subprotocol where the Prover computes the element $\wti{g}$ and sends it to the Verifier is redundant. So the proof would be smaller and the Prover's computational burden would be substantially lower in this special case.
 
+When $a \neq g$, the most expensive part of the proof generation is computing the element $\wti{g}$. The effective runtime for this can be mitigated by the Prover pre-computing the set \vs $$\{g^{2^i}: 1\leq i \leq N \}$$ for some appropriately large integer $N$.
 \vspace{0.2cm}
 
 \begin{Prop} The protocol \verb|PoAggKE-1| is an argument of knowledge for the relation\\ $\mc{R}_{{\tt{AggKE-1}}}$ in the generic group model.\end{Prop}
 
 \begin{prf} (Sketch) The validity of the equation \vs $$Q_0^la^{r_0} = b_0$$ implies that with \op, 
-$\mP$ possesses rationals $d_1,\cdots,d_n$ such that \vs $$a_i^{d_i} = b_i \;\;,\;\;\slim_{i=1}^{n} d_i\gamma^i \equiv \slim_{i=1}^{n} r_i\gamma^i\Mod{l}.$$ Since the prime $l$ is randonly generated after the integers $r_1,\cdots,r_n$ have been sent, the Schwartz-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{l}\;\forall\;i$. 
+$\mP$ possesses rationals $d_1,\cdots,d_n$ such that \vs $$a^{d_i} = b_i \;\;,\;\;\slim_{i=1}^{n} d_i\gamma^i \equiv \slim_{i=1}^{n} r_i\gamma^i\Mod{l}.$$ Since the prime $l$ is randomly generated after the integers $r_1,\cdots,r_n$ have been sent, the Schwartz-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{l}\;\forall\;i$. 
 
 Furthermore, we have $\wti{g} = (\weck{g})^lg^{\wti{r}},$ which implies that with \op, $\mP$ possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \slim_{i=1}^n r_i^p\gamma^i\Mod{l} .$$ The fractional root assumption then implies that with \op, $\wti{d}\in \bz$. Furthermore, since $l$ is randomly generated after $\wti{g}$ has been sent and we have \vs $$\wti{d}\equiv \slim_{i=1}^nd_i^p\gamma^i\Mod{l},$$ it follows that with \op, $\wti{d} = \slim_{i=1}^n d_i^p\gamma^i$. Thus, $\slim_{i=1}^n d_i^p \gamma^i\;\in\;\bz$ and lemma 1.3 implies that with \op, $d_i\in\bz\;\forall\;i$\end{prf}
 
@@ -945,8 +951,7 @@ Thus, the proof consists of a constant number of $\mb{G}$-elements and $2n+\bO(1
 
 Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuristic \textit{after} the Prover sends $(\what{r}_1,\cdots,\what{r}_n, R)$. Hence, we have \vs $$\Prob\Big(\slim_{i=1}^n d_i\gamma_0^i \equiv \slim_{i=1}^n r_i\gamma_0^i \Mod{l}\;\Big|\; d_i\not\equiv r_i\Mod{l}\;\text{for some } i\Big) = \negl(\lam). $$ Hence, the elements $(r_1,\cdots,r_n)$ must be honestly computed in order to succeed at the additional challenge of computing the element $\what{Q}_0$ such that \vs $$\what{Q}_0^la^{\what{r}_0}= \pl_{i=1}^{n} a_i^{\gamma_0^i} $$ with non-negligible probability.
 
-\noin 
-
+The most expensive part of the proof generation is computing the element $\wti{g}$. The effective runtime could be reduced if the Prover pre-computes the set \vs $$\{g^{2^i}: 1\leq i\leq N \} $$ for an appropriately large integer $N$.
 
 \vspace{0.2cm}
 
@@ -954,7 +959,7 @@ Now, in our protocol, $\gamma_0$ is randomly generated by the Fiat-Shamir heuris
 
 \begin{prf} (Sketch) The subprotocol \verb|PoAggKE-1|$[a,\;\{a_1,\cdots,a_n\}]$ demonstrates that with \op, the Prover possesses integers $\what{d}_1,\cdots,\what{d}_n$ such that \vs $$a_i = a^{\what{d}_i}\; (i=1.\cdots,n)$$ Furthermore, since $\gamma_0$ is randomly generated and the equation \vs $$\what{Q}_0^la^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_0^i} $$ holds, the adaptive root assumption implies that with \op, \vs $$\slim_{i=1}^n\what{r}_i\gamma_0^i\equiv \slim_{i=1}^n \what{d}_i\gamma_0^i\Mod{l}.$$ Hence, with \op, $\what{r}_i\equiv \what{d}_i\Mod{l}$ (Schwartz-Zippel).
 
-The equation $(\weck{a})^la^R= A $ implies that with \op, the Prover possesses a rational $D\equiv R\Mod{l}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d_n}^{-1}$ satisfy \vs $$a_i^{D\what{d_i}^{-1}} = A \text{ for every }i.$$ Now, the Verifier independently computes \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{l}\;(i=1,\cdots,n),\;\;r:= \slim_{i=1}^n r_i\gamma^i\equiv \slim_{i=1}^n D\what{d}_i^{-1}\Mod{l},$$\vspace{-0.3cm} $$\wti{r}:= {\slim_{i=1}^n r_i^{p}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{p}\gamma^i}\Mod{l}.$$ Hence, the equation $(\weck{g})^lg^{\wti{r}} = \wti{g}$ implies that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i\Mod{l}$$ Since the prime $l$ is randomly generated, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i. $$ The fractional root assumption implies that the rational \vs $$\slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i$$ is a an integer and by lemma 1.3, it follows that with \op, the rationals $D\what{d_i}^{-1}$ are integers.\end{prf}
+The equation $(\weck{a})^la^R= A $ implies that with \op, the Prover possesses a rational $D\equiv R\Mod{l}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d_n}^{-1}$ satisfy \vs $$a_i^{D\what{d_i}^{-1}} = A \text{ for every }i.$$ Now, the Verifier independently computes the $\lam$-bit integers \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{l}\;(i=1,\cdots,n),\;\;r:= \slim_{i=1}^n r_i\gamma^i\equiv \slim_{i=1}^n D\what{d}_i^{-1}\Mod{l},$$\vspace{-0.3cm} $$\wti{r}:= {\slim_{i=1}^n r_i^{p}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{p}\gamma^i}\Mod{l}.$$ Hence, the equation $(\weck{g})^lg^{\wti{r}} = \wti{g}$ implies that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i\Mod{l}$$ Since the prime $l$ is randomly generated, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i. $$ The fractional root assumption implies that the rational \vs $$\slim_{i=1}^n (D\what{d_i}^{-1})^{{p}}\gamma^i$$ is a an integer and by lemma 1.3, it follows that with \op, the rationals $D\what{d_i}^{-1}$ are integers.\end{prf}
 
 
 
@@ -1107,9 +1112,7 @@ In the special case where $a = g$, the subprotocol of $\ttt{PoAggKE-1}$ or $\ttt
 \noin Given elements $a_1, a_2\in \mb{G}$ and equations \vspace{-0.15cm}$$a_1^{d_1} = b_1,\cdots, a_1^{d_m}= b_m,\;\; a_2^{e_1} = c_1,\cdots, a_2^{e_n} = c_n,$$ a Prover may provide a proof that he possesses the integers \vs $$d_1,\cdots, d_m,\;e_1,\cdots, e_n$$ and that every pair $d_i, e_j$ is relatively prime. Clearly, the latter part is equivalent to showing that the integers \vs $$d:=\LCM(d_1,\cdots, d_m)\;,\;e:=\LCM(e_1,\cdots, e_n)$$ are relatively prime. Our approach is to compute elements $B = a_1^d,\;C:= a_2^{e}$. We then use the protocols \verb|AggKE-1| and \verb|AggKE-2| to provide arguments of knowledge that $d, e$ are divisible by $\{d_1,\cdots, d_n \}$, $\{e_,\cdots,e_n \}$ repectively. We then  use the protocol \verb|RelPrimeDLog| to show that $\GCD(d, e) = 1$.
 
 
-We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime Exponents} 2 or\\ \verb|AggRelPrimeDLog-2| for short. We provide an argument of knowledge for the following relation:\vspace{-0.3cm}
-
-\[
+We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime Exponents} 2 or\\ \verb|AggRelPrimeDLog-2| for short. We provide an argument of knowledge for the following relation: \[
   \mc{R}_{\ttt{AggRelPrimeDLog-2}}[a_1, a_2,\; \mc{B}, \mc{C}] = \left\{\begin{array}{l}
     ((a_1,a_2)\in\mb{G}^2,\;\\
      \mc{B}:=(b_1,\cdots, b_m)\in\mb{G}^m,\;\mc{C}:= (c_1,\cdots, c_n)\in\mb{G}^n);\\
@@ -1231,7 +1234,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \begin{Prop} The protocol \verb|PoAggRelPrimeDLog-3| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-3}}$ in the generic group model.\end{Prop}
 
-\begin{prf} (Sketch) The equations verified in step 15 imply that with \op, there exist integers $d_1,\cdots,d_n, D$ such that \vs $$D = \pl_{i=1}^n d_i\;,\;A = w^D\;,\; A= w_i^{d_i}\;\forall \;i .$$ Furthermore, since we have $A_0W = w$ and the proofs for \verb|PoKE|$[A,\;A_0]$ and \verb|PoKE|$[(\pl_{i=1}^n w_i),\; W]$, it follows that, in particular, $w$ is expressible as a product \vs $$w =\pl_{i=1}^n w_i^{x_i}\;,\;(x_1,\cdots,x_n)\in\bz^n.$$ Hence, \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^k$$ for some integer $k$. Thus, $\LCM(d_1,\cdots,d_n)$ is divisible by the product $\pl_{i=1}^n d_i$ . Hence, the integers $d_i$ are pairwise co-prime.\end{prf}
+\begin{prf} (Sketch) The equations verified in step 15 imply that with \op, the Prover possesses integers $d_1,\cdots,d_n, D$ such that \vs $$D = \pl_{i=1}^n d_i\;,\;A = w^D\;,\; A= w_i^{d_i}\;\forall \;i .$$ Furthermore, since we have $A_0W = w$ and the proofs for \verb|PoKE|$[A,\;A_0]$ and \verb|PoKE|$[(\pl_{i=1}^n w_i),\; W]$, it follows that, in particular, $w$ is expressible as a product \vs $$w =\pl_{i=1}^n w_i^{x_i}\;,\;(x_1,\cdots,x_n)\in\bz^n.$$ Hence, \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^k$$ for some integer $k$. Thus, $\LCM(d_1,\cdots,d_n)$ is divisible by the product $\pl_{i=1}^n d_i$, which forces equality. Hence, the integers $d_i$ are pairwise co-prime.\end{prf}
 
 
 
@@ -1324,7 +1327,7 @@ If the client needs the proof of storage for multiple data multisets $\mc{M}_1,\
 
 \bigskip
 
-\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; \exists\;(e_1,\cdots,e_n)\in\bz^n:\;\slim_{i=1}^n e_id_i = d .$$\vs Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left(\frac{d_1}{d},\cdots, \frac{d_n}{d}\right)\in \bz^n\;\bigwedge\; \GCD\left(\frac{d_n}{d},\cdots, \frac{d_n}{d}\right)=1.$$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So, the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ as follows:
+\noin \textbf{Multiset intersections:} Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .$$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\bigwedge\; \exists\;(e_1,\cdots,e_n)\in\bz^n:\;\slim_{i=1}^n e_id_i = d .$$\vs Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left(\frac{d_1}{d},\cdots, \frac{d_n}{d}\right)\in \bz^n\;\bigwedge\; \GCD\left(\frac{d_n}{d},\cdots, \frac{d_n}{d}\right)=1.$$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So, the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ as follows: \vspace{0.2cm}
 
 
 \begin{Prot} Protocol for the intersection of multisets.\end{Prot} \vspace{-0.3cm}
@@ -1399,11 +1402,11 @@ As before, we say a multiset $\mcM$ is $\lam$-\textbf{rough} if the integer $\Pi
 
 \noin - $\LCM(d_1,\cdots,d_n) = d$
 
-\noin - $d_i\big| d\;\forall\; i$ and there exist integers $\what{e}_1,\cdots,\what{e}_n$ such that \vs $$\pl_{i=1}^n d_i  =  d\cdot\slim_{i=1}^n \what{e}_i\what{d}_i.$$
+\noin - $d_i\big| d\;\forall\; i$ and there exist integers $\what{e}_1,\cdots,\what{e}_n$ such that $\pl_{i=1}^n d_i  =  d\cdot\slim_{i=1}^n \what{e}_i\what{d}_i.$
 
-\noin - The rationals $\frac{d}{d_i}$ are integers and \vs $$\GCD(\frac{d}{d_1},\cdots,\frac{d}{d_n}) = 1 .$$
+\noin - The rationals $\frac{d}{d_i}$ are integers and $\GCD(\frac{d}{d_1},\cdots,\frac{d}{d_n}) = 1 .$
 
-\vspace{0.1cm}
+\vspace{0.2cm}
 
 \begin{comment}
 Let $p$ be a prime and let $\mr{val}_p(N)$ denote the largest integer $x$ such that $p^x$ divides $N$. Write $k_i:= \mr{val}_p(d_i)$ for brevity. Then $\mr{val}_p(\pl_{i=1}^n d_i) = \slim_{i=1}^n k_i$ and $\mr{val}_p(\what{d}_j) = (\slim_{i=1}^n k_i)-k_i$. Hence, \vs $$\mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \min\big((\slim_{i=1}^n k_i)-k_i\big)_i = \slim_{i=1}^n k_i - \max(k_1,\cdots,k_n).$$ On the other hand, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n)) = \max(k_1,\cdots,k_n).$$ Thus, \vs $$\mr{val}_p(\LCM(d_1,\cdots,d_n))+ \mr{val}_p(\GCD(\what{d}_1,\cdots,\what{d}_n)) = \mr{val}_p(\pl_{i=1}^n d_i),$$ which completes the proof. \end{comment}
@@ -1601,9 +1604,11 @@ This preserves a common base for the $n$ commitments. The runtime complexity is 
 
 We briefly discuss the concept of a stateless blockchain and the need for it. Currently, in every existing blockchain, every full node in the system needs to store the entire state of the blockchain in order to validate incoming transactions. This has already become cumbersome as the size of the state grows. To this end, [Tod16] suggested the concept of a \textit{stateless} blockchain. In this proposed model, every node stores the data relevant to itself and the accumulated digest. The miners no longer need to store the state since the concerns of state storage and consensus are decoupled.
 
-While this would drastically alleviate the problem of state bloat, the big tradeoff would be that in such a model, a node sending over transactions must also send over proofs attesting to the validity of these transactions. At the moment, the authentication data structure used by blockchains is that of a Merkle tree and the membership proofs are what we call Merkle branches/paths. Despite the several advantages that Merkle trees provide, a drawback is that the membership proofs cannot be batched or aggregated. Thus, a stateless model that continues to use Merkle trees as the accumulator would suffer from a bandwidth bottleneck. To address this problem, [BBF19] etc. have proposed using a cryptographic accumulator with batchable/aggregable membership and non-membership proofs. In this regard, accumulators hinging on groups of unknown order have an important advantage over bilinear accumulators in that they are dynamic (constant runtime updates), have constant-sized public parameters and are transparent if the underlying hidden order group is a class group the group of $\bFp$-points of a genus three Jacobian over a finite field $\bFp$.
+Recently, the idea of introducing shards has been gaining ground within the blockchain ecosystem. While a sharded blockchain would theoretically have a higher throughput, it would be less secure since each individual shard would have fewer validators than the entire blockchain. To prevent collusion, an idea that has been floated is to periodically rotate the validators assigned to the shards. Such a model makes stateless validation highly desirable since a stateful model would make it cumbersome for a validator to download the data from a new shard he gets assigned to.
 
-Consider the setting of a stateless sharded blockchain that, instead of a Merkle tree, hinges on a cryptographic accumulator instantiated with a hidden order group $\mb{G}$ ([BBF19]). Let $g$ be a randomly selected element of $\mb{G}$ and $S_1,\cdots, S_n$ the distinct shards. Let $\mc{D}_i$ denote the data in shard $S_i$ and $\mc{D}:= \bigcup\limits_{i=1}^n \mc{D}_i$. Then the accumulated digest (the analog of the Merkle root hash) of $S_i$ is given by \vs $$A_i:= g^{\Pi(\mc{D}_i)}.$$  The accumulated digest of the blockchain is given by \vs $$A:= g^{\Pi(\mc{D})}.$$
+While such a stateless model would drastically alleviate the problem of state bloat, the big tradeoff would be that in such a model, a node sending over transactions must also send over proofs attesting to the validity of these transactions. At the moment, the authentication data structure used by blockchains is that of a Merkle tree and the membership proofs are what we call Merkle branches/paths. Despite the several advantages that Merkle trees provide, a drawback is that the membership proofs cannot be batched or aggregated. Thus, a stateless model that continues to use Merkle trees as the accumulator would suffer from a bandwidth bottleneck. To address this problem, [BBF19] etc. have proposed using a cryptographic accumulator with batchable/aggregable membership and non-membership proofs. In this regard, accumulators hinging on groups of unknown order have an important advantage over bilinear accumulators in that they are dynamic (constant runtime updates), have constant-sized public parameters and are transparent if the underlying hidden order group is a class group or a genus three Jacobian.
+
+Consider the setting of a stateless sharded blockchain that, instead of a Merkle tree, hinges on a cryptographic accumulator instantiated with a hidden order group $\mb{G}$ ([BBF19]). Let $g$ be a randomly selected element of $\mb{G}$ and $\mbf{S}_1,\cdots, \mbf{S}_n$ the distinct shards. Let $\mc{D}_i$ denote the data in shard $\mbf{S}_i$ and $\mc{D}:= \bigcup\limits_{i=1}^n \mc{D}_i$. Then the accumulated digest (the analog of the Merkle root hash) of $\mbf{S}_i$ is given by \vs $$A_i:= g^{\Pi(\mc{D}_i)}.$$  The accumulated digest of the blockchain is given by \vs $$A:= g^{\Pi(\mc{D})}.$$
 
 In order to demonstrate that the data sets in distinct shards are pairwise disjoint, a Prover (such as a miner or an untrusted server node) can provide a non-interactive proof for the relation $\mc{R}_{\ttt{AggRelPrimeDLog-1}}[a,\;(A_1,\cdots,A_n) ].$ The proof consists of $\bO(1)$ $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integers.
 
@@ -1806,7 +1811,7 @@ The following is a list of the protocols in this paper and the relations that th
   \end{array}\right\}
 \]
 
-\item $\ttt{PoMultPolyDLog}$ (\textit{Proof of multivariate polynomial relations between discrete logs})\vspace{-0.4cm}
+\item $\ttt{PoMultPolyDLog}$ (\textit{Proof of multivariate polynomial relations between discrete logs})\vspace{-0.6cm}
 
 \[
   \mc{R}_{\ttt{MultPolyDLog}}[a,\; (b_1,\cdots, b_n),\; (f_1,\cdots,f_k)] = \left\{\begin{array}{l}
@@ -1818,14 +1823,10 @@ The following is a list of the protocols in this paper and the relations that th
 \]
 
 
-\item $\ttt{PoGCD}$ (\textit{Proof of GCD}) \vspace{-0.5cm} 
-
-$$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} $$
+\item $\ttt{PoGCD}$ (\textit{Proof of GCD}) \vspace{-0.15cm} $$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} $$
 
 
-\item $\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logs}; special case of \verb|PoGCD|) \vspace{-0.5cm}
-
-$$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$
+\item $\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logs}; special case of \verb|PoGCD|) \vs $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$
 
 
 \item $\ttt{PoAggRelPrimeDLog-1}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-1) \vspace{-0.2cm}
@@ -1838,9 +1839,7 @@ $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\
   \end{array}\right\}
 \] 
 
-\item $\ttt{PoAggRelPrimeDLog-2}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-2) \vspace{-0.35cm}
-
-\[
+\item $\ttt{PoAggRelPrimeDLog-2}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-2) \vs \[
   \mc{R}_{{\ttt{AggRelPrimeDLog-2}}}[a_1, a_2, \mc{B}, \mc{C}] = \left\{\begin{array}{l}
     \big((a_1,a_2)\in\mb{G}^2,\;\\
      \mc{B}:=(b_1,\cdots, b_m)\in\mb{G}^m,\;\mc{C}:= (c_1,\cdots, c_n)\in\mb{G}^n);\\
@@ -1860,9 +1859,7 @@ $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\
   \end{array}\right\}
 \] 
 
-\item ${\ttt{PoAggRelPrimeDLog-4}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-4) \vspace{-0.4cm}
-
-\[
+\item ${\ttt{PoAggRelPrimeDLog-4}}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-4) \vs \[
   \mc{R}_{{\ttt{AggRelPrimeDLog-4}}}[\mc{B}, \mc{C}, B, C] = \left\{\begin{array}{l}
     \big((B,C)\in\mb{G}^2,\;\\
      \mc{B} = (b_1,\cdots,b_m)\in\mb{G}^m,\;\mc{C} = (c_1,\cdots, c_n)\in\mb{G}^n);\\
@@ -1871,9 +1868,7 @@ $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\
   \end{array}\right\}
 \]   
 
-\item \textit{Protocol for the intersection of multisets} \vspace{-0.2cm}
-
-\[
+\item \textit{Protocol for the intersection of multisets} \vs \[
   \mc{R}_{\tt{\cap}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cap}}] = \left\{\begin{array}{l}
     (a\in\mb{G};\;\\
      (A_1,\cdots,A_n)\in\mb{G}^{n}\;,\; A_{\tt{\cap}}\in\bG;\\
@@ -1884,9 +1879,7 @@ $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\
   \end{array}\right\}
 \] 
 
-\item \textit{Protocol for the union of multisets }\vspace{-0.2cm}
-
-\[
+\item \textit{Protocol for the union of multisets }\vs \[
   \mc{R}_{\tt{\cup}}[a,\; (A_1,\cdots,A_n),\; A_{\tt{\cup}}] = \left\{\begin{array}{l}
     (a\in\mb{G};\;\\
      (A_1,\cdots,A_n)\in \mb{G}^{n})\;,\;,A_{\tt{\cup}}\in\mb{G};\\
@@ -1899,7 +1892,7 @@ $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\
 
 \item $\ttt{PoEqSets}$/ $\ttt{PoIneqSets}$ (\textit{Protocol for the containment/non-containment of the underlying sets})\vspace{0.05cm}
 
-\noin If the Verifier has access to the commitments $\ttt{Com}(g, \mcM_i)= g^{\Pi(\mcM_i)}$ for multisets $\mcM_1, \mcM_2$, the Prover can verifiably show whether $\sett(\mcM_1)\sub \sett(\mcM_2)$ or $\sett(\mcM_1)\not\sub \sett(\mcM_2)$.\vspace{0.25cm}
+\noin If the Verifier has access to the commitments $\ttt{Com}(g, \mcM_i)= g^{\Pi(\mcM_i)}$ for multisets $\mcM_1, \mcM_2$, the Prover can verifiably show whether $\sett(\mcM_1)\sub \sett(\mcM_2)$ or $\sett(\mcM_1)\not\sub \sett(\mcM_2)$.\vspace{0.1cm}
 
 \item \textit{Protocol for the highest/lowest frequency of elements in multisets} \vspace{0.1cm}
 
