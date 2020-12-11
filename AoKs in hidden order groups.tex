@@ -414,7 +414,7 @@ assumptions hold in generic groups of unknown order [DK02, BBF19, DGS20].
 \begin{Ass} We say that the \textbf{adaptive root assumption} holds for a group $\mb{G}$ if there is no efficient probabilistic polynomial time $($PPT$)$ adversary $(\mc{A}_0, \mc{A}_1)$ that succeeds in the following task. $\mc{A}_0$ outputs an element $w\in \mb{G}$ and some state. Then a random prime $\ell$ is chosen and $\mc{A}_1(\ell, \mr{state})$ outputs $w^{1/\ell}\in \mb{G}$. \end{Ass}
  
 
-\begin{Ass} For a set $\mc{S}$ of rational primes, we say $\mb{G}$ satisfies the $\mc{S}$-\textbf{strong RSA} assumption if given a random group element $g\in\bG$ and a prime $\ell\notin \mc{S}$, no PPT algorithm $\mc{A}$ is able to compute $($except with negligible probability$)$ the $\ell$-th root of a chosen element $w\in \mb{G}$. When $\mc{S} = \emptyset$, it is called the {strong RSA} assumption.\end{Ass}
+\begin{Ass} For a set $\mc{S}$ of rational primes, we say $\mb{G}$ satisfies the $\mc{S}$-\textbf{strong RSA} assumption if given a random group element $g\in\bG$ and a prime $\ell\notin \mc{S}$, no PPT algorithm $\mc{A}$ is able to compute $($except with negligible probability$)$ the $\ell$-th root of a chosen element $w\in \mb{G}$. When $\mc{S} = \emptyset$, it is called the \textbf{strong RSA} assumption.\end{Ass}
 
 \begin{Ass} We say $\mb{G}$ satisfies the \textbf{low order assumption} if no PPT algorithm can generate $($except with negligible probability$)$ an element $a\in\mb{G}\setminus\{1\}$ and an integer $n< 2^{\mr{poly}(\lam)}$ such that $a^n = 1$.\end{Ass}
 
@@ -426,7 +426,7 @@ Clearly, if $\mc{S}_0\sub \mc{S}$, the $\mc{S}_0$-\textbf{fractional root assump
 
 \subsubsection{\fontsize{11}{11}\selectfont Generic group models for hidden order groups}
 
-We will use the generic group model for groups of unknown order as defined by [DK02] and [BBF19]. The group is parametrized by two integer public parameters $A, B$. The order of the group is sampled uniformly from  the interval $[A, B]$. The group $\bG$ is defined by a random injective function $\sigma: \bz_{|\bG|}\lra \{0, 1 \}^n$ for some $n>>\log_2(\bG)$. A generic group algorithm $\mc{A}$ is a probabilistic algorithm. Let $\mc{L}$ be a list that is initialized with the encodings given to $A$ as input. The algorithm can query two generic group oracles:
+We will use the generic group model for groups of unknown order as defined by [DK02] and [BBF19]. The group is parametrized by two integer public parameters $A, B$. The order of the group is sampled uniformly from  the interval $[A, B]$. The group $\bG$ is defined by a random injective function $\sigma: \bz_{|\bG|}\lra \{0, 1 \}^n$ for some $n>>\log_2(|\bG|)$. A generic group algorithm $\mc{A}$ is a probabilistic algorithm. Let $\mc{L}$ be a list that is initialized with the encodings given to $A$ as input. The algorithm can query two generic group oracles:
 
 \noin $\bullet$ $\mc{O}_1$ samples a random $r\in \bz_{\bG}$ and returns $\sigma(r)$, which is appended to the list of encodings $\mc{L}$.
 
@@ -448,7 +448,7 @@ Interactive arguments are interactive proofs [GMR85] in which security holds onl
 
 
 
-\subsection{\fontsize{11}{11}\selectfont Multiset notations}
+\subsection{\fontsize{11}{11}\selectfont Multiset notations and operations}
 
 
 We first recall/introduce a few basic definitions and notations concerning multisets. For a multiset $\mc{M}$, we denote by $\sett(\mc{M})$ the underlying set of $\mc{M}$. For any element $x$, we denote by $\mul(\mc{M},x)$ the multiplicity of $x$ in $\mc{M}$. Thus, $\mc{M} = \{ \mult(\mc{M},x)\times x: \; x\in \sett(\mc{M})\}$. For brevity, we write \vs $$\Pi(\mc{M}):= \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)}.$$ For two multisets $\mc{M}, \mc{N}$, we have the following operations:\vspace{0.1cm}
@@ -633,20 +633,20 @@ For the second part, note that \vs $$\Prob\big(\sum\limits_{i=1}^n d_i\gamma_j^i
 
 \noin Following the terminology of [BBF19], the event $\ttt{DLOG}$ refers to a generic PPT algorithm $\mc{A}$ generating random elements $g_1,\cdots g_n$ by making queries to the oracle $\mc{O}_1$ and generating integers $x_1,\cdots,x_n$ such that \vs $$\pl_{i=1}^n g_i^{x_i} = 1 .$$ As shown in Lemma 4 of the Appendix in [BBF19], the probability of this even is negligible. The next lemma follows directly from the techniques in the appendix of [BBF19]. We provide a proof for the reader's convenience.
 
-\begin{Lem} Let $a, b$ be elements of a generic hidden order group $\bG$. Let $\mc{A}$ be a generic PPT algorithm that succeeds at the following game:
+\begin{Lem} Let $a, b$ be elements of a generic hidden order group $\bG$. Let $\mc{A}$ be a generic PPT algorithm that succeeds at the following task:
 
 \noin - The Fiat-Shamir heuristic generates a $\lam$-bit prime $\ell$.
 
 \noin - $\mc{A}$ generates an element $Q\in \mb{G}$ and an integer $r\in [\ell]$ such that $Q^{\ell}a^r = b$.
 
-\noin Then with \op, $\mc{A}$ can generate integers $d_1, d_2$ such that \vs $$a^{d_1} = b^{d_2}\;\wedge\;d_1\equiv rd_1\Mod{\ell}.$$\end{Lem}
+\noin Then with \op, $\mc{A}$ can generate integers $d_1, d_2$ such that \vs $$a^{d_1} = b^{d_2}\;\wedge\;d_1\equiv rd_2\Mod{\ell}.$$\end{Lem}
 
-\begin{prf} By lemma 2 of ([BBF19], Appendix), every element $\mc{A}$ obtains in response to an $\mc{O}_2$ query is expressible as a linear combination $\pl_{i=1}^k g_i^{x_i}$ where the $g_1,\cdots,g_k$ are outputs of $\mc{O}_1$ and the $x_i$ are integers. 
+\begin{prf} By the element representation of [Sho97] (see the Appendix of [BBF19] for additional details), every element $\mc{A}$ obtains in response to an $\mc{O}_2$ query is expressible as a linear combination $\pl_{i=1}^k g_i^{x_i}$ where the $g_1,\cdots,g_k$ are outputs of $\mc{O}_1$ and the $x_i$ are integers. 
 Let \vs $$a = \pl_{i=1}^k g_i^{\al_i}\;\;,\;\; b = \pl_{i=1}^k g_i^{\be_i},\;\;\;\;(\al_i,\be_i\;\in\;\bz).$$
 By lemma 4 of ([BBF19], Appendix), except with \np, $\mc{A}$ cannot generate integers $\gamma_1,\cdots\gamma_k$ (with at least one of them non-zero) such that \vs $$\pl_{i=1}^k g_i^{\al_i} = 1 .$$ Now, for a randomly generated $\lam$-bit prime $\ell$, $\mc{A}$ is able to output $Q\in\bG$, $r\in [\ell]$ such that $Q^{\ell}a^r = b$. Hence, \vs $$\frac{\be_1}{\al_1}\equiv\cdots\equiv \frac{\be_k}{\al_k}\equiv r \Mod{l}.$$ Since $\ell$ was randomly generated, this implies that with \op, \vs $$\frac{\be_1}{\al_1} = \cdots =  \frac{\be_k}{\al_k}.$$ Thus, $a^{\be_1} = b^{\al_1}$. \end{prf}
 
 
-\begin{Lem} Let $a,\; b_1,\cdots,b_n$ be elements of a generic hidden order group $\bG$. Let $\mc{A}$ be a generic PPT algorithm that succeeds at the following game:
+\begin{Lem} Let $a,\; b_1,\cdots,b_n$ be elements of a generic hidden order group $\bG$. Let $\mc{A}$ be a generic PPT algorithm that succeeds at the following task:
 
 \noin - The Fiat-Shamir heuristic generates a $\lam$-bit challenge $\gamma$ and a $\lam$-bit prime $\ell$.
 
@@ -654,7 +654,7 @@ By lemma 4 of ([BBF19], Appendix), except with \np, $\mc{A}$ cannot generate int
 
 \noin Then with \op, $\mc{A}$ can generate rationals $d_i$ such that $a^{d_i} = b_i \;\forall\;i.$\end{Lem}
 
-\begin{prf} As before, the algorithm $\mc{A}$ generates a finite set $\{g_1,\cdots,g_k\}$ of random group elements such that $a$ and the $b_i$ are expressible as linear combinations \vs $$a = \pl_{j=1}^k g_j^{\al_j}\;\;,\;\; b_i = \pl_{j=1}^k g_j^{\be_{i,j}},\;\;\;\;(\al_i,\be_{i,j}\;\in\;\bz).$$ Now, for a $\lam$-bit challenge $\gamma$, $\mc{A}$ generates $Q\in\bG$, $r\in [\ell]$ such that $Q^{\ell}a^r = \pl_{i=1}^n b_i^{\gamma^i}. $ By the preceding lemma, $\mc{A}$ can generate a rational $\wti{d}$ such that $a^{\wti{d}} = \pl_{i=1}^n b_i^{\gamma^i}.$ So $ \wti{d} = \slim_{i=1}^n \frac{\be_{i,j}}{\al_j}\gamma^i$ for $j = 1,\cdots, k$. Since $\gamma$ is randomly generated, it follows that with \op, we have \vs $$\frac{\be_{i,1}}{\al_{1}} = \cdots =  \frac{\be_{i,n}}{\al_{n}}.$$ Setting $d_i:= \frac{\be_{i,1}}{\al_{1}}$, we have $a^{d_i} = b_i\;\forall\; i$.\end{prf}
+\begin{prf} As before, the algorithm $\mc{A}$ extracts integers $\al_j\;(j=1,\cdots,k)$, $\be_{i,j}\;(i=1,\cdots, n\;,\;j= 1,\cdots,k)$ such that \vs $$a = \pl_{j=1}^k g_j^{\al_j}\;\;,\;\; b_i = \pl_{j=1}^k g_j^{\be_{i,j}},\;\;\;\;(\al_i,\be_{i,j}\;\in\;\bz)$$ where $g_1,\cdots,g_k$ are the $\bG$-elements obtained from queries to the oracle $\mc{O}_1$. Now, for a $\lam$-bit challenge $\gamma$, $\mc{A}$ generates $Q\in\bG$, $r\in [\ell]$ such that $Q^{\ell}a^r = \pl_{i=1}^n b_i^{\gamma^i}. $ By the preceding lemma, $\mc{A}$ can generate a rational $\wti{d}$ such that $a^{\wti{d}} = \pl_{i=1}^n b_i^{\gamma^i}.$ So $ \wti{d} = \slim_{i=1}^n \frac{\be_{i,j}}{\al_j}\gamma^i$ for $j = 1,\cdots, k$. Since $\gamma$ is randomly generated, it follows that with \op, we have \vs $$\frac{\be_{i,1}}{\al_{1}} = \cdots =  \frac{\be_{i,n}}{\al_{n}}.$$ Setting $d_i:= \frac{\be_{i,1}}{\al_{1}}$, we have $a^{d_i} = b_i\;\forall\; i$.\end{prf}
 
 \section{\fontsize{12}{12}\selectfont Arguments of Knowledge  }
 
@@ -960,15 +960,15 @@ As was the case with $\ttt{AggKE-1}$, in the special case where $a = g$, the sub
 
 \noin - $\sum\limits_{i=1}^n d_i\gamma_0^i\equiv \sum\limits_{i=1}^n r_i\gamma_0^i\Mod{\ell}.$ 
 
-Since the challenge $\gamma_0$ is randomly generated after the Prover has sent $(r_1,\cdots,r_n)$, $\gamma_0$ is randomly and uniformly distributed modulo $\ell$. Hence, it follows that with \op, $d_i\equiv r_i\Mod{\ell}$ for every index $i$. Now, since the prime $\ell$ is randomly generated, \vs $$\Prob\left(f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell}\text{for at least one }j \;\Big|\; f_j(d_1,\cdots,d_n)\neq 0 \right) = \negl(\lam) .$$ Hence, $$f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell}\;\forall\;j\;\impop\; f_j(d_1,\cdots,d_n) = 0 \;\forall\;j.$$ It remains to verify that the rationals $d_i$ are integers. Now, the equation \vs $$\wti{g} = (\weck{g})^{\ell}g^{\wti{r}} $$ implies that the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;,\;\wti{d}\equiv \slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell}.$$ If $\wti{d}\notin\bz$, the tuple $(g, \wti{g}, \wti{d})$ would violate the fractional root assumption. So $\wti{d}$ is an integer, except with negligible probability. Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, it follows that with \op, the congruence \vs $$\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell} $$ implies that with \op, $\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and Lemma 2.3 then implies that $ d_i\in \bz\;\forall\;i$ except with negligible probability. \end{prf} 
+Since the challenge $\gamma_0$ is randomly generated after the Prover has sent $(r_1,\cdots,r_n)$, $\gamma_0$ is randomly and uniformly distributed modulo $\ell$. Hence, the Schwart-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{\ell}$ for every index $i$. Now, since the prime $\ell$ is randomly generated, \vs $$\Prob\left(f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell} \;\Big|\; f_j(d_1,\cdots,d_n)\neq 0 \right) = \negl(\lam) .$$ Hence, $$f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell}\;\forall\;j\;\impop\; f_j(d_1,\cdots,d_n) = 0 \;\forall\;j.$$ It remains to verify that the rationals $d_i$ are integers. Now, the equation \vs $$\wti{g} = (\weck{g})^{\ell}g^{\wti{r}} $$ and lemma 2.4 imply that the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;,\;\wti{d}\equiv \slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell}.$$ If $\wti{d}\notin\bz$, the tuple $(g, \wti{g}, \wti{d})$ would violate the fractional root assumption. So $\wti{d}$ is an integer, except with negligible probability. Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, the congruence \vs $$\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell} $$ implies that with \op, $\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and Lemma 2.3 then implies that $ d_i\in \bz\;\forall\;i$ except with negligible probability. \end{prf} 
 
 \vspace{0.2cm}
 
 \noindent We now discuss a relation (and its argument of knowledge) that is a dual to the relation \verb|AggKE-1|. Instead of the multiple exponents having a common base, we consider the case where they exponentiate to the same power. We provide an argument of knowledge for the following relation: 
 
 \[
-  \mc{R}_{{\ttt{AggKE-2}}}[\mc{A},\;A] = \left\{\begin{array}{l}
-    (\mc{A} = (a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
+  \mc{R}_{{\ttt{AggKE-2}}}[(a_1,\cdots, a_n),\;A] = \left\{\begin{array}{l}
+    ((a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
     (d_1,\cdots,d_n)\in\bz^n) :  \\
      A = a_i^{d_i}\;\forall\; i
   \end{array}\right\}
@@ -1168,7 +1168,7 @@ Conversely, suppose $\GCD(d_i,d_j)=1\;\forall\;i\neq j$. Then for every index $i
 
 Recall that the protocol \verb|PoMultPolyDLog|$[a,\;(a_1,\cdots,a_n,A, \what{A}),\; (f,\what{f})]$  contains\\ \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ as a subprotocol. So the protocol \verb|PoAggRelPrimeDLog-1| demonstrates that there exist $n$ integers $d_i$ such that $a^{d_i} = a_i$ and the product $\pl_{i=1}^n d_i$ is relative prime with the integer given by the $(n-1)$-th elementary symmetric function \vs $$\slim_{i=1}^n \pl_{\substack{1\leq j\leq n \\ j\neq i}} d_j. $$ By the preceding lemma, this is equivalent to the integers $d_i$ being pairwise co-prime. Thus, the proof consists of a constant number of $\mb{G}$-elements and $2n+\bO(1)$ $\lam$-bit integers. 
 
-In the special case where $a = g$, the subprotocol of $\ttt{PoAggKE-1}$ or $\ttt{PoMultPolyDLog}$ where the Prover computes the element \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ and sends it to the Verifier is redundant. So the proof would be a bit smaller and the Prover's computational burden would be substantially lower in this special case. \vspace{0.2cm}
+In the special case where $a = g$, the subprotocol of $\ttt{PoAggKE-1}$ or $\ttt{PoMultPolyDLog}$ where the Prover computes the element \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{p}\gamma^i}$$ and sends it to the Verifier is redundant. So the proof would be a bit smaller and the Prover's computational burden would be substantially lower in this special case. \vspace{0.2cm}
 
 \begin{Prop} The protocol \verb|PoAggRelPrimeDLog-1| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-1}}$ in the generic group model.\end{Prop}
 
@@ -1234,7 +1234,7 @@ model.\end{Prop}
 As usual, each data element is represented by a distinct $\lamb$-bit prime. Let $\mc{D}_{1, i}$ ($\mc{D}_{2, j}$) denote the data set/multiset inserted into the accumulator $A_{1, i}$ (respectively, $A_{2, j}$) and write $$\mc{D}_1 := \bigcup\limits_{i=1}^m  \mc{D}_{1,i}\;\; ,\;\;\mc{D}_2 = \bigcup\limits_{j=1}^n  \mc{D}_{2,j}.$$ Suppose a Verifier (with access to the accumulated digests) wants to verify that the unions are disjoint, i.e. $\mc{D}_1 \cap \mc{D}_2 = \emptyset.$ An honest Prover could simply provide a non-interactive proof for the protocol \verb|AggRelPrimeDLog-2|$[(g_1, \mc{A}_1) ,\;(g_2, \mc{A}_2)]$. In particular, the proof can be verified without access to the data sets $\mc{D}_{1}, \mc{D}_{2}$. 
 
 
-\subsection{\fontsize{11}{11} Protcols for disjointness of multisets in an accumulator} 
+\subsection{\fontsize{11}{11} Protocols for disjointness of multisets in an accumulator} 
 
 
 We now discuss a dual to the protocol \verb|PoAggRelPrimeDLog-1|. Consider a setting where we have data sets/multisets $\mc{D}_1,\cdots, \mc{D}_n$ in an accumulator. Let $A$ denote the accumulated digest, $w_i$ the witness for $\mc{D}_i$ and $d_i:= \Pi(\mc{D}_i)$. 
@@ -1306,7 +1306,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \begin{Prop} The protocol \verb|PoAggRelPrimeDLog-3| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-3}}$ in the generic group model.\end{Prop}
 
-\begin{prf} (Sketch) The equations verified in step 15 imply that with \op, the Prover possesses rationals $d_1,\cdots,d_n, D$ such that \vs $$d_i\equiv r_i\Mod{\ell}\;\;,\;\;w_i^{d_i} = A\;\;(\forall \;i),\;\;D\equiv R\Mod{l} \;\;,w^D = A.$$ In particular, $D\equiv R\equiv \pl_{i=1}^n r_i \equiv \pl_{i=1}^n d_i\Mod{\ell}$ and since the $\lam$-bit prime $\ell$ is randomly generated after the Prover sends $w$, it follows that with \op, $D = \pl_{i=1}^n d_i$. Furthermore, the equation $(\weck{g})^{\ell}g^{\wti{r}}=\wti{g}$ implies that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\; \wti{d}\equiv \wti{r}\equiv\slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i \Mod{\ell}.$$ Since the $\lam$-bit prime $\ell$ is randomly generated after $w, \wti{g}$ have been sent by the Prover, it follows that with \op, \vs $$D= \pl_{i=1}^n d_i\;\;,\;\;\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$$ The fractional root assumption implies that $\wti{d}$ is an integer except with \np. So $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma 2.4 implies that with \op, the $d_i$ are all integers.
+\begin{prf} (Sketch) The equations verified in step 15 imply that with \op, the Prover possesses rationals $d_1,\cdots,d_n, D$ such that \vs $$d_i\equiv r_i\Mod{\ell}\;\;,\;\;w_i^{d_i} = A\;\;(\forall \;i),\;\;D\equiv R\Mod{l} \;\;,\;\;w^D = A.$$ In particular, $D\equiv R\equiv \pl_{i=1}^n r_i \equiv \pl_{i=1}^n d_i\Mod{\ell}$ and since the $\lam$-bit prime $\ell$ is randomly generated after the Prover sends $w$, it follows that with \op, $D = \pl_{i=1}^n d_i$. Furthermore, the equation $(\weck{g})^{\ell}g^{\wti{r}}=\wti{g}$ implies that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\; \wti{d}\equiv \wti{r}\equiv\slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i \Mod{\ell}.$$ Since the $\lam$-bit prime $\ell$ is randomly generated after $w, \wti{g}$ have been sent by the Prover, it follows that with \op, \vs $$D= \pl_{i=1}^n d_i\;\;,\;\;\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$$ The fractional root assumption implies that $\wti{d}$ is an integer except with \np. So $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma 2.4 implies that with \op, the $d_i$ are all integers.
 
 Furthermore, since we have $A_0\cdot W = w$ and the proofs for \verb|PoKE|$[A,\;A_0]$ and \verb|PoKE|$[(\pl_{i=1}^n w_i),\; W]$, it follows that, in particular, $w$ is expressible as a product \vs $$w =\pl_{i=1}^n w_i^{x_i}\;,\;(x_1,\cdots,x_n)\in\bz^n.$$ Hence, \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^k = w^{k\pl_{i=1}^n d_i}$$ for some integer $k$ known to the Prover. Now, the low order assumption implies that with \op, $\LCM(d_1,\cdots,d_n)$ is divisible by the product $\pl_{i=1}^n d_i$, which forces equality between these two integers. Hence, the integers $d_i$ are pairwise co-prime.\end{prf}
 
@@ -1776,6 +1776,8 @@ via hidden order groups}. Cryptology ePrint Archive, Report 2018/705,
 \noin [Ngu05] L. Nguyen. \textit{Accumulators from bilinear maps and applications}. CT-
 RSA, 2005. \vspace{0.1cm}
 
+\noin [Sho97] V. Shoup, \textit{Lower bounds for discrete logarithms and related problems}. In Walter Fumy, editor, EUROCRYPT'97, volume 1233 of LNCS, pages 256{266. Springer, Heidelberg, May 1997.
+
 \noindent [Sut07] A. Sutherland, \textit{Order Computations in Generic Groups}, MIT Thesis, 2007 \vspace{0.1cm}
 
 \noindent [STY01] T. Sander, A. Ta-Shma, M. Yung, \textit{Blind, auditable membership proofs}, In Yair Frankel, editor, FC 2000, volume 1962 of LNCS, pages 53{71. Springer, Heidelberg, February 2001.\vspace{0.1cm}
@@ -1878,8 +1880,8 @@ The following is a list of the protocols in this paper and the relations that th
 \item $\ttt{PoAggKE-1}$ (\textit{Proof of aggregated knowledge of exponents}-1) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\ttt{AggKE-1}}}[a,\; \mc{A}] = \left\{\begin{array}{l}
-    (a\in\mb{G},\; \mc{B} = (a_1,\cdots, a_n)\in\mb{G}^n);\\ 
+  \mc{R}_{{\ttt{AggKE-1}}}[a,\; (a_1,\cdots, a_n)] = \left\{\begin{array}{l}
+    (a\in\mb{G},\; (a_1,\cdots, a_n)\in\mb{G}^n);\\ 
     (d_1,\cdots,d_n)\in\bz^n):  \\
     a_i = a^{d_i}\;\forall\; i
   \end{array}\right\}
@@ -1888,8 +1890,8 @@ The following is a list of the protocols in this paper and the relations that th
 \item $\ttt{PoAggKE-2}$ (\textit{Proof of aggregated knowledge of exponents}-2) \vspace{-0.3cm}
 
 \[
-  \mc{R}_{{\ttt{AggKE-2}}}[\mc{A},\;A] = \left\{\begin{array}{l}
-    (\mc{A} = (a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
+  \mc{R}_{{\ttt{AggKE-2}}}[(a_1,\cdots, a_n),\;A] = \left\{\begin{array}{l}
+    ((a_1,\cdots, a_n)\in \mb{G}^n,\; A\in\mb{G})\;\\ 
     (d_1,\cdots,d_n)\in\bz^n) :  \\
      A = a_i^{d_i}\;\forall\;  i
   \end{array}\right\}
@@ -2220,7 +2222,7 @@ In a setting where the elements of every $\mcM_i$ are all $\lam$-bit primes, the
 \newpage
 
 
-\begin{comment}
+
 
 \section{\fontsize{12}{12}\selectfont More protocols}
 
@@ -2316,7 +2318,7 @@ model.\end{Prop}
 
 \begin{prf} (Sketch) With notations as in in the Protocol, $\mc{V}$ accepts if and only if $\mc{P}$ proves possession of an integer $d$ such that $$a^d = b,\;\;\wti{a}^d = \wti{b}$$ through the Protocol \verb|PoEqDLog|$[(a,b),\; (\wti{a},\wti{b})]$. Now, since the challenge $\gamma$ is randomly generated, it follows that \vspace{-0.15cm}$$ \mbf{Prob}\left( (a_1^d,\cdots, a_n^d) \neq (b_1,\cdots, b_n)\;   \Big|\; \wti{a}^d = \wti{b} \right) \in \negl(\lamb). $$ Since the Protocol \verb|EqDLog|$[(a,b),\; (\wti{a},\wti{b})]$ is secure under the strong-RSA and adaptive root\\ assumptions, it follows that the Protocol \verb|AggEqDLog|$[(a_1, b_1),\; (a_2, b_2)]$ is also secure under these assumptions.\end{prf}
 
-\end{comment}
+
 
 \bigskip
 
