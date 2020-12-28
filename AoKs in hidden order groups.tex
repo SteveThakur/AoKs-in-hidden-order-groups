@@ -438,11 +438,11 @@ by enabling the extractor to rewind $\A_1$ and reinitialize the verifier's rando
 
 
 
-\begin{Def} \normalfont \textbf{Completeness:} We say an argument system $(\ttt{PGen}, \mP, \V)$ for a relation $\mc{R}$ is complete if for all $(x,w)\in \mc{R}$, \vs $$\ttt{Pr}\big[\langle \V(\ttt{pp}, x), \mP(\ttt{pp}, w)\rangle\big) =1\;:\; \ttt{pp} \xleftarrow{\$} \ttt{PGen}(\lam) \big]\; = \; 1. $$ \end{Def}
+\begin{Def} We say an argument system $(\ttt{PGen}, \mP, \V)$ for a relation $\mc{R}$ is \textbf{complete} if for all $(x,w)\in \mc{R}$, \vs $${\tt{Pr}}\big[\langle \V({\tt{pp}}, x)\;,\; \mP({\tt{pp}}, w)\rangle\big) =1\;:\; {\tt{pp}} \xleftarrow{\$} {\tt{PGen}}(\lam) \big]\; = \; 1. $$ \end{Def}
 
-\begin{Def} \normalfont \textbf{Soundness:} We say an argument system $(\ttt{PGen}, \mP, \V)$ is \textbf{sound} if $\mP$ cannot forge a fake proof except with negligible probability. \end{Def}
+\begin{Def} We say an argument system $({\tt{PGen}}, \mP, \V)$ is \textbf{sound} if $\mP$ cannot forge a fake proof except with negligible probability. \end{Def}
 
-\begin{Def} \normalfont \textbf{Argument of Knowledge :} We say an argument system is an argument of knowledge if for any polynomial time adversary $\A$, there exists an extractor $\E$ with access to $\A$'s internal state that can, with \op, extract a valid witness whenever $\A$ is convincing. \end{Def}
+\begin{Def} We say an argument system is an \textbf{argument of knowledge} if for any polynomial time adversary $\A$, there exists an extractor $\E$ with access to $\A$'s internal state that can, with \op, extract a valid witness whenever $\A$ is convincing. \end{Def}
 
 
 \begin{Def} \normalfont An argument system is \textbf{non-interactive} if it consists of a single round of interaction between $\mP$ and $\V$.\end{Def}
@@ -562,7 +562,7 @@ The most important special case is when $A$ is the accumulated digest $g^{\Pi(\m
 \vspace{0.2cm}
 
 
-\noindent \textbf{The RootFactor Algorithm:} Given elements $a, A\in\mb{G}$ and integers $d_1,\cdots, d_n$, $D$ such that \vs $$D= \pl_{i=1}^n d_i\; ,\; a^{D} = A,$$ the {\tt{RootFactor}} algorithm (\hyperlink{BBF19}{[BBF19]}, \hyperlink{STY01}{[STY01]}) allows us to compute elements $a_1,\cdots, a_n$ such that \vs $$a_1^{d_1}=\cdots = a_n^{d_n} = A$$ in runtime $\mbf{O}\big(\log(D)\cdot \log(\log(D))\big)$. Na\"ively, this would take runtime $\mbf{O}(\log^2(D))$, which would be impractical for many applications.
+\noindent \textbf{The RootFactor Algorithm:} Given elements $a, A\in\mb{G}$ and integers $d_1,\cdots, d_n$, $D$ such that \vs $$D= \pl_{i=1}^n d_i\; ,\; a^{D} = A,$$ the {\tt{RootFactor}} algorithm (\hyperlink{BBF19}{[BBF19]}, \hyperlink{STY01}{[STY01]}) allows us to compute elements $a_1,\cdots, a_n\in \bG$ such that \vs $$a_1^{d_1}=\cdots = a_n^{d_n} = A$$ in runtime $\mbf{O}\big(\log(D)\cdot \log(\log(D))\big)$. Na\"ively, this would take runtime $\mbf{O}(\log^2(D))$, which would be impractical for many applications.
 
 
 \subsection{\fontsize{11}{11}\selectfont $\bz_{(\lamb)}$-integers and the equivalence relation $\mathbf{(\equiv_{\lam})}$}
@@ -640,7 +640,7 @@ In a setting where we are dealing with accumulators and the accumulation of prim
 
 We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap\limits_{i=1}^g \mfp_i^{ek} = p^{k}\bz$.
 
-\noin For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ \mbf{S}_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $\mbf{S}_{\lam}$. Hence, \vs $$ \ttt{Pr}\big[ f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big]\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
+\noin For any two integers $x_1,x_2\in \bz$, we have \vs $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz.$$ Hence, the set \vs $$ \mbf{S}_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $$ has cardinality $p^{\lam}$. Now, for any integer $\gamma\in \bz$, \vs $$f(\gamma)\equiv 0 \Mod{p^{n\lam}} \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}}  \Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i. $$  Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $\mbf{S}_{\lam}$. Hence, \vs $$ \ttt{Pr}\big[ f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big]\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
 
 \vspace{0.15cm}
 
@@ -1517,7 +1517,7 @@ If the client needs the proof of storage for multiple data multisets $\mc{M}_1,\
 
 \noin 6. $\V$ verifies the proofs and accepts if and only if they are all valid.\qed \end{enumerate}
 
-This proof entails $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that \vs $$\GCD(\slim_{i=1}^n d_i\gamma^i, d_1) = 1 .$$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(A_{\tt{\cap}},\pl_{i=1}^n A_i^{\gamma^i}),\;(A_{\tt{\cap}}, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\ttt{Pr}\Big[\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \Big] = \negl(\lam). $$ 
+This proof entails $n+\bO(1)$ group elements and $\bO(n)$ $\lam$-bit integers. As before, we would like to keep the number of group elements constant. To this end, the Prover can sample $\lam$-bit integers $\gamma$ until he finds one such that $\GCD(\sum_{i=1}^n d_i\gamma^i\;,\; d_1) = 1 .$ He can then send a non-interactive proof for \vs $$\ttt{RelPrimeDLog}[(A_{\tt{\cap}},\pl_{i=1}^n A_i^{\gamma^i}),\;(A_{\tt{\cap}}, A_1)].$$ When the elements of the multisets $\mc{M}_i$ are all $\lam$-bit primes, the integers $\Pi(\mcM_i)$ are $\lam$-rough and hence, finding an appropriate $\gamma$ takes runtime $\bO(1)$. This is because for an arbitrary $\gamma$ and any $\lam$-bit prime $p$, the Schwartz-Zippel lemma implies that \vs $$\ttt{Pr}\Big[\slim_{i=1}^n d_i\gamma^i \equiv 0\Mod{p} \Big] = \negl(\lam). $$ 
 
 \begin{comment}
 However, this is no longer true when the integers $\Pi(\mcM_i)$ have prime divisors of bit-size $< \lam$. While such a protocol would be \textit{sound} in the sense that a Prover could not forge a fake proof, it would not be \textit{correct}, meaning an honest Prover might not be able to efficiently generate a proof. To get around this problem, we use lemma \ref{integers}. 
