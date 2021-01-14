@@ -70,7 +70,7 @@
 \addtolength{\topmargin}{-60pt}
 \addtolength{\textheight}{1.5in}
 %\setlength{\parindent}{0in}
-\setlength{\parskip}{1pt}
+\setlength{\parskip}{1.5pt}
 
 
 \setlength{\abovedisplayskip}{0cm}
@@ -416,24 +416,24 @@ We have put a few other protocols such as those demonstrating relations between 
 
 \subsection{\fontsize{11}{11}\selectfont Candidates for hidden order groups }
 
-At the moment, there are only three known families of finite abelian groups of unknown order. We briefly discuss them here.\vspace{0.2cm} \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs
+At the moment, there are only three known families of finite abelian groups of unknown order. We briefly discuss them here.\vspace{0.1cm} 
 
-\item \textbf{RSA groups:} For distinct $1536$-bit primes $p$, $q$, define $N:= pq$. The group $(\bz/N\bz)^*$ has order $\phi(N) = (p-1)(q-1)$ which can only be computed by factorizing $N$. The strong-RSA assumption is believed to hold in the RS group. However, the group does contain the element $-1\Mod{N}$ of a known order $2$. For the adaptive root assumption to hold, the group has to be replaced by its quotient group $(\bz/N\bz)^*/\{\pm 1\}$ of order $\frac{(p-1)(q-1)}{2}.$ 
+\noin 1. \textbf{RSA groups:} For distinct $1536$-bit primes $p$, $q$, define $N:= pq$. The group $(\bz/N\bz)^*$ has order $\phi(N) = (p-1)(q-1)$ which can only be computed by factorizing $N$. The strong-RSA assumption is believed to hold in the RS group. However, the group does contain the element $-1\Mod{N}$ of a known order $2$. For the adaptive root assumption to hold, the group has to be replaced by its quotient group $(\bz/N\bz)^*/\{\pm 1\}$ of order $\frac{(p-1)(q-1)}{2}.$ 
 
 The RSA groups suffer from the need for a trusted setup. In practice, this can be mitigated by a one-time secure multi-party computation. At the moment, a $3300$-bit RSA modulus yields a security level of $128$-bits.
 
 
-\item \textbf{Class groups:} Computing the class group of a number field is a long-standing problem in algorithmic number theory. Hence, class groups are natural candidates for hidden order groups. At the moment, the only class groups that allow for efficient group operations are those of imaginary quadratic fields.
+\noin 2. \textbf{Class groups:} Computing the class group of a number field is a long-standing problem in algorithmic number theory. Hence, class groups are natural candidates for hidden order groups. At the moment, the only class groups that allow for efficient group operations are those of imaginary quadratic fields.
 
 For a square-free integer $d > 0$, the field $\bq(\sqrt{-d})$ has a class group of size roughly $\sqrt{d}$. This group is believed to fulfill the strong-RSA assumption. Furthermore, if $d$ is a prime $\equiv 3 \Mod{4}$, the $2$-torsion group is trivial, which eliminates the possibility of known elements of order $2$. Such a group is believed to fulfill the strong-RSA, low order and $\{2\}$-fractional root assumptions unless the integer $d$ lies within a certain thin set of integers.
 
 A $6656$-bit discriminant $d$ yields a security level of $128$-bits at the moment. Unlike RSA groups, class groups allow for a transparent (trustless) setup. The downside is that for the same level of security, the group operations are roughly 10 times slower than modular multiplication.
 
-\item \textbf{Jacobians:} Recently, the group of $\bFp$-valued points of the Jacobian of a genus three hyperelliptic curve over a prime field $\bFp$ has been proposed as a candidate (\hyperlink{DGS20}{[DGS20]}). While this idea needs more scrutiny, it seems promising because of the transparent setup, the smaller key sizes and the fact that the group operations are 28 times faster than those in class groups for the same level of security.
+\noin 3. \textbf{Jacobians:} Recently, the group of $\bFp$-valued points of the Jacobian of a genus three hyperelliptic curve over a prime field $\bFp$ has been proposed as a candidate (\hyperlink{DGS20}{[DGS20]}). While this idea needs more scrutiny, it seems promising because of the transparent setup, the smaller key sizes and the fact that the group operations are 28 times faster than those in class groups for the same level of security.
 
 For an irreducible polynomial $f(X)\in \bz[X]$ of degree $7$ with Galois group $\mbf{S}_7$ and a prime $p$ such that $f(X)\Mod{p}$ is separable, the hyperelliptic curve $C:Y^2 = f(X)$ over $\bFp$ yields a Jacobian that is resistant to the known attacks. At the moment, such a genus three hyperelliptic Jacobian over a prime field $\bFp$ of bit-size $1100$ allows for a security level of $128$-bits. This group $\Jac(C)(\bFp)$ is roughly of size $p^3$.
 
-Unfortunately, the adaptive root assumption fails in the group $\Jac(C)(\bFp)$. However, the group obtained by replacing it by an appropriate quotient group appears to satisfy the adaptive root assumption and the weaker assumptions such as the fractional root and low order assumptions. \end{enumerate}
+Unfortunately, the adaptive root assumption fails in the group $\Jac(C)(\bFp)$. However, the group obtained by replacing it by an appropriate quotient group appears to satisfy the adaptive root assumption and the weaker assumptions such as the fractional root and low order assumptions. 
 
 \subsection{\fontsize{11}{11}\selectfont Argument Systems }
 
@@ -517,7 +517,7 @@ We first recall/introduce a few basic definitions and notations concerning multi
 
 \noin - The difference $\mc{M}\sm \mc{N} := \{\min(\mul(\mc{M},x)-\mul(\mc{N},x),\; 0)\times x:\;x\in \sett(\mc{M})\cup\sett(\mc{N})\}$.\vspace{0.1cm}
 
-\noin The function $\Pi(\cdot)$ clearly has the following properties:
+\noin The function $\Pi(\cdot)$ clearly has the following properties:\vspace{0.05cm}
 
 \noin- $\Pi(\mc{M}+\mc{N})= \Pi(\mc{M})\cdot\Pi(\mc{N})$
 
@@ -537,7 +537,7 @@ A cryptographic accumulator [Bd94] is a primitive that produces a short binding 
 - pairing-based (aka bilinear) accumulators \\  
 - accumulators based on groups of unknown order, which we study in this paper. 
 
-Let $\mb{G}$ be a group of hidden order and fix an element $g \in\mb{G}$. Let $\mc{M}$ be a multiset of $\lam$-bit primes. For each $x\in \mc{M}$, let $\mult(\mc{M},x)$ denote the multiplicity of $x$ in $\mcM$. The \textit{accumulated digest} or \textit{accumulated state} of $\mc{M}$ is given by \vs $$\Acc(\mc{M}):= \ttt{Com}(g,\mcM) =   g^{\Pi(\mc{M})} \;\in\;\bG,$$ where $$\Pi(\mc{M}) := \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)} .$$ Let $\mc{M}_0$ be a multiset contained in $\mc{M}$, so that  $\mult(\mc{M}_0,x)\leq \mult(\mc{M},x)\;\forall\;x$. The element \vs $$w(\mc{M}_0):= g^{\pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M}\sm \mc{M}_0 ,x)}}\;\in\;\mb{G} \vs $$ is called \textit{the membership witness} of $\mc{M}_0$. Given this element, a Verifier can verify the membership of $\mc{M}_0$ in $\mc{M}$ by verifying the equation \vspace{-0.2cm} $$w(\mc{M}_0)^{\Pi(\mc{M}_0)} \sta \Acc(\mc{D}). \vs $$ When the multiset $\mc{M}_0$ is large, this verification can be sped up using Wesolowki's \textit{Proof of Exponentiation} (\verb|PoE|) protocol ([Wes18]).
+Let $\mb{G}$ be a group of hidden order and fix an element $g \in\mb{G}$. Let $\mc{M}$ be a multiset of $\lam$-bit primes. For each $x\in \mc{M}$, let $\mult(\mc{M},x)$ denote the multiplicity of $x$ in $\mcM$. The \textit{accumulated digest} or \textit{accumulated state} of $\mc{M}$ is given by \vs $$\Acc(\mc{M}):= \ttt{Com}(g,\mcM) =   g^{\Pi(\mc{M})} \;\in\;\bG,$$ where $$\Pi(\mc{M}) := \pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M},x)} .$$ Let $\mc{M}_0$ be a multiset contained in $\mc{M}$, so that  $\mult(\mc{M}_0,x)\leq \mult(\mc{M},x)\;\forall\;x$. The element \vs $$w(\mc{M}_0):= g^{\pl_{x\in \sett(\mc{M})} x^{\mult(\mc{M}\sm \mc{M}_0 ,x)}}\;\in\;\mb{G} \vs $$ is called \textit{the membership witness} of $\mc{M}_0$. Given this element, a Verifier can verify the membership of $\mc{M}_0$ in $\mc{M}$ by verifying the equation \vspace{-0.2cm} $$w(\mc{M}_0)^{\Pi(\mc{M}_0)} \sta \Acc(\mc{D})\;\in\;\bG. \vs $$ When the multiset $\mc{M}_0$ is large, this verification can be sped up using Wesolowki's \textit{Proof of Exponentiation} (\verb|PoE|) protocol (\hyperlink{Wes18}{[Wes18]}).
 
 Shamir's trick allows for aggregation of membership witnesses in accumulators based on hidden order groups. This is not possible with Merkle trees, which is the primary reason other families of accumulators have been explored as authentication data structures for stateless blockchains. With bilinear accumulators, aggregation of membership witnesses has a linear runtime complexity, which is impractical for most use cases. Thus, accumulators based on hidden order groups have a major advantage in this regard.
 
@@ -564,11 +564,11 @@ Dirichlet's theorem on primes in arithmetic progressions combined with the prime
 
 \noin 1. Compute integers $e_1, e_2$ such that $e_1d_1+e_2d_2 = \GCD(d_1, d_2)$
 
-\noin 2. Set $a_{1,2}:= a_1^{e_2}a_2^{e_1} $. 
+\noin 2. Set $a_{1,2}:= a_1^{e_2}a_2^{e_1} \in \bG$. 
 
 \noin Then \vspace{-0.15cm}$$a_{1,2}^{d_1d_2} = A^{d_2e_2 + d_1e_1} = A^{\GCD(d_1,d_2)}$$ and hence, \vs $$a_{1,2}^{\LCM(d_1,d_2)} = A. \vs $$ More generally, given elements $a_1,\cdots,a_n$ such that \vs $$a_1^{d_1} = \cdots = a_n^{d_n} = A, \vs $$ we can use Shamir's trick repeatedly to compute an element $a\in\mb{G}$ such that $a^{\LCM(d_1,\cdots,d_n)} = A.$ The runtime for this algorithm is $\mbf{O}\big(\log(D)\cdot \log(\log(D))\big)$ where $D:= \prod_{i=1}^n d_i$.
 
-The most important special case is when $A$ is the accumulated digest $g^{\Pi(\mc{M})}$ for a set or multiset $\mc{M}$ and $w_1,\cdots,w_n$ are membership witnesses for sets/multisets $\mc{M}_1,\cdots,\mc{M}_n\sub \mc{M}$. Shamir's trick allows us to compute a membership witness for the union $\bigcup\limits_{i=1}^n \mc{M}_i$. 
+The most important special case is when $A$ is the accumulated digest $g^{\Pi(\mc{M})}$ for a set or multiset $\mc{M}$ and $w_1,\cdots,w_n$ are membership witnesses for sets/multisets $\mc{M}_1,\cdots,\mc{M}_n\sub \mc{M}$. Shamir's trick allows us to compute a membership witness for the union $\bigcup_{i=1}^n \mc{M}_i$. 
 
 \begin{comment} Conversely, for any element $b = \pl_{i=1}^n a_i^{x_i}$ $(x_i\in\bz)$, we have \vs $$ b^{\LCM(d_1,\cdots,d_n)} = A^{\slim_{i=1}^n  \frac{\LCM(d_1,\cdots,d_n)x_i}{d_i}} $$ and the low order assumption implies that with \op, \vs $$b =  a^{\slim_{i=1}^n  \frac{\LCM(d_1,\cdots,d_n)x_i}{d_i}}.$$ Thus, $b$ is expressible as a power of $a$. 
 
@@ -650,11 +650,11 @@ But such a proof would entail $\bO(n)$ elements of $\mb{G}$. Since the group ele
 
 \begin{Lem}\label{ram} Let $p$ be a prime and let $f(X)$ be a monic univariate degree $n$ polynomial in $\bz[X]$. For a randomly generated integer $\gamma$, the probability that $f(\gamma)\equiv 0\Mod{p^{n\lam}}$ is negligible. \end{Lem}
 
-\begin{prf} Let $F$ be a splitting field of $f(X)$, $\mc{O}_F$ its ring of integers and let \vs $${f}(X) = \pl_{i=1}^n (X-\al_i) \vs $$ be the factorization of ${f}(X)$ over $F$. Let $\mfp_{1},\cdots,\mfp_g$ be the distinct primes of $F$ lying over $p$. Since the extension $F/\bq$ is Galois, we have \vspace{-0.25cm} $$p\mc{O}_F = \pl_{i=1}^{g} \mfp_i^e = \bigcap\limits_{i=1}^{g} \mfp_i^e \vs $$ where $e\geq 1$ is the ramification degree and the Galois group $\Gal(F/\bq)$ acts transitively on the set $\{ \mfp_1,\cdots,\mfp_g\}$.
+\begin{prf} Let $F$ be a splitting field of $f(X)$, $\mc{O}_F$ its ring of integers and let \vspace{-0.2cm} $${f}(X) = \pl_{i=1}^n (X-\al_i) \vs $$ be the factorization of ${f}(X)$ over $F$. Let $\mfp_{1},\cdots,\mfp_g$ be the distinct primes of $F$ lying over $p$. Since the extension $F/\bq$ is Galois, we have \vspace{-0.3cm} $$p\mc{O}_F = \pl_{i=1}^{g} \mfp_i^e = \bigcap\limits_{i=1}^{g} \mfp_i^e \vs $$ where $e\geq 1$ is the ramification degree and the Galois group $\Gal(F/\bq)$ acts transitively on the set $\{ \mfp_1,\cdots,\mfp_g\}$.
 
-We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap\limits_{i=1}^g \mfp_i^{ek} = p^{k}\bz$. Thus, $\mfp_1^{ek}\cap \bz = p^{k}\bz$.
+We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The inclusion $p^{k}\bz\sub \mfp_1^{ek}\;\cap \;\bz$ is obvious. For the reverse inclusion, let $x\in \mfp_1^{ek}\;\cap\; \bz$. For any index $i$, there exists an automorphism $\sigma_i\in \Gal(F/\bq)$ such that $\sigma_i(\mfp_1) = \mfp_i$. So $x = \sigma(x) \in \mfp_i^e$. Hence, $x\in \bigcap_{i=1}^g \mfp_i^{ek} = p^{k}\bz$. Thus, $\mfp_1^{ek}\cap \bz = p^{k}\bz$.
 
-For any two integers $x_1,x_2\in \bz$, we have \vspace{-0.2cm} $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz. \vs $$ Hence, the set $ \mbf{S}_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $ has cardinality $p^{\lam}$. Now, for any integer $\gamma\in \bz$, \vspace{-0.45cm} \begin{align*} \begin{split} f(\gamma)\equiv 0 \Mod{p^{n\lam}} & \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}} \;\;\;(\text{since } \mfp_1^{en\lam}\cap\bz = p^{n\lam}\bz) \\ &\Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i\;\;\;\hfill (\text{pigeonhole principle}),\end{split} \end{align*} Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $\mbf{S}_{\lam}$. Hence, \vs $$ \ttt{Pr}\big[ f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big]\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
+For any two integers $x_1,x_2\in \bz$, we have \vspace{-0.2cm} $$x_1-x_2\in \mfp_1^{e\lam}\LRA x_1-x_2\in \mfp_1^{e\lam}\cap \bz = p^{\lam}\bz. \vs $$ Hence, the set $ \mbf{S}_{\lam}:= \{x + {\mfp_1^{e\lam}}:\;x\in\bz \}\sub \mc{O}_F/\mfp_1^{e\lam} $ has cardinality $p^{\lam}$. Now, for any integer $\gamma\in \bz$, \vspace{-0.45cm} \begin{align*} \begin{split} f(\gamma)\equiv 0 \Mod{p^{n\lam}} & \LRA f(\gamma)\equiv 0 \Mod{\mfp_1^{en\lam}} \;\;\;(\text{since } \mfp_1^{en\lam}\cap\bz = p^{n\lam}\bz) \\ &\Longrightarrow \gamma\equiv \al_i \Mod{\mfp_1^{e\lam}}\text{ for at least one index } i\;\;\;\hfill (\text{pigeonhole principle}).\end{split} \end{align*} Since $\gamma$ is randomly generated, $\gamma\Mod{\mfp_1^{e\lam}}$ is randomly and uniformly distributed over the set $\mbf{S}_{\lam}$. Hence, \vs $$ \ttt{Pr}\big[ f(\gamma)\equiv 0 \Mod{p^{n\lam}} \big]\leq \frac{n}{p^{\lam}} = \negl(\lam),$$ which completes the proof.\end{prf}
 
 \begin{comment}
 
@@ -680,16 +680,16 @@ We note that for any integer $k\geq 1$, $\mfp_1^{ek}\cap \bz = p^{k}\bz$. The in
 
 \vspace{0.15cm}
 
-\begin{Lem} \label{integers} $\mr{(i)}$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if \vs $$\sum_{i=1}^n d_i\gamma^i\; \in \;\bzlam, \vs $$ with \op, $(d_1,\cdots, d_n)\in \bzlam^n$.\vspace{0.1cm}
+\begin{Lem} \label{integers} $\mr{(i)}$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if $\slim_{i=1}^n d_i\gamma^i\; \in \;\bzlam,$ then with \op, $(d_1,\cdots, d_n)\in \bzlam^n$.\vspace{0.1cm}
 
-\noin $\mr{(ii)}$. Let $k$ be any integer $\geq n\lam$. Let $\mc{S}$ be a set of rational primes and let $\bz_{\mc{S}}$ be the localization of $\bz$ at all primes in $S$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if \vs $$ \sum_{i=1}^n d_i^{k}\gamma^i\; \in \;\bz_{\mc{S}}, \vs $$ with \op, $(d_1,\cdots, d_n)\in \bz_{\mc{S}}^n$.
+\noin $\mr{(ii)}$. Let $k$ be any integer $\geq n\lam$. Let $\mc{S}$ be a set of rational primes and let $\bz_{\mc{S}}$ be the localization of $\bz$ at all primes in $S$. For rationals $d_1,\cdots, d_n\in \bq$ and a randomly generated $\lam$-bit integer $\gamma$, if $ \slim_{i=1}^n d_i^{k}\gamma^i\; \in \;\bz_{\mc{S}},$ then with \op, $(d_1,\cdots, d_n)\in \bz_{\mc{S}}^n$.
 \end{Lem}
 
-\begin{prf} $\mr{(i)}$. We show that if $(d_1,\cdots,d_n)\notin \bzlam^n$, then with \op, $\sum\limits_{i=1}^n d_i^{k}\gamma^i\; \notin \;\bzlam$ for a randomly generated $\lam$-bit integer $\gamma$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write \vs $$d_i = \frac{c_i}{D}\;,\; c_i\in\bz\; \;\;(i=1,\cdots, n).$$ Suppose, by way of contradiction that $(d_1,\cdots, d_n )\notin \bzlam^n$. Then there exists a rational prime $p < 2^{\lam-1}$ that divides $D$ but not all of the integers $c_1,\cdots,c_n$. Now, the polynomial $\sum_{i=1}^n c_iX^i\Mod{p} \in \bFp[X]$ has at most $n$ distinct zeros in $\bFp$ and since $\gamma$ is randomly and uniformly distributed modulo $p$, \vs $$\ttt{Pr}\big[f(\gamma)\equiv 0\Mod{p} \big] = \negl(\lam).$$
+\begin{prf} $\mr{(i)}$. We show that if $(d_1,\cdots,d_n)\notin \bzlam^n$, then with \op, $\sum\limits_{i=1}^n d_i^{k}\gamma^i\; \notin \;\bzlam$ for a randomly generated $\lam$-bit integer $\gamma$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write \vs $$d_i = \frac{c_i}{D}\;,\; c_i\in\bz\; \;\;(i=1,\cdots, n).$$ Suppose, by way of contradiction that $(d_1,\cdots, d_n )\notin \bzlam^n$. Then there exists a rational prime $p < 2^{\lam-1}$ that divides $D$ but not all of the integers $c_1,\cdots,c_n$. Now, the polynomial $\sum_{i=1}^n c_iX^i\Mod{p} \in \bFp[X]$ has at most $n$ distinct zeros in $\bFp$ and since $\gamma$ is randomly and uniformly distributed modulo $p$, \vs $$\ttt{Pr}\big[f(\gamma)\equiv 0\Mod{p} \big] = \negl(\lam),\vs $$ which completes the proof.
 
 \vspace{0.15cm} 
 
-\noin $\mr{(ii)}$. We show that if $(d_1,\cdots,d_n)\notin \bzs^n$, then with \op, $\sum_{i=1}^n d_i^{k}\gamma^i\; \notin \;\bz_{\mc{S}}$ for a randomly generated $\lam$-bit integer $\gamma$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write \vs $$d_i = \frac{c_i}{D}\;\; (c_i\in \bz)\;\;\; \text{ for } i=1,\cdots, n. $$ Suppose, by way of contradiction that $(d_1^{k},\cdots, d_n^{k} )\notin \bz_{\mc{S}}^n$. Then there exists a rational prime $p\notin \mc{S}$ that divides $D$ but not all of the integers $c_1,\cdots,c_n$. Let $I\sub \{1,\cdots,n  \}$ be the non-empty subset of indices such that $c_i\notin p\bz$ or equivalently, $c_i^{k}\notin p^{k}\bz$. Then \vs $$\slim_{i\in I} c_i^{k}\gamma^i \equiv 0\Mod{p^{k}}. \vs $$ Now, the polynomial $f(X):= \slim_{i\in I} c_i^{k} X^i\in \bz[X]$ has degree $\leq n$ and none of its coefficients are divisible by $p$. By lemma \ref{ram}, \vs $$\ttt{Pr}\big[f(\gamma)\equiv 0\Mod{p^{k}} \big] = \negl(\lam).\vs $$ Thus, with \op, the rationals $d_i^{k}$ lie in $\bz_{\mc{S}}$. Since the integral domain $\bz_{\mc{S}}$ is integrally closed, this implies that the rationals $d_i$ lie in $\bz_{\mc{S}}$.\end{prf}
+\noin $\mr{(ii)}$. We show that if $(d_1,\cdots,d_n)\notin \bzs^n$, then with \op, $\sum_{i=1}^n d_i^{k}\gamma^i\; \notin \;\bz_{\mc{S}}$ for a randomly generated $\lam$-bit integer $\gamma$. Let $D$ be the least common denominator for $d_1,\cdots, d_n$ and write \vs $$d_i = \frac{c_i}{D}\;\; (c_i\in \bz)\;\;\; \text{ for } i=1,\cdots, n. $$ Suppose, by way of contradiction that $(d_1^{k},\cdots, d_n^{k} )\notin \bz_{\mc{S}}^n$. Then there exists a rational prime $p\notin \mc{S}$ that divides $D$ but not all of the integers $c_1,\cdots,c_n$. Let $I\sub \{1,\cdots,n  \}$ be the non-empty subset of indices such that $c_i\notin p\bz$ or equivalently, $c_i^{k}\notin p^{k}\bz$. Then \vs $$\slim_{i\in I} c_i^{k}\gamma^i \equiv 0\Mod{p^{k}}. \vs $$ Now, the polynomial $f(X):= \slim_{i\in I} c_i^{k} X^i\in \bz[X]$ has degree $\leq n$ and none of its coefficients are divisible by $p$. By lemma \ref{ram}, \vs $$\ttt{Pr}\big[f(\gamma)\equiv 0\Mod{p^{k}} \big] = \negl(\lam).\vs $$ Thus, with \op, the rationals $d_i^{k}$ lie in $\bz_{\mc{S}}$. Since the integral domain $\bz_{\mc{S}}$ is integrally closed, this implies that the $d_i$ lie in $\bz_{\mc{S}}$.\end{prf}
 
 \begin{comment} 
 
@@ -730,9 +730,9 @@ In a setting where we are dealing with accumulators and the accumulation of prim
 
 \noin $2.$ $\mc{A}$ generates an element $Q\in \mb{G}$ and an integer $r\in [\ell]$ such that $Q^{\ell}a^r = b$.
 
-\noin Then there exists an extractor \hspace{0.05cm}$\E$ that, if given as input the transcript of $\A$'s interaction with the \hyperlink{Oracles}{group oracles}, efficiently extracts integers $d_1,d_2$ bounded by $2^{\tt{poly}(\lam)}$ such that \vs $$a^{d_1} = b^{d_2}\;\wedge\;d_1\equiv rd_2\Mod{\ell}.$$\end{Lem}
+\noin Then there exists an extractor \hspace{0.05cm}$\E$ that, if given as input the transcript of $\A$'s interaction with the \hyperlink{Oracles}{group oracles}, efficiently extracts integers $d_1,d_2$ bounded by $2^{\tt{poly}(\lam)}$ such that \vs $$a^{d_1} = b^{d_2}\;\;\wedge\;\;d_1\equiv rd_2\Mod{\ell}.  $$\end{Lem}
 
-\begin{prf} By the element representation lemma of \hyperlink{Sho97}{[Sho97]}, for every element $\mc{A}$ obtains in response to an $\mc{O}_2$ query, an extractor $\E$ succeeds with overwhelming probability at the task of expressing that element as a linear combination $\prod_{i=1}^k g_i^{x_i}$ where the group elements $\{g_1,\cdots,g_k\}$ are the responses to $\A$'s queries to the oracle $\mc{O}_1$ and the $x_i$ are integers bounded by $2^{\ttt{poly}(\lam)}$. Let \vspace{-0.3cm} $$a = \pl_{i=1}^k g_i^{\al_i}\;\;,\;\; b = \pl_{i=1}^k g_i^{\be_i},\;\;\;\;\;\;(\al_i,\be_i\;\in\;\bz\;,\;|\al_i|,\;|\be_{i}| < 2^{\ttt{poly}(\lam)}\vs $$ Now, for a randomly generated $\lam$-bit prime $\ell$, $\mc{A}$ is able to output $(Q, r)\; \in\;\bG \times [\ell]$ such that $Q^{\ell}a^r = b\in \bG$. Hence, with probability $1-\ttt{Pr}[\ttt{DLOG}]$,  \vs $${\be_1}{\al_1}^{-1}\equiv\cdots\equiv {\be_k}{\al_k}^{-1}\equiv r \Mod{l}.\vs $$ Since the $\lam$-bit prime $\ell$ was randomly generated, this implies that with \op, \vs $${\be_1}{\al_1}^{-1} = \cdots =  {\be_k}{\al_k}^{-1}.\vs $$ Thus, $a^{\be_1} = b^{\al_1}$. \end{prf}
+\begin{prf} By the element representation lemma of \hyperlink{Sho97}{[Sho97]}, for every element $\mc{A}$ obtains in response to an $\mc{O}_2$ query, an extractor $\E$ succeeds with overwhelming probability at the task of expressing that element as a linear combination $\prod_{i=1}^k g_i^{x_i}$ where the group elements $\{g_1,\cdots,g_k\}$ are the responses to $\A$'s queries to the oracle $\mc{O}_1$ and the $x_i$ are integers bounded by $2^{\ttt{poly}(\lam)}$. Let \vspace{-0.3cm} $$a = \pl_{i=1}^k g_i^{\al_i}\;\;,\;\; b = \pl_{i=1}^k g_i^{\be_i},\;\;\;\;\;\;(\al_i,\be_i\;\in\;\bz\;,\;|\al_i|,\;|\be_{i}| < 2^{\ttt{poly}(\lam)})\vs $$ Now, for a randomly generated $\lam$-bit prime $\ell$, $\mc{A}$ is able to output $(Q, r)\; \in\;\bG \times [\ell]$ such that $Q^{\ell}a^r = b\in \bG$. Hence, with probability $1-\ttt{Pr}[\ttt{DLOG}]$,  \vs $${\be_1}{\al_1}^{-1}\equiv\cdots\equiv {\be_k}{\al_k}^{-1}\equiv r \Mod{l}.\vs $$ Since the $\lam$-bit prime $\ell$ was randomly generated, this implies that with \op, \vs $${\be_1}{\al_1}^{-1} = \cdots =  {\be_k}{\al_k}^{-1}.\vs $$ Thus, $a^{\be_1} = b^{\al_1}$. \end{prf}
 \vspace{0.1cm}
 
 
@@ -745,9 +745,9 @@ In a setting where we are dealing with accumulators and the accumulation of prim
 
 \noin $3.$ The hashing algorithm ${\tt{H}}_{{\tt{FS}},\lam}$ generates a $\lam$-bit challenge $\gamma$.
 
-\noin $4.$ $\mc{A}$ generates an element $Q\in \mb{G}$ such that \vs $$Q^{\ell}a^r = \pl_{i=1}^n b_i^{\gamma^i}\;\;\text{ where }\;\; r:= \slim_{i=1}^n r_i\gamma^i\Mod{\ell}.$$
+\noin $4.$ $\mc{A}$ generates an element $Q\in \mb{G}$ such that \vs $$Q^{\ell}a^r = \pl_{i=1}^n b_i^{\gamma^i}\;\;\text{ where }\;\; r:= \slim_{i=1}^n r_i\gamma^i\Mod{\ell}. \vs $$
 
-\noin Then there exists an extractor \hspace{0.05cm}$\E$ that, if given as input the transcript of $\A$'s interaction with the \hyperlink{Oracles}{group oracles}, extracts rationals $d_1,\cdots,d_n\in\bq$ such that the numerators/denominators of the $d_i$ are bounded by $2^{\tt{poly}(\lam)}$ and \vs $$a^{d_i} = b_i \;\;\wedge\;\; d_i\equiv r_i\Mod{\ell}\;\;\forall\;i.$$ \end{Lem} 
+\noin Then there exists an extractor \hspace{0.05cm}$\E$ that, if given as input the transcript of $\A$'s interaction with the \hyperlink{Oracles}{group oracles}, extracts rationals $d_1,\cdots,d_n\in\bq$ such that the numerators/denominators of the $d_i$ are bounded by $2^{\tt{poly}(\lam)}$ and \vspace{-0.25cm} $$a^{d_i} = b_i \;\;\wedge\;\; d_i\equiv r_i\Mod{\ell}\;\;\forall\;i. $$ \end{Lem} 
 
 \begin{prf} As before, the extractor $\E$ extracts integers $\al_j\;(j=1,\cdots,k)$, $\be_{i,j}\;(i=1,\cdots, n\;,\;j= 1,\cdots,k)$ such that \vspace{-0.2cm} $$a = \pl_{j=1}^k g_j^{\al_j}\;\;,\;\; b_i = \pl_{j=1}^k g_j^{\be_{i,j}},\;\;\;\;(\al_i,\;\be_{i,j}\;\in\;\bz\;,\;|\al_i|,\;|\be_{i,j}| < 2^{\ttt{poly}(\lam)})\vs $$ where $\{g_1,\cdots,g_k\}$ are the $\bG$-elements obtained from queries to the oracle $\mc{O}_1$. Now, in response to a $\lam$-bit challenge $\gamma$, $\mc{A}$ generates $Q\in\bG$ such that $Q^{\ell}a^r = \pl_{i=1}^n b_i^{\gamma^i}, $ where $r:= \slim_{i=1}^n r_i{\gamma}^i\Mod{\ell}$. By lemma \ref{root}, $\E$ can generate a rational $\wti{d} = \wti{d}_1\wti{d}_2^{-1}$ ($\wti{d}_1, \wti{d}_2\in\bz$) with $\wti{d}_1, \wti{d}_2$ bounded by $2^{\tt{poly}(\lam)}$ and \vs $$\pl_{j=1}^k g_j^{\wti{d}\al_j} = a^{\wti{d}} = \pl_{i=1}^n b_i^{\gamma^i} = \pl_{j=1}^k g_j^{\slim_{i=1}^n \be_{i,j}\gamma^i}  $$ Since the event \hyperlink{DLOG}{$\tt{DLOG}$} occurs with at most \np, it follows that \vs $$ \wti{d} = \slim_{i=1}^n ({\be_{i,j}}{\al_j}^{-1})\gamma^i\;\;\;\text{ for } j = 1,\cdots, k. \vs $$ Since $\gamma$ is randomly generated, it follows that with \op, \vs $$\be_{i,1}\al_{1}^{-1} = \cdots =  \be_{i,k}{\al_{n}}^{-1}\;\;\;\text{ for } i = 1,\cdots, n. \vs $$ Setting $d_i:= \be_{i,1}\al_{1}^{-1}$ yields $a^{d_i} = b_i\;\forall\; i$.
 
@@ -814,8 +814,8 @@ We now start out with a fairly simple protocol. We show how a Prover could proba
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt]\vs \item The Prover $\mc{P}$ sends $\wti{g} := g^d$ to the Verifier $\mc{V}$.\\
 \noin 2. The hashing algorithm $\ttt{H}_{\ttt{FS},\lam}$ generates a $\lamb$-bit prime $\ell$. \\
-\noin 3. $\mc{P}$ computes the integers $q, r$ such that $d = q \cdot \ell+r$, $r\in [\ell]$ and the group elements \vs $$Q_1:= a_1^q,\;\; Q_2:= a_2^q,\;\; \weck{g}:= g^q\vs $$ and sends $(Q_1, Q_2, \weck{g}, r)$ to $\mc{V}$. \\
-\noin 4. $\mc{V}$ verifies the equations \vs $$r\in [\ell],\;\;Q_1^{\ell}a_1^r \sta  b_1, \;\; Q_2^{\ell}a_2^r \sta  b_2, \;\; (\weck{g})^{\ell}g^r \sta \wti{g} \vs $$ and accepts if and only if all equations hold.\qed \end{enumerate}
+\noin 3. $\mc{P}$ computes the integers $q, r$ such that $d = q \cdot \ell+r$, $r\in [\ell]$ and the group elements \vs $$Q_1:= a_1^q,\;\; Q_2:= a_2^q,\;\; \weck{g}:= g^q\;\in\;\bG \vs $$ and sends $(Q_1, Q_2, \weck{g}, r)\;\in\; \bg^3\times [\ell]$ to $\mc{V}$. \\
+\noin 4. $\mc{V}$ verifies the equations \vspace{-0.25cm} $$r\in [\ell],\;\;Q_1^{\ell}a_1^r \sta  b_1, \;\; Q_2^{\ell}a_2^r \sta  b_2, \;\; (\weck{g})^{\ell}g^r \sta \wti{g} \vs $$ and accepts if and only if all equations hold.\qed \end{enumerate}
 
 \noin Thus, the proof consists of four $\mb{G}$-elements and one $\lam$-bit integer. In a setting where the base of the commitment to a set/multiset needs to be changed, the Prover can verifiably send the new commitment using this protocol. The Verifier does not need to access the data to verify that the new commitment is the correct. 
 
@@ -893,7 +893,7 @@ The first protocol in this section allows us demonstrate the knowledge of multip
   \end{array}\right\}
 \]
 
-\noin In addition to the cryptographic assumptions for generic groups, the security of the protocol hinges on the Schartz-Zippel lemma, which we state here.
+\noin In addition to the cryptographic assumptions for generic groups, the security of the protocol hinges on the Schwartz-Zippel lemma, which we state here.
 
 \begin{Lem} $\mr{(Schwartz\text{-}Zippel)}:$ Let $F$ be a field and let $f\in F[X_1,\cdots,X_n]$ be a polynomial. Let $r_1,\cdots,r_n$ be selected randomly and uniformly from a subset $S\sub F$. Then \vs $${\tt{Pr}}\big[f(r_1,\cdots, r_n) = 0\big] \leq \frac{\deg(f)}{|S|}.$$\end{Lem}
 
@@ -908,13 +908,13 @@ The first protocol in this section allows us demonstrate the knowledge of multip
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt]\vs \item \normalfont The hashing algorithm ${\ttt{H}}_{{\ttt{FS}},\lam}$ generates a $\lam$-bit challenge $\gamma$.
 
-\noin 2. The Prover $\mc{P}$ computes \vspace{-0.25cm} $$p:= \ttt{NextPrime}(n\lam)\;\;,\;\;\wti{g} := g^{\sum\limits_{i=1}^n d_i^{p}\gamma^i}\vs $$ and sends $\wti{g}$ to the Verifier $\mc{V}$.
+\noin 2. The Prover $\mc{P}$ computes \vspace{-0.25cm} $$p:= \ttt{NextPrime}(n\lam)\;\;,\;\;\wti{g} := g^{\sum\limits_{i=1}^n d_i^{p}\gamma^i}\;\in\;\bG \vs $$ and sends $\wti{g}$ to the Verifier $\mc{V}$.
 
 %\noin 3. $\mc{P}$ computes \vs $$b:= \prod\limits_{i=1}^n b_i^{\gamma^i} \in \mb{G}.$$
 
 \noin 3. The hashing algorithm $\ttt{H}_{\ttt{FS},\lam}$ generates a $\lam$-bit prime $\ell\not\equiv 1\Mod{p}$. 
 
-\noin 4. $\mc{P}$ computes the integers $r_i:= d_i\Mod{\ell}$ and sends the tuple $(r_1,\cdots,r_n)$ to $\V$.
+\noin 4. $\mc{P}$ computes the integers $r_i:= d_i\Mod{\ell}$ and sends the tuple $(r_1,\cdots,r_n)\in [\ell]^n$ to $\V$.
 
 \noin 5. $\mP$ computes the integers $\wti{q}$, $\wti{r}$ such that \vs $$\slim_{i=1}^n d_i^{p}\gamma^i = \wti{q} \cdot \ell+\wti{r},\;\;\;\wti{r}\;\in\;[\ell]\vs $$ and sends $\weck{g}:= g^{\wti{q}}\;\in\;\bG$ to $\V$.
 
@@ -942,7 +942,7 @@ The Verifier's work can be further reduced by the Prover sending succinct \hyper
 \begin{prf} The low order assumption implies that except with \op, any PPT algorithm can generate at most a unique tuple $(x_1,\cdots,x_n)\;\in\;\bq^n$ such that $a^{x_i} = b_i$. We first show that the protocol is sound, i.e. if the Prover sends an accepting transcript, then with \op, he possesses integers $d_i$ bounded by $2^{\ttt{poly}(\lam)}$ such that $a^{d_i} = b_i\;\forall\;i$. We then show how an extractor $\E$ could extract the integers $d_i$ in expected polynomial runtime by applying the Chinese remainder theorem to a sufficiently large number of accepting transcripts. 
 
 Since the equation $Q_0^{\ell}a^{r_0} = b_0$ holds, lemma \ref{aggroot} implies that with \op, 
-$\mP$ can generate rationals $d_1,\cdots,d_n$ with numerators/denominators bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$a^{d_i} = b_i \;\;,\;\;\slim_{i=1}^{n} d_i\gamma_{0}^i \equiv \slim_{i=1}^{n} r_i\gamma_{0}^i\Mod{\ell},$$ where exponentiation to these rational powers is defined in Definition \ref{rational}. Since the $\lam$-bit challenge $\gamma_{0}$ is randomly generated after the tuple $(r_1,\cdots,r_n)\in[\ell^n]$ has been sent by the Prover, the Schwartz-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{\ell}\;\forall\;i$. 
+$\mP$ can generate rationals $d_1,\cdots,d_n$ with numerators/denominators bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$a^{d_i} = b_i \;\;,\;\;\slim_{i=1}^{n} d_i\gamma_{0}^i \equiv \slim_{i=1}^{n} r_i\gamma_{0}^i\Mod{\ell},$$ where exponentiation to these rational powers is defined in Definition \ref{rational}. Since the $\lam$-bit challenge $\gamma_{0}$ is randomly generated after the tuple $(r_1,\cdots,r_n)\in[\ell]^n$ has been sent by the Prover, the Schwartz-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{\ell}\;\forall\;i$. 
 
 Furthermore, since the $\lam$-bit prime $\ell$ is randomly generated after the Prover sends $\wti{g}$, the $\wti{g} = (\weck{g})^{\ell}g^{\wti{r}}$ and lemma \ref{root} imply that with \op, $\mP$ possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv\wti{r}\equiv \slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell} .$$ The fractional root assumption then implies that with \op, $\wti{d}\in \bz$. Since $\ell$ is randomly generated after $\wti{g}$ has been sent, \vs $$\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell}\;\;\impop\;\;\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$$ Since $p> n\lam$, lemma \ref{integers} now implies that with \op, $d_i\in\bz\;\forall\;i$. This completes the proof of the soundness of the protocol.
 
@@ -976,7 +976,7 @@ In the next protocol, we generalize the protocol \verb|PolyDLog| to multiple dis
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \item The hashing algorithm $\ttt{H}_{\ttt{FS},\lam}$ generates a $\lam$-bit integer $\gamma$.
 
-\noin 2. $\mc{P}$ computes \vs $$p:= \ttt{NextPrime}(n\lam)\;\;,\;\;\wti{g} :=g^{\sum\limits_{i=1}^n d_i^{p}\gamma^i}\;\in\;\bG\vs $$ and sends $\wti{g}$ to the Verifier $\mc{V}$.
+\noin 2. The Prover $\mc{P}$ computes \vs $$p:= \ttt{NextPrime}(n\lam)\;\;,\;\;\wti{g} :=g^{\sum\limits_{i=1}^n d_i^{p}\gamma^i}\;\in\;\bG\vs $$ and sends $\wti{g}$ to the Verifier $\mc{V}$.
 
 \noin 3. The hashing algorithm $\ttt{H}_{\ttt{FS},\lam}$ generates a $\lam$-bit prime $\ell\not\equiv 1\Mod{p}$.
  
@@ -990,7 +990,7 @@ In the next protocol, we generalize the protocol \verb|PolyDLog| to multiple dis
 
 \noin 8. $\mc{V}$ verifies that $(r_1,\cdots,r_n)\in [\ell]^n$ and computes \vs $$b := \pl_{i=1}^n b_i^{\gamma^i}\;,\;b_0 := \pl_{i=1}^n b_i^{\gamma_{0}^i}\;\in \;\bG\;\;,\;\;\wti{r}:= \slim_{i=1}^n r_i^{p}\gamma^i\Mod{\ell}\;,\;r_0:=\slim_{i=1}^n r_i\gamma_{0}^i\Mod{\ell}. \vs $$ 
 
-\noin 9. $\mc{V}$ verifies the equations \vs $$ (Q_0)^{\ell} a^{r_{0}} \sta b_0 \;\;\bigwedge\;\; (\weck{g})^{\ell}g^{\wti{r}} \stackrel{?}{=}\wti{g} \;\;\bigwedge\;\;\Big( \bigwedge\limits_{j=1}^k  f_j(r_1,\cdots,r_n) \stackrel{?}{\equiv} 0\Mod{\ell} \Big) \vs $$ and accepts the validity of the claim if and only if all equations hold.\qed \end{enumerate}
+\noin 9. $\mc{V}$ verifies the equations \vspace{-0.3cm} $$ (Q_0)^{\ell} a^{r_{0}} \sta b_0 \;\;\bigwedge\;\; (\weck{g})^{\ell}g^{\wti{r}} \stackrel{?}{=}\wti{g} \;\;\bigwedge\;\;\Big( \bigwedge\limits_{j=1}^k  f_j(r_1,\cdots,r_n) \stackrel{?}{\equiv} 0\Mod{\ell} \Big) \vs $$ and accepts the validity of the claim if and only if all equations hold.\qed \end{enumerate}
 
 
 \vspace{0.1cm}
@@ -1017,7 +1017,7 @@ As was the case with $\ttt{AggKE-1}$, in the special case where $a = g$, the sub
 
 Since the equation $Q_0^{\ell} a^{r_0} = \prod_{i=1}^n b_i^{\gamma_{0}^i}$ holds, lemma \ref{aggroot} implies that with \op, the Prover can generate rationals $d_1,\cdots,d_n$ with numerators and denominators bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$a^{d_i} = b_i \text{ for } i=1,\cdots,n \;\;\;\bigwedge\;\;\; \sum\limits_{i=1}^n d_i\gamma_{0}^i\equiv \sum\limits_{i=1}^n r_i\gamma_{0}^i\Mod{\ell}. \vs $$ Since the challenge $\gamma_{0}$ is randomly generated after the Prover has sent $(r_1,\cdots,r_n)$, $\gamma_{0}$ is randomly and uniformly distributed modulo $\ell$. Hence, the Schwartz-Zippel lemma implies that with \op, $d_i\equiv r_i\Mod{\ell}$ for every index $i$. Now, since the $\lam$-bit prime $\ell$ is randomly generated, \vs $$\ttt{Pr}\Big[f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell} \;\Big|\; f_j(d_1,\cdots,d_n)\neq 0 \Big] = \negl(\lam) . \vs $$ Hence, a union bound over the $f_j$ show that if $f_j(d_1,\cdots,d_n)\equiv 0\Mod{\ell}\;\forall\;j$, then $f_j(d_1,\cdots,d_n) = 0 \;\forall\;j$ except with \np.
 
-It remains to argue that the rationals $d_i$ are integers. In the protocol, the Verifier independently computes \vs $$\wti{r}:= \slim_{i=1}^n r_i^{p}\gamma^i\;\in\; [\ell]$$ So, the equation $\wti{g} = (\weck{g})^{\ell}g^{\wti{r}} $ and lemma \ref{root} imply that the Prover can generate a rational $\wti{d}$ with its numerator and denominator bounded by $2^{\ttt{poly}(\lam)}$ and such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \wti{r}\equiv \slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell}. \vs $$ If $\wti{d}\notin\bz$, the tuple $(g, \wti{g}, \wti{d})\in \bG^2\times (\bq\sm \bz)$ would violate the fractional root assumption. So $\wti{d}$ is an integer, except with negligible probability. Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, the congruence \vs $$\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell} \vs $$ implies that with \op, $\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma \ref{integers} then implies that $ d_i\in \bz\;\forall\;i$ ,except with negligible probability. 
+It remains to argue that the rationals $d_i$ are integers. In the protocol, the Verifier independently computes \vs $$\wti{r}:= \slim_{i=1}^n r_i^{p}\gamma^i\;\in\; [\ell]$$ So, the equation $\wti{g} = (\weck{g})^{\ell}g^{\wti{r}} $ and lemma \ref{root} imply that the Prover can generate a rational $\wti{d}$ with its numerator and denominator bounded by $2^{\ttt{poly}(\lam)}$ and such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\;\wti{d}\equiv \wti{r}\equiv \slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell}. \vs $$ If $\wti{d}\notin\bz$, the tuple $(g, \wti{g}, \wti{d})\in \bG^2\times (\bq\sm \bz)$ would violate the fractional root assumption. So $\wti{d}$ is an integer, except with negligible probability. Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, the congruence \vs $$\wti{d}\equiv \slim_{i=1}^n d_i^p\gamma^i\Mod{\ell} \vs $$ implies that with \op, $\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.$ Hence, $\slim_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma \ref{integers} then implies that $ d_i\in \bz\;\forall\;i$, except with negligible probability. 
 
 Let $N$ be the (polynomially bounded) number of queries from $\A$ to the group oracles $\mc{O}_1$, $\mc{O}_2$. With \op, $2^{N} \geq \max\{2|d_i|\;:\;1\leq i\leq n \}$. An extractor $\E$ can extract the tuple $(d_1,\cdots,d_n)\in\bz^n$ as follows. 
 
@@ -1040,7 +1040,7 @@ When the number of accepting transcripts is $N+1$, we have \vs $$\max\{2|d_i|\;:
 
 The most important special case is when $A\in\bG$ is the accumulated digest of a data set and the $a_i$ are membership witnesses of subsets. In this case, the protocol allows a Prover to show that he possesses certain data sets inserted in to the accumulator, the membership witnesses for which are held by the Verifier.
 
-{Given elements $a_1,\cdots,a_n, A\in\bG$} such that \vs $$A = a_1^{d_1} =\cdots = a_n^{d_n} \vs $$ where the integers $d_i$ are known to him, the Prover can efficiently compute $D:= \LCM(d_1,\cdots,d_n)$ and  using Shamir's trick, an element $a\in\mb{G}$ such that $a^D = A$ in runtime $\mbf{O}(n\log(n))$. Now, the protocols \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and \verb|PoKE|$[a,\;A]$, when combined, would demonstrate that the Prover possesses the integers $\what{d}_i$, $D$ such that $a^{\what{d}_i} = a_i$, $a^D = A$ and hence, can generate the discrete logarithms $D\what{d}^{-1}$ between $a_i$ and $A$ for every $i$. However, these protocols do not prove that these discrete logarithms are, in fact, integers. To that end, the Prover needs to demonstrate that the rationals $D\what{d}_i^{-1}$ ($i=1,\cdots, n$) are integers. This can be addressed by the Prover verifiably sending the element \vspace{-0.2cm} $$\wti{g} := g^{\slim_{i=1}^{n} (D\what{d}^{-1})^{n\lam}\gamma^i}\in\bG \vs $$ for some randomly generated $\lam$-bit integer $\gamma$. lemma \ref{integers} and the fractional root assumption then imply that with overwhelming probability, the $dd_i^{-1}$ are integers.
+{Given elements $a_1,\cdots,a_n, A\in\bG$} such that \vs $$A = a_1^{d_1} =\cdots = a_n^{d_n} \vs $$ where the integers $d_i$ are known to him, the Prover can efficiently compute $D:= \LCM(d_1,\cdots,d_n)$ and  using Shamir's trick, an element $a\in\mb{G}$ such that $a^D = A$ in runtime $\mbf{O}(n\log(n))$. Now, the protocols \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ and \verb|PoKE|$[a,\;A]$, when combined, would demonstrate that the Prover possesses the integers $\what{d}_i$, $D$ such that $a^{\what{d}_i} = a_i$, $a^D = A$ and hence, can generate the discrete logarithms $D\what{d}^{-1}$ between $a_i$ and $A$ for every $i$. However, these protocols do not prove that these discrete logarithms are, in fact, integers. To that end, the Prover needs to demonstrate that the rationals $D\what{d}_i^{-1}$ ($i=1,\cdots, n$) are integers. This can be addressed by the Prover verifiably sending the element \vspace{-0.2cm} $$\wti{g} := g^{\slim_{i=1}^{n} (D\what{d}^{-1})^{n\lam}\gamma^i}\in\bG \vs $$ for some randomly generated $\lam$-bit integer $\gamma$. lemma \ref{integers} and the fractional root assumption then imply that with overwhelming probability, the $Dd_i^{-1}$ are integers.
 
  
 
@@ -1098,7 +1098,7 @@ The most expensive part of the proof generation is computing the element $\wti{g
 
 \begin{prf} The low order assumption implies that except with \np, any PPT algorithm can output at most a unique tuple $(d_1,\cdots,d_n)\in\bq^n$ such that $a_i^{d_i} = A$. We first show that the protocol is sound, i.e. in case of an accepting transcript, the Prover possesses integers $d_i$ such that $a_i^{d_i} = A\;\forall\; i$ except with \np. We then show that an extractor $\E$ can efficiently extract the integers $d_i$ from sufficiently many accepting transcripts using the Chinese remainder theorem, in expected polynomial runtime.
 
-The subprotocol \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ demonstrates that with \op, the Prover can generate integers $\what{d}_1,\cdots,\what{d}_n$ bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$a_i = a^{\what{d}_i}\; (i=1.\cdots,n). \vs $$ The low order assumption implies that the tuple $(\what{d}_1,\cdots,\what{d}_n)\in\bq^n$ is unique except with \np. Furthermore, since the equation \vs $$\what{Q}_0^{\ell}a^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_{0}^i}  = a^{^{\slim_{i=1}^n \what{d}_i\gamma_{0}^i}}\;\in\;\bG \vs $$ holds, it follows that either \vs $$\slim_{i=1}^n\what{r}_i\gamma_{0}^i\equiv \slim_{i=1}^n \what{d}_i\gamma_{0}^i\Mod{\ell}$$ or the Prover can efficiently extract an $\ell$-th root of $a\in\bG$. Since the $\lam$-bit prime is randomly generated after $a\in\bG$ has been sent by the Prover, the latter event would violate the adaptive root assumption. So, with \op, $\slim_{i=1}^n\what{r}_i\gamma_{0}^i\equiv \slim_{i=1}^n \what{d}_i\gamma_{0}^i\Mod{\ell}.$ Now, since the $\lam$-bit challenge $\gamma_{0}$ is randomly generated after the Prover sends the tuple $(\what{r}_1,\cdots,\what{r}_n, R)\;\in\;[\ell]^{n+1}$, the Schwartz-Zippel lemma implies that with \op, $\what{r}_i\equiv \what{d}_i\Mod{\ell}\;\forall\; i$, which completes the proof of soundness.
+The subprotocol \verb|PoAggKE-1|$[a,\;(a_1,\cdots,a_n)]$ demonstrates that with \op, the Prover can generate integers $\what{d}_1,\cdots,\what{d}_n$ bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$a_i = a^{\what{d}_i}\;\;\; (i=1.\cdots,n). \vs $$ The low order assumption implies that the tuple $(\what{d}_1,\cdots,\what{d}_n)\in\bq^n$ is unique except with \np. Furthermore, since the equation \vs $$\what{Q}_0^{\ell}a^{\what{r}_0} = \pl_{i=1}^{n} a_i^{\gamma_{0}^i}  = a^{^{\slim_{i=1}^n \what{d}_i\gamma_{0}^i}}\;\in\;\bG \vs $$ holds, it follows that either \vs $$\slim_{i=1}^n\what{r}_i\gamma_{0}^i\equiv \slim_{i=1}^n \what{d}_i\gamma_{0}^i\Mod{\ell}$$ or the Prover can efficiently extract an $\ell$-th root of $a\in\bG$. Since the $\lam$-bit prime is randomly generated after $a\in\bG$ has been sent by the Prover, the latter event would violate the adaptive root assumption. So, with \op, $\slim_{i=1}^n\what{r}_i\gamma_{0}^i\equiv \slim_{i=1}^n \what{d}_i\gamma_{0}^i\Mod{\ell}.$ Now, since the $\lam$-bit challenge $\gamma_{0}$ is randomly generated after the Prover sends the tuple $(\what{r}_1,\cdots,\what{r}_n, R)\;\in\;[\ell]^{n+1}$, the Schwartz-Zippel lemma implies that with \op, $\what{r}_i\equiv \what{d}_i\Mod{\ell}\;\forall\; i$, which completes the proof of soundness.
 
 The equation $(\weck{a})^{\ell}a^R= A$ and lemma \ref{root} imply that with \op, the Prover possesses a rational $D\equiv R\Mod{\ell}$ such that $a^D = A$. Thus, with \op, the rationals $D\what{d_1}^{-1},\cdots,D\what{d}_n^{-1}$ satisfy \vs $$D\what{d_i}^{-1}\equiv R\what{r}_i^{-1}\Mod{\ell} \text{ for every }i. \vs $$ Now, $a_i^{D} = a^{D\what{d}_i} = A^{\what{d_i}} \text{ for every }i.$ In the protocol, the Verifier independently computes the $\lam$-bit integers \vs $$r_i:= R\what{r}_{i}^{-1}\equiv D\what{d}_i^{-1}\Mod{\ell}\;\;\;(i=1,\cdots,n)\;\;,\;\;\wti{r}:= {\slim_{i=1}^n r_i^{p}\gamma^i}\equiv {\slim_{i=1}^n (D\what{d}_i^{-1})^{p}\gamma^i}\Mod{\ell}. \vs $$ Hence, the equation $(\weck{g})^{\ell}g^{\wti{r}} = \wti{g}$ and lemma \ref{aggroot} imply that with \op, the Prover possesses a rational $\wti{d}$ such that $\wti{g} = g^{\wti{d}}$. If $\wti{d}\not\equiv\wti{r}\Mod{\ell}$, the Prover could efficiently extract an $\ell$-th root of $a\in\bG$, thus violating the adaptive root assumption. Hence, with \op, \vs $$\wti{d}\equiv \wti{r}\equiv \slim_{i=1}^n r_i^{{p}}\gamma^i \equiv   \slim_{i=1}^n \big(D\what{d_i}^{-1}\big)^{^{p}}\gamma^i \Mod{\ell}. \vs $$ Since the $\lam$-bit prime $\ell$ is randomly generated after the element $\wti{g}\in\bG$ has been sent by the Prover, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n \big(D\what{d_i}^{-1}\big)^{^{p}}\gamma^i. \vs $$ Now, if $\wti{d}$ were not an integer, the tuple $(g, \wti{g}, \wti{d})$ would violate the fractional root assumption. Thus, with \op, $\wti{d}$ is an integer and since $p > n\lam$, lemma \ref{integers} then implies that with \op, the rationals $D\what{d_i}^{-1}$ are integers.
 
@@ -1127,7 +1127,7 @@ The goal of this section is to provide protocols for demonstrating disjointness 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt]\vs \item The Prover $\mc{P}$ computes $b_{1,2}:= a_1^{d_2}\;,\; b_{1,3}:= a_1^{d_3}\;\in\;\bG$ and sends them to the Verifier $\V$.
 \noin 2. $\mP$ generates non-interactive proofs for \verb|EqDLog|$[(a_2, b_2),\; (a_1, b_{1,2})]$, \verb|EqDLog|$[(a_3, b_3),\; (a_1, b_{1,3})]$ and sends them to $\mc{V}$.\\
 \noin 3. $\mc{P}$ generates non-interactive proofs for \verb|PoKE|$[b_{1,3},\;b_1 ]$ and \verb|PoKE|$[b_{1,3},\;b_{1,2} ]$ and sends them to $\V$.\\
-\noin 4. $\mc{P}$ uses the Eulidean algorithm to compute integers $e_1, e_2$ such that \vs $$e_1d_1 + e_2d_2 = d_3\;\;,\;\; |e_1| < |d_2|\;,\; |e_2| < |d_1|.$$
+\noin 4. $\mc{P}$ uses the Euclidean algorithm to compute integers $e_1, e_2$ such that \vs $$e_1d_1 + e_2d_2 = d_3\;\;,\;\; |e_1| < |d_2|\;,\; |e_2| < |d_1|.$$
 \noin 5. $\mc{P}$ computes $$\wti{b}_1:= b_1^{e_1}\;,\; \wti{b}_{1,2}:= b_{1,2}^{e_2}\;\in\;\bG \vs $$ and sends them to $\V$ along with non-interactive proofs for \verb|PoKE|$[b_1,\; \wti{b}_1]$ and \verb|PoKE|$[b_{1,2},\; \wti{b}_{1,2}]$.\\
 \noin 6. $\mc{V}$ verifies all of the proofs he receives in addition to the equation $\wti{b}_1\cdot \wti{b}_{1,2}\stackrel{?}{=} b_{1,3}$. He accepts the validity of the claim if and only if all of these proofs are valid.\qed \end{enumerate}
 
@@ -1240,7 +1240,7 @@ In the special case where $a$ is an element randomly generated by the oracle, th
 
 \begin{Thm} \hyperlink{RP1}{The protocol $\tt{PoAggRelPrimeDLog}-1$} is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-1}}$ in the generic group model.\end{Thm}
 
-\begin{prf} An extractor $\E$ can, with \op, simulate the extractor for the\\ subprotocol $\ttt{PoMultPolyDLog}$ to extract integers $D$, $\what{D}$, $d_1,\cdots,d_n$ such that \vs $$D = \pl_{i=1}^n d_i\;,\;\what{D} = \slim_{i=1}^n \frac{D}{d_i}   \;,\;a^{d_i} = a_i\;\forall\;i \;,\;a^{D} = A\;,\; a^{\what{D}} = \what{A}\vs $$ in expected polynomial runtime. Furthermore, the subprotocol $\ttt{PoRelPrimeDLog}[(a,A),\;(a,\what{A})]$ implies that with \op, $\GCD(D,\what{D}) = 1$. Hence, by lemma \ref{lcm}, the integers $d_i$ are pairwise co-prime.\end{prf}
+\begin{prf} An extractor $\E$ can, with \op, simulate the extractor for the\\ subprotocol $\ttt{PoMultPolyDLog}$ to extract integers $D$, $\what{D}$, $d_1,\cdots,d_n$ such that \vs $$D = \pl_{i=1}^n d_i \; \;,\;\;\what{D} = \slim_{i=1}^n \frac{D}{d_i}  \; \;,\;\; a^{d_i} = a_i\;\forall\;i  \; \;,\;\; a^{D} = A \; \;,\;\; a^{\what{D}} = \what{A}\vs $$ in expected polynomial runtime. Furthermore, the subprotocol $\ttt{PoRelPrimeDLog}[(a,A),\;(a,\what{A})]$ implies that with \op, $\GCD(D,\what{D}) = 1$. Hence, by lemma \ref{lcm}, the integers $d_i$ are pairwise co-prime.\end{prf}
 
 
 
@@ -1292,7 +1292,7 @@ We call the next protocol the \textit{Aggregated Knowledge of Relatively Prime E
 \begin{Prop} The Protocol \verb|AggRelPrimeDLog-2| is an argument of knowledge for the relation $\mc{R}_{\tt{AggRelPrimeDLog-2}}$ in the generic group
 model.\end{Prop}
 
-\begin{prf} An extractor $\E$ can simulate the extractors for the subprotocols \vs $$\ttt{PoMultPolyDLog}[a_1,\;(b_1,\cdots,b_m, B),\; f_1]\;\;\bigwedge\;\;\ttt{PoMultPolyDLog}[a_2,\;(c_1,\cdots,c_n, C),\; f_2] $$ to extract integers $d_1,\cdots,d_m$, $e_1,\cdots,e_n$ such that \vs $$a_1^{d_i} = b_i\;,\;a_2^{e_j} = c_j \;,\; a_1^{\pl_{i=1}^m d_i} = B\;,\;a_2^{\pl_{j=1}^n e_j} = C \;,\;\;1\leq i\leq m\;,\;1\leq j\leq n.$$ Furthermore, the subprotocol \verb|PoRelPrimeDLog|$[(a_1, B),\;(a_2, C)]$ and the low order assumption imply that with \op, $\GCD(\prod_{i=1}^m d_i\;,\; \prod_{j=1}^n e_j) = 1$. This, in turn, implies that $\GCD(d_i,e_j) = 1$ for every pair $i,j$.\end{prf}
+\begin{prf} An extractor $\E$ can simulate the extractors for the subprotocols \vs $$\ttt{PoMultPolyDLog}[a_1,\;(b_1,\cdots,b_m, B),\; f_1]\;\;\bigwedge\;\;\ttt{PoMultPolyDLog}[a_2,\;(c_1,\cdots,c_n, C),\; f_2] \vs $$ to extract integers $d_1,\cdots,d_m$, $e_1,\cdots,e_n$ such that \vs $$a_1^{d_i} = b_i\;,\;a_2^{e_j} = c_j \;,\; a_1^{\pl_{i=1}^m d_i} = B\;,\;a_2^{\pl_{j=1}^n e_j} = C \;,\;\;1\leq i\leq m\;,\;1\leq j\leq n. \vs $$ Furthermore, the subprotocol \verb|PoRelPrimeDLog|$[(a_1, B),\;(a_2, C)]$ and the low order assumption imply that with \op, $\GCD(\prod_{i=1}^m d_i\;,\; \prod_{j=1}^n e_j) = 1$. This, in turn, implies that $\GCD(d_i,e_j) = 1$ for every pair $i,j$.\end{prf}
 
 
 
@@ -1302,7 +1302,7 @@ model.\end{Prop}
 
 We now discuss a dual to the protocol \verb|PoAggRelPrimeDLog-1|. Consider a setting where we have data sets/multisets $\mc{D}_1,\cdots, \mc{D}_n$ inserted into an accumulator. Let $A$ denote the accumulated digest, $w_i$ the witness for $\mc{D}_i$ and $d_i:= \Pi(\mc{D}_i)$. Suppose a Prover needs to demonstrate that the multisets $\mc{D}_i$ are pairwise disjoint to a Verifier who has access to the witnesses $w_1,\cdots,w_n$ but not the data multisets. A straightforward approach would be to provide a proof for the relation \verb|RelPrimeDLog|$[(w_i, A),\;(w_j, A)]$ for each pair $i,j$. But such a proof would entail $\mbf{O}(n^2)$ $\mb{G}$-elements and $\mbf{O}(n^2)$ $\lam$-bit integers, which is impractical for larger values of $n$.
 
-Instead, we provide a protocol whereby the proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers. The protocol rests on two simple observations. First, note that for integers $d_1,\cdots,d_n$, \vs $$\GCD(d_i,d_j)=1\;\forall\;i\neq j\;\; \LRA\;\; \pl_{i=1}^n d_i= \LCM(d_1,\cdots,d_n),$$ as can be easily proved by induction. Secondly, if an element $w\in \mb{G}$ can be expressed in the form \vs $$w = \prod\limits_{i=1}^n w_i^{x_i},\;\;(x_1,\cdots,x_n)\in\bz^n, \vs$$ then \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^{k} \;\;\;\text{ where } k := \slim_{i=1}^n x_i\frac{\LCM(d_1,\cdots,d_n)}{d_i}.$$ Furthermore, the Prover can efficiently compute the integers \vs $$d:= \pl_{i=1}^n d_i = \LCM(d_1,\cdots,d_n)\;,\;\what{d}_i:= \pl_{\substack{1\leq j\leq n\\ j\neq i}} d_j\;\;\;\; (i=1,\cdots,n)\;\;,\;\; \what{d} := \slim_{i=1}^n \what{d}_i. \vs $$ Now, $d$ is relatively prime to $\what{d}$ by lemma \ref{lcm}. Hence, the Prover can efficiently compute integers $e$, $\what{e}$ such that \vs $$de+\what{d}\what{e} = 1\;,\; A^e \cdot (\pl_{i=1}^n w_i)^{\what{e}} = w.  $$ In particular, since $\prod_{i=1}^n w_i$ is publicly computable, the Prover can demonstrate - with constant communication complexity - that $w$ is expressible as a product $\prod_{i=1}^n w_i^{x_i}$ where the $x_i$ are integers known to him. If the Prover can also demonstrate that \vs $$w^{\prod\limits_{i=1}^n d_i} = A,$$ (with a subprotocol virtually identical to \verb|MultPolyDLog|), then this implies that $\LCM(d_1,\cdots,d_n)$ divides the product $\prod_{i=1}^n d_i$, which forces equality between these two integers. In what follows, we provide an argument of knowledge for the relation  
+Instead, we provide a protocol whereby the proof consists of a constant number of $\mb{G}$-elements and $n$ $\lam$-bit integers. The protocol rests on two simple observations. First, note that for integers $d_1,\cdots,d_n$, \vs $$\GCD(d_i,d_j)=1\;\forall\;i\neq j\;\; \LRA\;\; \pl_{i=1}^n d_i= \LCM(d_1,\cdots,d_n),$$ as can be easily proved by induction. Secondly, if an element $w\in \mb{G}$ can be expressed in the form \vs $$w = \prod\limits_{i=1}^n w_i^{x_i},\;\;(x_1,\cdots,x_n)\in\bz^n, \vs$$ then \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^{k} \;\;\;\text{ where } k := \slim_{i=1}^n x_i\frac{\LCM(d_1,\cdots,d_n)}{d_i}.$$ Furthermore, the Prover can efficiently compute the integers \vs $$d:= \pl_{i=1}^n d_i = \LCM(d_1,\cdots,d_n)\;,\;\what{d}_i:= \pl_{\substack{1\leq j\leq n\\ j\neq i}} d_j\;\;\;\; (i=1,\cdots,n)\;\;,\;\; \what{d} := \slim_{i=1}^n \what{d}_i. \vs $$ Now, $d$ is relatively prime to $\what{d}$ by lemma \ref{lcm}. Hence, the Prover can efficiently compute integers $e$, $\what{e}$ such that \vs $$de+\what{d}\what{e} = 1\;,\; A^e \cdot (\pl_{i=1}^n w_i)^{\what{e}} = w.  $$ In particular, since $\prod_{i=1}^n w_i$ is publicly computable, the Prover can demonstrate - with constant communication complexity - that $w$ is expressible as a product $\prod_{i=1}^n w_i^{x_i}$ where the $x_i$ are integers known to him. If the Prover can also demonstrate that \vs $$w^{\prod\limits_{i=1}^n d_i} = A, \vs$$ (with a subprotocol virtually identical to \verb|MultPolyDLog|), then this implies that $\LCM(d_1,\cdots,d_n)$ divides the product $\prod_{i=1}^n d_i$, which forces equality between these two integers. In what follows, we provide an argument of knowledge for the relation  
 
 \[
   \mc{R}_{\ttt{AggRelPrimeDLog-3}}[(w_1,\cdots, w_n),\; A] = \left\{\begin{array}{l}
@@ -1333,9 +1333,9 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \noin 2. Using Shamir's trick, $\mc{P}$ computes an element $w\in\mb{G}$ such that $w^D = A$ and sends $w$ to the Verifier $\mc{V}$.
 
-\noin 3. $\mP$ uses the Euclidean algorithm to compute integers $e$, $\what{e}$ such that \vs $$eD+\what{e}\what{D} = \GCD(D,\what{D}) = 1\;\;,\;\;|e|< |\what{D}|,\;|\what{e}|< |{D}|.\vs $$
+\noin 3. $\mP$ uses the Euclidean algorithm to compute integers $e$, $\what{e}$ such that \vs $$e\cdot D+\what{e}\cdot \what{D} = \GCD(D,\what{D}) = 1\;\;,\;\;|e|< |\what{D}|,\;|\what{e}|< |{D}|.\vs $$
 
-\noin 4. $\mP$ computes the elements \vspace{-0.3cm} $$\wti{A}:= A^{e}\;,\;W := \big(\pl_{i=1}^n w_i\big)^{\what{e}}\;\in\;\bG\vs $$ and sends $\wti{A},W$ to $\V$ along with non-interactive proofs for \verb|PoKE|$[A,\; \wti{A}]$ and \verb|PoKE|$[(\prod_{i=1}^n w_i),\; W]$.
+\noin 4. $\mP$ computes the elements \vspace{-0.3cm} $$\wti{A}:= A^{e}\;,\;W := \big(\pl_{i=1}^n w_i\big)^{\what{e}}\;\in\;\bG\vs $$ and sends $\wti{A}$, $W$ to $\V$ along with non-interactive proofs for \verb|PoKE|$[A,\; \wti{A}]$ and \verb|PoKE|$[(\prod_{i=1}^n w_i),\; W]$.
 
 \noin 5. The hashing algorithm $\ttt{H}_{\ttt{FS},\lam}$ generates a $\lam$-bit prime $\gamma$.
 
@@ -1353,13 +1353,13 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 \noin 12. $\mP$ computes the integers $\what{q}_0$, $ \what{r}_0$ such that \vs $$\slim_{i=1}^n \what{d}_i\gamma^i = \what{q}_0\cdot \ell+\what{r}_0\;\;,\;\;\what{r}_0\in [\ell]\vs $$ and sends $\what{Q}_0:= w^{\what{q}_0} \;\in\;\bG$ to $\V$.
 
-\noin 13. $\V$ verifies that $(r_1,\cdots,r_n)\in [\ell]^{n}$ and computes the $\lam$-bit integers \vs $$R:= \pl_{i=1}^n r_i\Mod{\ell} \;\;,\;\;\what{r}_i = Rr_i^{-1}\Mod{\ell}\;\;(i=1,\cdots,n),$$\vspace{-0.3cm} $$\wti{r}:= \slim_{i=1}^n {r}_i^{p}\gamma^i\Mod{\ell} \;\;,\;\;\what{r}_0:= \slim_{i=1}^n \what{r}_i\gamma_{0}^i\Mod{\ell}. \vs $$
+\noin 13. $\V$ verifies that $(r_1,\cdots,r_n)\in [\ell]^{n}$ and computes the $\lam$-bit integers \vs $$R:= \pl_{i=1}^n r_i\Mod{\ell} \;\;,\;\;\what{r}_i = R\cdot r_i^{-1}\Mod{\ell}\;\;(i=1,\cdots,n),$$\vspace{-0.3cm} $$\wti{r}:= \slim_{i=1}^n {r}_i^{p}\gamma^i\Mod{\ell} \;\;,\;\;\what{r}_0:= \slim_{i=1}^n \what{r}_i\gamma_{0}^i\Mod{\ell}. \vs $$
 
 \noin 14. $\V$ computes the elements $\prod_{i=1}^n w_i\;,\;\prod_{i=1}^n w_i^{\gamma^i}\;,\;\prod_{i=1}^n w_i^{\gamma_0^i}\;\in\;\bG$.
 
 \noin 15. $\V$ verifies the equations \vs $$(\what{Q}_0)^{\ell}w^{\what{r}_0}\sta \pl_{i=1}^n w_i^{\gamma_{0}^i}\;\bigwedge\; \wti{A}\cdot W\sta w\;\bigwedge\; (\weck{w})^{\ell}w^R\sta A\;\bigwedge\; (\weck{g})^{\ell}g^{\wti{r}}\sta\wti{g} \vs $$ and the two \verb|PoKE|s from Step 4. He accepts if and only if all four equations hold and the two \verb|PoKE|s are valid. \qed \end{enumerate}
 
-\noin The proof consists of $\bO(1)$ $\mb{G}$-elements and $n+\bO(1)$ $\lam$-bit integers. The most expensive part of the proof generation is computing the element $\wti{g}$. The effective runtime can be reduced if the Prover pre-computes the set $$\{g^{2^i}\;:\;1\leq i\leq N  \}$$ for an appropriately large integer $N$. If $n$ is large, the Verifier's work can be reduced by the Prover sending succinct \hyperlink{PoME}{proofs of multi-exponentiation} for the computations $\prod_{i=1}^n w_i^{\gamma^i}\;,\;\prod_{i=1}^n w_i^{\gamma_0^i}$ instead of the Verifier computing them independently.
+\noin The proof consists of $\bO(1)$ $\mb{G}$-elements and $n+\bO(1)$ $\lam$-bit integers. The most expensive part of the proof generation is computing the element $\wti{g}$. The effective runtime can be reduced if the Prover pre-computes the set $$\{g^{2^i}\;:\;1\leq i\leq N  \}\;\sub\;\bG $$ for an appropriately large integer $N$. If $n$ is large, the Verifier's work can be reduced by the Prover sending succinct \hyperlink{PoME}{proofs of multi-exponentiation} for the computations $\prod_{i=1}^n w_i^{\gamma^i}\;,\;\prod_{i=1}^n w_i^{\gamma_0^i}$ instead of the Verifier computing them independently.
 
 \vspace{0.15cm}
 
@@ -1369,7 +1369,7 @@ Instead, we provide a protocol whereby the proof consists of a constant number o
 
 Since the $\lam$-bit challenge $\gamma_{0}$ is generated after the Prover sends the tuple $(r_1,\cdots,r_n)\in[\ell]^n$, the equation \vs $$(\what{Q}_0)^{\ell}w^{\what{r}_0} = \pl_{i=1}^n w_i^{\gamma_{0}^i},\vs $$ and lemma \ref{aggroot} imply that with \op, the Prover possesses rationals $\what{d}_1,\cdots,\what{d}_n$ such that $w^{\what{d}_i} = w_i\in \bG\;,\;\what{d}_i\equiv \what{r}_i\Mod{\ell}$ for every $i$. Furthermore, the equation $(\weck{w})^{\ell}w^R = A$ implies that with \op, the Prover possesses a rational $D$ such that $D\equiv R\Mod{\ell}\;,\;w^{D} =A$. Now, \vs $$D\equiv R\equiv \pl_{i=1}^n r_i \equiv \pl_{i=1}^n d_i\Mod{\ell}$$ and since the $\lam$-bit prime $\ell$ is randomly generated after the Prover sends $w$, it follows that with \op, $D = \prod_{i=1}^n D\what{d}_i^{-1}$. Setting $d_i:= D\what{d}_i^{-1}$ yields $w_i^{d_i} = A$, $ D = \prod_{i=1}^n d_i.$  
 
-The equation $(\weck{g})^{\ell}g^{\wti{r}}=\wti{g}$ and lemma \ref{root} imply that with \op, the Prover possesses a rational $\wti{d}$ such that \vs $$\wti{g} = g^{\wti{d}}\;\;,\;\; \wti{d}\equiv \wti{r}\equiv\slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i \Mod{\ell}. \vs $$ Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.  $$ The fractional root assumption implies that $\wti{d}$ is an integer except with \np. So $\sum_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma \ref{integers} then implies that with \op, the $d_i$ are all integers. 
+The equation $(\weck{g})^{\ell}g^{\wti{r}}=\wti{g}$ and lemma \ref{root} imply that with \op, the Prover possesses a rational $\wti{d}$ such that \vspace{-0.2cm} $$\wti{g} = g^{\wti{d}}\;\;,\;\; \wti{d}\equiv \wti{r}\equiv\slim_{i=1}^n r_i^p\gamma^i\equiv \slim_{i=1}^n d_i^p\gamma^i \Mod{\ell}. \vs $$ Since the $\lam$-bit prime $\ell$ is randomly generated after $\wti{g}$ has been sent by the Prover, it follows that with \op, \vs $$\wti{d} = \slim_{i=1}^n d_i^p\gamma^i.  $$ The fractional root assumption implies that $\wti{d}$ is an integer except with \np. So $\sum_{i=1}^n d_i^p\gamma^i\in \bz$ and lemma \ref{integers} then implies that with \op, the $d_i$ are all integers. 
 
 Furthermore, since the equation $\wti{A}\cdot W = w \in \bG$ and the proofs for \verb|PoKE|$[A,\;\wti{A}]$ and \verb|PoKE|$[(\prod_{i=1}^n w_i),\; W]$ are valid, it follows that, in particular, $w$ is expressible as a product \vs $$w =\pl_{i=1}^n w_i^{x_i}\;\;\;,\;\;\;(x_1,\cdots,x_n)\in\bz^n \;,\;|x_i|< 2^{\ttt{poly}(\lam)}.\vs $$ for some tuple $(x_1,\cdots,x_n)$ known to the Prover. Hence, \vs $$w^{\LCM(d_1,\cdots,d_n)} = A^k = w^{k\pl_{i=1}^n d_i}\;\in\;\bG \vs $$ for some integer $k$ known to the Prover. Now, the low order assumption implies that with \op, $\LCM(d_1,\cdots,d_n)$ is divisible by the product $\prod_{i=1}^n d_i$, which forces equality between these two integers. Hence, the integers $d_i$ are pairwise co-prime. This completes the proof of the soundness of the protocol.
 
@@ -1472,7 +1472,7 @@ If the client needs the proof of storage for multiple data multisets $\mc{M}_1,\
 
 \bigskip
 
-\noin \textbf{Multiset differences:} For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\frac{\Pi(\mcM)}{\Pi(\mcM\cap \mc{N})}} .$$ So the Prover can combine the Protocols $\ttt{PoGCD}$ and $\ttt{PoMultPolyDLog}$ to verifiably send the commitment to $\mc{M}\sm \mc{N} $. 
+\noin \textbf{Multiset differences:} For multisets $\mc{M}$, $\mc{N}$, the difference $\mc{M}\sm \mc{N} $ has commitment \vs $$\protect{\verb|Com|}(g, \mc{M}\sm \mc{N}) = g^{\frac{\Pi(\mcM)}{\Pi(\mcM\cap \mc{N})}} .\vs $$ So the Prover can combine the Protocols $\ttt{PoGCD}$ and $\ttt{PoMultPolyDLog}$ to verifiably send the commitment to $\mc{M}\sm \mc{N} $. 
 
 \bigskip
 
@@ -1485,7 +1485,7 @@ If the client needs the proof of storage for multiple data multisets $\mc{M}_1,\
 
 \subsubsection{\fontsize{11}{11}\selectfont Multiset intersections }
 
-\noin Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .\vs $$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. Note that \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\;\bigwedge\;\; \exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum_{i=1}^n e_id_i = d . \vs $$ Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left({d_1}{d}^{-1},\cdots, {d_n}{d}^{-1}\right)\in \bz^n\;\;\bigwedge\;\; \GCD\left({d_1}{d}^{-1},\cdots, {d_n}{d}^{-1}\right)=1. \vs $$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So, the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ as follows: \vspace{0.1cm}
+\noin Consider a setting where a client $\mc{V}$ who stores commitments $A_i:= \protect{\ttt{Com}}(g, \mc{M}_i)$ for data multisets $\mc{M}_1, \cdots, \mc{M}_n$ needs a commitment $\protect{\verb|Com|}(g, \mc{M}_{\tt{\cap}})$ to the intersection \vs $$\mc{M}_{\tt{\cap}}:=\bigcap\limits_{i=1}^n \mc{M}_i .\vs $$ In keeping with the rest of this paper, we would like to design a protocol that allows the Prover to do so while keeping the communication complexity to a minimum. Note that \vspace{-0.2cm} $$d = \GCD(d_1,\cdots,d_n)\; \LRA\; (d|d_i\;\forall\;i)\;\;\bigwedge\;\; \exists\;(e_1,\cdots,e_n)\in\bz^n:\;\sum_{i=1}^n e_id_i = d . \vs $$ Furthermore, \vs $$d = \GCD(d_1,\cdots,d_n)\; \LRA \left({d_1}{d}^{-1},\cdots, {d_n}{d}^{-1}\right)\in \bz^n\;\;\bigwedge\;\; \GCD\left({d_1}{d}^{-1},\cdots, {d_n}{d}^{-1}\right)=1. \vs $$ Hence, by changing the base from $g$ to $a:= g^d$, we can reduce this to the case where the GCD of the $n$ integers is $1$. So, the Prover can verifiably send the commitment for $\mc{M}_{\tt{\cap}}$ as follows: \vspace{0.1cm}
 
 
 \begin{Prot} Protocol for the intersection of multisets.\end{Prot} \vspace{-0.3cm}
@@ -1634,7 +1634,7 @@ The protocol hinges on the basic fact that for integers $d,d_1,d_2$, the followi
 
 \begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs
 
-\item The Prover $\mP$ computes \vs $$\what{A}_1:= g^{\Pi\left(\bigcup\limits_{i=2}^n \mc{M}_i\right)} \vs $$ and sends it to the verifier $\V$ along with a non-interactive proof for \verb|AggKE-2|$[(A_2,\cdots,A_n), \what{A}_1]$. \vs
+\item The Prover $\mP$ computes \vs $$\what{A}_1:= g^{\Pi\left(\bigcup\limits_{i=2}^n \mc{M}_i\right)}\;\in\;\bG \vs $$ and sends it to the verifier $\V$ along with a non-interactive proof for \verb|AggKE-2|$[(A_2,\cdots,A_n), \what{A}_1]$. \vs
 
 \item The Prover computes the group elements \vs $$B_1:= g^{\pl_{x\in \mc{D}} x^{\mr{mult\left(\bigcup\limits_{i=2}^n \mc{M}_i, x\right)}}}\;,\;B_2:= B_1^{\Pi(\mc{D})} \;\in\; \bG.$$ \vspace{-0.8cm}
 
@@ -1664,8 +1664,7 @@ Similarly, the following protocol allows the server to prove that every element 
 
 \noin \textbf{Claim:} Each element of $\mc{D}$ occurs with a lower frequency in $\mc{M}_1$ than in $\mc{M}_i\;\forall\;i\geq 2$. \vs
 
-\begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs \item The Prover $\mP$ computes \vs $$B_1:= g^{\pl_{x\in\mc{D}} x^{\mr{mult(\mc{M}_1, x)}}}\;,\; B_2 = B_1^{\Pi(\mc{D})}.\vs $$
-
+\begin{enumerate}[wide, labelwidth=!, labelindent=0pt] \vs \item The Prover $\mP$ computes \vspace{-0.25cm} $$B_1:= g^{\pl_{x\in\mc{D}} x^{\mr{mult(\mc{M}_1, x)}}}\;,\; B_2 = B_1^{\Pi(\mc{D})}\;\in\;\bG. \vs $$
 \noin 2. $\mP$ sends $B_1, B_2$ to $\V$ along with a non-interactive \verb|PoE| for the equation $B_2= B_1^{\Pi(\mc{D})}$. 
 
 \noin 3. $\mP$ generates non-interactive proofs for \verb|AggKE-1|$[B_2,\;(A_2,\cdots,A_n)]$ and\\ \verb|PoGCD|$[(g, A_1),\;(g, B_2),\;(g,B_1)]$ and sends them to $\V$. 
@@ -1780,7 +1779,7 @@ The proof consists of $\bO(1)$ $\bG$-elements and $2n+\bO(1)$ $\lam$-bit integer
 
 \bigskip
 
-\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i}$$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. We use this step in quite a few of the protocols in this paper with the sole purpose of demonstrating that the $d_i$ are integers rather than merely rationals. The Prover can reduce the effective runtime of this computation by pre-computing and storing the set $\{g^{2^{i}}\;:\; 1\leq i\leq N \} $ for an appropriately large integer $N$. In certain settings such as an accumulator, this part can be circumvented by disallowing accumulation of primes $< 2^{\lam-1}$.
+\noin \textbf{Pre-computation:} Although the argument systems in this paper have certain advantages such as transparency and succinctness, an important drawback is that the Prover's computational burden is rather high. This is primarily because exponentiations in hidden order groups are expensive. Furthermore, these exponentiations are conjectured to be almost purely sequential, which means there is no way to make them faster, aside from better hardware. However, the effective runtime in several cases can be reduced using pre-computations on the Prover's part. In most of the protocols, the most expensive part is the computation \vs $$\wti{g}:= g^{\slim_{i=1}^n d_i^{n\lam}\gamma^i }\;\in\; \bG \vs $$ where the $d_i$ are usually the products $\Pi(\mcM_i)$ of all elements of a data set/multiset and $\gamma$ is a $\lam$-bit integer randomly generated by the Fiat-Shamir heuristic. We use this step in quite a few of the protocols in this paper with the sole purpose of demonstrating that the $d_i$ are integers rather than merely rationals. The Prover can reduce the effective runtime of this computation by pre-computing and storing the set $\{g^{2^{i}}\;:\; 1\leq i\leq N \} $ for an appropriately large integer $N$. In certain settings such as an accumulator, this part can be circumvented by disallowing accumulation of primes $< 2^{\lam-1}$.
 
 
 
@@ -1849,7 +1848,7 @@ October/November 2016.\vspace{0.1cm}
 
 \noin [Fis18] Ben Fisch. \textit{Tight Proofs of Space and Replication}. In Y. Ishai and V. Rijmen, editors, Eurocrypt 2019, Part II, volume 11477 of LNCS, pages 324-348. Springer, Heidelberg, May 2019. \vspace{0.1cm}
 
-\noin \hypertarget{FS87}{[FS87]} Amos Fiat and Adi Shamir. \textit{How to prove yourself: Practical solutions to identification and signature problems.}CRYPTO’86, volume 263 of LNCS, pages 186–194. Springer, Heidelberg, August 1987\vspace{0.1cm}
+\noin \hypertarget{FS87}{[FS87]} Amos Fiat and Adi Shamir. \textit{How to prove yourself: Practical solutions to identification and signature problems.} Crypto’86, volume 263 of LNCS, pages 186–194. Springer, Heidelberg, August 1987\vspace{0.1cm}
 
 \noin [HM00] Safuat Hamdy and Bodo Moller. \textit{Security of cryptosystems based on class groups of imaginary quadratic orders.} ASIACRYPT 2000, volume 1976 of LNCS, pages 234-247.
 Springer, Heidelberg, December 2000.\vspace{0.1cm}
@@ -1949,7 +1948,7 @@ Email: stevethakur01@gmail.com
 
 \noin \hyperlink{Oracles}{$\mc{O}_1$, $\mc{O}_2$}: The two oracles in a generic hidden order group \vspace{0.1cm}
 
-\noin \hyperlink{DLOG}{$\tt{DLOG}$}: The unlikely event that a PPT algorithm generate integers $x_i$ such that $\prod_{i=1}^k g_i^{x_i} = 1$, where the $g_i$ are the responses to the queries to the oracle $\mc{O}_1.$
+\noin \hyperlink{DLOG}{$\tt{DLOG}$}: The (unlikely) event that a PPT algorithm generate integers $x_i$ such that $\prod_{i=1}^k g_i^{x_i} = 1$, where the $g_i$ are the responses to the queries to the oracle $\mc{O}_1.$
 
 \section{\fontsize{11}{11}\selectfont List of Protocols:}
 
@@ -2012,10 +2011,10 @@ Email: stevethakur01@gmail.com
 \]
 
 
-\item \hyperlink{GCD}{$\ttt{PoGCD}$ (\textit{Proof of GCD})} \vspace{-0.15cm} $$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} $$
+\item \hyperlink{GCD}{$\ttt{PoGCD}$ (\textit{Proof of GCD})} \vspace{-0.15cm} $$\mc{R}_{{\ttt{GCD}}}[(a_1,b_1),\; (a_2,b_2),(a_3,b_3)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=d_3  \} \vs $$
 
 
-\item \hyperlink{RP}{$\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logarithms}; special case of $\tt{PoGCD}$)} \vs $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} .$$
+\item \hyperlink{RP}{$\ttt{PoRelPrimeDLog}$ (\textit{Proof of relatively prime discrete logarithms}; special case of $\tt{PoGCD}$)} \vs $$ \mc{R}_{\ttt{RelPrimeDLog}}[(a_1,b_1),\;(a_2,b_2)] = \{((a_i, b_i\in\mb{G});\;d_i\in\bz)\;:\; b_i = a_i^{d_i},\;\GCD(d_1,d_2)=1 \} . \vs $$
 
 
 \item \hyperlink{RP1}{$\ttt{PoAggRelPrimeDLog-1}$ (\textit{Aggregated proof of relatively prime discrete logarithms}-1)} \vspace{-0.2cm}
@@ -2379,7 +2378,7 @@ As before, let $\bG$ be a generic hidden order group for which we assume the ada
 
 Thus, the proof consists of a single element $\bG$-element $Q$. The Verifier's work is thus reduced to $n+1$ parallelizable $\lam$-bit exponentiations in $\bG$.\vspace{0.15cm}  
 
-\noin \textbf{Soundness of the protocol:} Suppose the Prover $\mP$ sends an element $Q\in\bG$ such that \vs $$Q^{\ell}\pl_{i=1}^n a_i^{r_i} = b\;\;,\;\;r_i:= e_i\Mod{\ell}\vs $$ for a randomly generated $\lam$-bit prime $\ell$. Let $\{g_1,\cdots,g_k\}\in \bG$ be the responses to the queries from $\A$ to the oracle $\mc{O}_1$. With \op, $\A$ is able to extract integers $\al_{i,j}\; (1\leq i \leq n\;,\;1\leq j \leq k)$, $\be_1,\dots, \be_k$ bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$b = \pl_{j=1}^k g_j^{\be_j}\;,\;a_i = \pl_{j=1}^k g_j^{\al_{i,j}}. \vspace{-0.25cm} $$ Since the equation $Q^{\ell}\prod_{i=1}^n a_i^{r_i} = b $ holds, the adaptive root assumption implies that with \op, $\be_j\equiv \sum_{i=1}^n e_i\al_{i, j}\Mod{\ell}\;\;\forall\; j.$ Since the $\lam$-bit prime $\ell$ was randomly generated, it follows that with \op, $ \be_j = \slim_{i=1}^n e_i\al_{i, j}\;\;\forall\; j$ and hence, $b = \prod_{i=1}^n a_i^{e_i}$. \qed
+\noin \textbf{Soundness of the protocol:} Suppose the Prover $\mP$ sends an element $Q\in\bG$ such that \vs $$Q^{\ell}\pl_{i=1}^n a_i^{r_i} = b\;\;,\;\;r_i:= e_i\Mod{\ell}\vs $$ for a randomly generated $\lam$-bit prime $\ell$. Let $\{g_1,\cdots,g_k\}\in \bG$ be the responses to the queries from $\A$ to the oracle $\mc{O}_1$. With \op, $\A$ is able to extract integers $\al_{i,j}\; (1\leq i \leq n\;,\;1\leq j \leq k)$, $\be_1,\dots, \be_k$ bounded by $2^{\ttt{poly}(\lam)}$ such that \vs $$b = \pl_{j=1}^k g_j^{\be_j}\;,\;a_i = \pl_{j=1}^k g_j^{\al_{i,j}}. \vspace{-0.25cm} $$ Since the equation $Q^{\ell}\prod_{i=1}^n a_i^{r_i} = b $ holds, the adaptive root assumption implies that with \op, $\be_j\equiv \sum_{i=1}^n e_i\al_{i, j}\Mod{\ell}\;\;\forall\; j.$ Since the $\lam$-bit prime $\ell$ was randomly generated, it follows that with \op, $ \be_j = \sum_{i=1}^n e_i\al_{i, j}\;\forall\; j$ and hence, $b = \prod_{i=1}^n a_i^{e_i}$. \qed
 
 \section{\fontsize{11}{11}\selectfont $\bz_{(\lamb)}$-integers and the equivalence relation $\mathbf{(\equiv_{\lam})}$}
 
@@ -2426,7 +2425,7 @@ Suppose, instead of \verb|PoKE|$[A,\; A_1]$, the Prover proves the weaker statem
 
 \section{\fontsize{11}{11}\selectfont Underlying sets of committed multisets}
 
-\noin \hypertarget{Sets}{Let $a_1,a_2$ be elements of $\mb{G}$. Let $\mc{M} , \mc{N}$ be multisets of rational primes.} Let \vs $$A_1:= \ttt{Com}(g, \mc{M}) =  a_1^{\Pi(\mc{M})}\;,\; A_2:= \ttt{Com}(g, \mc{N}) = a_2^{\Pi(\mc{N})}\;\in\;\bG$$ be the commitments to $\mc{M}$, $\mc{N}$ with bases $a_1, a_2\in \bG$.
+\noin \hypertarget{Sets}{Let $a_1,a_2$ be elements of $\mb{G}$. Let $\mc{M} , \mc{N}$ be multisets of rational primes.} Let \vs $$A_1:= \ttt{Com}(g, \mc{M}) =  a_1^{\Pi(\mc{M})}\;,\; A_2:= \ttt{Com}(g, \mc{N}) = a_2^{\Pi(\mc{N})}\;\in\;\bG \vs $$ be the commitments to $\mc{M}$, $\mc{N}$ with bases $a_1, a_2\in \bG$.
 
 Clearly, the relation $\mc{N}\sub \mc{M}$ can be demonstrated by the protocol \verb|PoKE|$[A_2, A_1]$. We now show that the protocol \verb|PolyDLog| allows a Prover to succinctly demonstrate the following relations between the underlying sets of $\mc{M}$, $\mc{N}$, the proofs for which can be publicly verified against the commitments to $\mc{M}$ and $\mc{N}$.\vspace{0.1cm}
 
