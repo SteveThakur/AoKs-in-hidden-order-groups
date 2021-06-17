@@ -1,0 +1,515 @@
+\documentclass[11pt, lettersize, notitlepage, leqno, footskip=0.6cm]{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}	
+%\usepackage{graphicx}
+\usepackage{amscd}
+%\usepackage{mathabx}
+%\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%\SetKwComment{Comment}{$\triangleright$\ }{}
+
+%\usepackage[T1]{fontenc}% http://ctan.org/pkg/fontenc
+%\usepackage[outline]{contour}% http://ctan.org/pkg/contour
+%\usepackage{xcolor}% http://ctan.org/pkg/xcolor
+
+\usepackage{authblk}
+
+\usepackage{fancyvrb}
+
+\usepackage[nodisplayskipstretch]{setspace}
+
+% This the preamble, load any packages you're going to use here
+%\usepackage{physics} % provides lots of nice features and commands often used in physics, it also loads some other packages (like AMSmath)
+%\usepackage{siunitx} % typesets numbers with units very nicely
+\usepackage{enumerate} % allows us to customize our lists
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+%\usetikzlibrary{decorations.pathreplacing}
+%\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage{pgfplots} 
+%\pgfplotsset{width=10cm,compat=1.9} 
+\usepackage{verbatim}
+
+\usepackage[linewidth=1pt]{mdframed}
+
+\usepackage{thmtools}
+\usepackage[none]{hyphenat}
+
+\usepackage{indentfirst}
+
+\usepackage{braket}
+
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{appendix}
+
+
+
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{bookmark}
+
+\DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathx}{m}{n}{
+      <5> <6> <7> <8> <9> <10>
+      <10.95> <12> <14.4> <17.28> <20.74> <24.88>
+      mathx10
+      }{}
+\DeclareSymbolFont{mathx}{U}{mathx}{m}{n}
+\DeclareFontSubstitution{U}{mathx}{m}{n}
+\DeclareMathAccent{\widecheck}{0}{mathx}{"71}
+\DeclareMathAccent{\wideparen}{0}{mathx}{"75}
+
+\def\cs#1{\texttt{\char`\\#1}}
+
+
+
+\addtolength{\textwidth}{100pt}
+\addtolength{\evensidemargin}{-50pt}
+\addtolength{\oddsidemargin}{-50pt}
+\addtolength{\topmargin}{-60pt}
+\addtolength{\textheight}{1.5in}
+%\setlength{\parindent}{0in}
+\setlength{\parskip}{1.5pt}
+
+
+\setlength{\abovedisplayskip}{0cm}
+\setlength{\belowdisplayskip}{0cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Begin user defined commands
+
+
+\newcommand{\bc}{\mathbb C}
+\newcommand{\bF}{\mathbb F}
+\newcommand{\bH}{\mathbb H}
+\newcommand{\bn}{\mathbb N}
+\newcommand{\bz}{\mathbb Z}
+\newcommand{\bp}{\mathbb{P}}
+\newcommand{\bq}{\mathbb Q}
+\newcommand{\br}{\mathbb R}
+\newcommand{\bS}{\mathbb S}
+
+\newcommand{\bFp}{\mathbb{F}_p}
+\newcommand{\bFP}{\ov{\mathbb{F}}_p}
+\newcommand{\bFl}{\mathbb{F}_l}
+\newcommand{\bFq}{\mathbb{F}_q}
+\newcommand{\bFqk}{\mathbb{F}_{q^k}}
+\newcommand{\bFQ}{\ov{\mathbb{F}}_q}
+\newcommand{\bFpk}{\mathbb{F}_{p^k}}
+
+
+\newcommand{\pl}{\prod\limits}
+\newcommand{\slim}{\sum\limits}
+\newcommand{\bcup}{\bigcup\limits}
+\newcommand{\bcap}{\bigcap\limits}
+
+\newcommand{\ttt}{\texttt}
+
+\newcommand{\bT}{\mathbf T}
+\newcommand{\bTl}{\mathbf T_{{\bq_l}}}
+\newcommand{\bTlbar}{\mathbf T_{{\qbar_l}}}
+
+\newcommand{\G}{\mathcal G}
+
+\newcommand{\Gal}{\mathrm{Gal}}
+\newcommand{\scl}{\mathcal L}
+
+\newcommand{\W}{\mathcal W}
+\newcommand{\WA}{\mathcal{W}_{A_v}}
+
+\newcommand{\zbar}{\overline {\mathbb{Z}}}
+\newcommand{\qbar}{\overline {\mathbb{Q}}}
+
+\newcommand{\Fbar}{\overline {F}}
+\newcommand{\Kbar}{\overline {K}}
+
+\newcommand{\bark}{\overline {k}}
+
+\newcommand{\bg}{\mathbb{G}}
+\newcommand{\bG}{\mathbb{G}}
+
+\newcommand{\st}{\mathrm{st}}
+
+\newcommand{\uni}{\mathrm{uni}}
+
+\newcommand{\lcm}{\mathrm{lcm}}
+
+\newcommand{\negl}{\ttt{{negl}}}
+
+\newcommand{\pr}{\protect}
+
+\newcommand{\Acc}{\mbf{Acc}}
+
+\newcommand{\sett}{\ttt{Set}}
+
+\newcommand{\mult}{\mr{mult}}
+\newcommand{\mul}{\mr{mult}}
+
+
+\newcommand{\absq}{\mathrm{Gal}_{\bq}}
+\newcommand{\absql}{\mathrm{Gal}_{\bq_l}}
+\newcommand{\absqp}{\mathrm{Gal}_{\bq_p}}
+\newcommand{\absqph}{\mathrm{Gal}_{\bq_{p^h}}}
+
+\newcommand{\absf}{\mathrm{Gal}_F}
+\newcommand{\absfv}{\mathrm{Gal}_{F_v}}
+\newcommand{\abse}{\mathrm{Gal}_E}
+\newcommand{\absk}{\mathrm{Gal}_K}
+\newcommand{\absl}{\mathrm{Gal}_L}
+
+\newcommand{\Div}{\mathrm{Div}}
+\newcommand{\divv}{\mathrm{div}}
+
+
+
+
+\newcommand{\Gm}{\mathbb{G}_m}
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\rarrrow}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\llra}{\longleftrightarrow}
+\newcommand{\xra}{\xrightarrow}
+\newcommand{\hra}{\hookrightarrow}
+\newcommand{\LRA}{\Longleftrightarrow}
+\newcommand{\RA}{\Longrightarrow}
+\newcommand{\harrow}{\hookrightarrow}
+\newcommand{\lhra}{\hooklongrightarrow}
+
+\newcommand{\imp}{\Longrightarrow}
+
+\newcommand{\impop}{\overset{\;\;\;\;\mr{o.p.}\;\;\;\;}{\Longrightarrow}}
+
+\newcommand{\eqlam}{\equiv_{\lam}}
+
+\newcommand{\lameq}{\equiv_{\lam}}
+
+
+\newcommand{\bs}{\backslash}
+\newcommand{\ti}{\tilde}
+\newcommand{\wti}{\widetilde}
+\newcommand{\mf}{\mathfrak}
+\newcommand{\mc}{\mathcal}
+\newcommand{\mb}{\mathbb}
+\newcommand{\mbf}{\mathbf} 
+\newcommand{\mr}{\mathrm}
+\newcommand{\mfp}{\mathfrak{p}}
+\newcommand{\tmfp}{\ti{\mc{P}}}
+\newcommand{\mfm}{\mathfrak{m}}
+\newcommand{\mfn}{\mathfrak{n}}
+
+\newcommand{\e}{\mathbf{e}}
+
+\newcommand{\pro}{\protect\verb}
+
+
+\newcommand{\mfl}{\mathfrak{l}}
+
+\newcommand{\zetamn}{\zeta_{mn}}
+
+\newcommand{\setm}{\setminus}
+\newcommand{\sm}{\setminus}
+
+\newcommand{\Br}{\mr{Br}}
+
+\newcommand{\Jac}{\mr{Jac}}
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\lam}{\lambda}
+\newcommand{\lamb}{\lambda}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Lamb}{\Lambda}
+\newcommand{\del}{\delta}
+\newcommand{\Del}{\Delta}
+\newcommand{\si}{\sigma}
+\newcommand{\tsi}{\tilde{\sigma}}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\what}{\widehat}
+\newcommand{\weck}{\widecheck}
+
+
+\newcommand{\ov}{\overline}
+
+
+\newcommand{\bzlam}{\bz_{(\lam)}}
+
+\newcommand{\bzs}{\bz_{\mc{S}}}
+\newcommand{\bzS}{\bz_{\mc{S}}}
+
+\newcommand{\sub}{\subseteq}
+
+\newcommand{\nsub}{\nsubseteq}
+
+\newcommand{\dlog}{\mbf{dlog}}
+
+\newcommand{\Prob}{\ttt{Pr}}
+
+\newcommand{\bO}{\mbf{O}}
+
+\newcommand{\mP}{\mc{P}}
+
+\newcommand{\A}{\mc{A}}
+
+\newcommand{\V}{\mc{V}}
+
+\newcommand{\mcM}{\mc{M}}
+
+
+\newcommand{\Com}{\ttt{Com}}
+
+\newcommand{\vs}{\vspace{-0.15cm}}
+
+\newcommand{\para}{\;\;\;\;\;\;}
+
+\newcommand{\noin}{\noindent}
+
+\newcommand{\op}{overwhelming probability}
+
+\newcommand{\np}{negligible probability}
+
+\newcommand{\non}{non-interactive proof}
+
+\newcommand{\nons}{non-interactive proofs}
+
+\newcommand{\sta}{\stackrel{?}{=}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\newcommand{\LCM}{\mbf{lcm}}
+
+\newcommand{\GCD}{\mbf{gcd}}
+
+\newcommand{\intt}{\ttt{int}}
+
+\newcommand{\un}{\ttt{uni}}
+
+\newcommand{\new}{\ttt{new}}
+
+\newcommand{\Ext}{\ttt{Ext}}
+
+\newcommand{\E}{\mc{E}}
+
+\newcommand{\End}{\mr{End}}
+
+\newcommand{\mbr}{\mbf{r}}
+
+
+
+%  End user defined commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% These establish different environments for stating Theorems, Lemmas, Remarks, etc.
+
+\newtheorem{Thm}{Theorem}[section]
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Corr}[Thm]{Corollary}
+\newtheorem{Algo}[Thm]{Algorithm}
+\newtheorem{Example}[Thm]{Example}
+
+\newtheorem{Prot}[Thm]{Protocol}
+
+\newtheorem{Def}{Definition}[section]
+
+\newtheorem{Fact}{Fact}[section]
+
+\newtheorem{Ass}{Assumption}[section]
+
+\newtheorem{Rem}[Thm]{Remark}
+
+\declaretheorem{theorem} 
+\declaretheoremstyle[%
+  spaceabove=-2pt,%
+  spacebelow=8pt,%
+  headfont=\normalfont\itshape,%
+  postheadspace=1em,%
+  qed=\qedsymbol%
+]{mystyle} 
+\declaretheorem[name={Proof},style=mystyle,unnumbered,
+]{prf}
+
+\declaretheorem[name={Step},style=bold,unnumbered, %postheadspace=1em,%
+qed=\qedsymbol%
+]{prf1}
+
+\numberwithin{equation}{section}
+
+
+%\renewcommand{\labelenumi}{(\alphaph{enumi})}
+
+% End environments 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now we're ready to start
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\linespread{1.00}
+
+
+
+
+\begin{document}
+
+
+ 
+\title{Pairings}
+\author{}
+\date{}
+ 
+\maketitle
+
+
+\noin \textbf{Endomorphisms:} For an elliptic curve, $E$, an endomorphism $\phi$ of $E$ is an algebraic map $\phi:E\lra E$. The set of endomorphisms of $E$ is called the endomorphism ring of $E$ (denoted by $\End(E)$). It has the structure of a ring with no zero-divisors that is finite dimensional over $\bz$-module. The tensor product $\End^0(E):= \End(E)\otimes_{\bz}\bq$ is called the endomorphism algebra. The center of $\End(E)$ is the subring $\bz[\pi_E]$. Similarly, the field $\bq(\pi_E)$ is the center of the division algebra $\End^0(E)$. For simplicity, we assume the field $\bFq$ has been enlarged to endure that $\End(E) = \End(E\times_{\bFq} \bFQ)$. Broadly, $\End^0(E)$ has one of two possible structures:
+
+\noin 1. If $E$ is ordinary, $\End^0(E) = \bq(\pi_E)$ and is an imaginary quadratic field in which the prime $p$ splits. Thus, $\End(E)$ is an order in this imaginary quadratic field.
+
+\noin 2. If $E$ is supersingular, $\pi_E = \sqrt{q} \in \bz$ and $\End^0(E)$ is the quaternion algebra $\bq_{p.\infty}$ ramified exclusively at $p$ and $\infty$. The endomorphism ring $\End(E)$ is a maximal order in $\bq_{p,\infty}$.
+
+
+\begin{Def} \normalfont For abelian groups $\mb{G}_1$, $\mb{G}_2$, $\mb{G}_T$, a \textit{pairing} $$\mathbf{e}:\mb{G}_1\times \mb{G}_2 \lra \mb{G}_T$$ is a map with the following properties.
+
+\noindent 1. Bilinearity: $\mathbf{e}(x_1+x_2,y_1+y_2) = \mathbf{e}(x_1, y_2)\cdot\mathbf{e}(x_1, y_2)\cdot\mathbf{e}(x_2, y_1)\cdot\mathbf{e}(x_2, y_2)$\\ $\forall\; x_1,x_2\in \mb{G}_1,\; y_1,y_2\in \mb{G}_2$.
+
+\noindent 2. Non-degeneracy: The image of $\mathbf{e}$ is non-trivial.
+
+\noindent 3. Efficient computability.\end{Def}
+
+In particular, for elements $x_1,y_1\in \mb{G}_1$, $x_2,y_2\in \mb{G}_2$, we have $ e(x_1,y_1) = e(x_2,y_1)\in \mb{G}_T$ if and only if there exists an integer $s\in [0,p-1]$ such that $y_1 = x_1^s$ and $y_2 = x_2^s$. This simple fact is deceptively powerful and lies at the heart of several zero-knowledge proof schemes. 
+
+In pairing-based cryptography, we typically work in settings where the groups $\mb{G}_1$, $\mb{G}_2$, $\mb{G}_T$ are cyclic of order $p$ for some $256$-bit prime $p$ so as to have a $128$-bit security level. Such pairings $\mathbf{e}:\mb{G}_1\times \mb{G}_2 \lra \mb{G}_T$ are classified into three types:
+
+\noindent - Type $\mr{I}$: $\mb{G}_1 = \mb{G}_2$.
+
+\noindent - Type $\mr{II}$: $\mb{G}_1 \neq \mb{G}_2$ but there is an \textit{efficiently computable} isomorphism between $\mb{G}_1$ and $\mb{G}_2$.
+
+\noindent - Type $\mr{III}$: There is no \textit{efficiently computable} isomorphism between $\mb{G}_1$ and $\mb{G}_2$.
+
+At present, the only efficient pairings that we know of are those arising from hyperelliptic curves over finite fields. 
+
+We now briefly describe the \textit{Tate pairings} associated with an elliptic curve over a finite field. 
+
+Let $E$ be an elliptic curve over a finite $F$ with Weierstrass equation $r(X,Y) = 0$. Let $\ov{F}$ be the algebraic closure of $F$. We denote by $E(\ov{F})$ the group of $\ov{F}$-points of $E$. 
+
+A \textit{divisor} $D$ on $E$ is a formal sum $\slim_{P\in E}n_{D,P}(P) $ where the $n_P$ are integers that are non-zero for at most finitely many points $P$. The set of points $P$ such that $n_{D,P}\neq 0$ is called the \textit{support} of $D$ and is denoted by $\mr{supp}(D)$. The sum $\slim_{P\in E}n_{D,P}$ is called the \textit{degree} of $D$. 
+
+Thus, the set of divisors on $E$ has the structure of an abelian group and is naturally endowed with an action by $\absf$. We say a divisor $D$ is defined over $K$ if $D = \sigma(D)$ for every $\sigma\in \absf$. The set of divisors defined over $F$ is denoted by $\mr{Div}_F(E)$. This is a subgroup of $\mr{Div}(E)$.
+
+The function field of $E$ over $F$ is the field of fractions $F(E)$ of the integral domain $K[X,Y]/r(X,Y).$ The divisor of a function $f\in F(E)$ is given by $\divv(f):= \slim_{P} m_{f,P}(P)$ where $m_{f,P}$ is the multiplicity of $P$ as a zero of $f$. A divisor is said to be \textit{principal} if it occurs as the divisor of some rational function. The set of divisors of functions has the structure of a group. Furthermore, a divisor $D= \slim_{P\in E}n_{D,P}(P)$ is principal if and only if $\slim_{P\in E}n_{D,P} = 0$ and $\slim_{P\in E}n_{D,P}(P) = \infty$. Thus, every principal divisor has degree zero. \\
+
+
+
+\noin \textbf{The embedding degree:} Let $E$ be an elliptic curve over a finite field $\bFq$  of characteristic $p$. Let $\pi$ be the Weil number associated to $E$. Then $\pi$ is an algebraic integer such that $\pi\cdot \ov{\pi} = q$ and $\pi+\ov{\pi}\in \bz$. Furthermore, the number of $\bFqk$-points on $E$ is given by $|(1-\pi^k)(1-\ov{\pi}^k)|$.
+
+
+Now, suppose $\ell\neq p$ is a prime dividing $\# E(\bFq)$. Then the $\ell$-torsion group $E(\bFP)[\ell]$ is isomorphic to $\bz/\ell\bz \times \bz/\ell\bz$. Let $k$ be the embedding degree of $E$ with respect to $\ell$, i.e. the smallest integer such that $q^k\equiv 1\Mod{\ell}$. Then $\bF _{q^k}$ is the smallest $\bFq$-extension such that $E(\bF _{q^k})$ is isomorphic to $\bz/\ell\bz \times \bz/\ell\bz$. We denote by $\mu_{\ell}(\bF _{q^k})$ the cyclic subgroup of $\bF _{q^k}^*$ of order $\ell$.
+
+The (modified) Tate pairing is the map \vs $$\e: E[\ell]\times E[\ell] \lra \mu_{\ell}(\bF _{q^k})$$ defined as follows. For $P,Q \in E[\ell]$, let $f_P$ be any function such that $\divv(f_P) = n(P) - n(\infty)$.
+
+Choose any point $R\in E[\ell]\setminus \{\infty, P, Q, P-Q \}$ and set $D_Q:= (Q+R)-(R)$. By construction, the divisors $D$ and $\divv(f_P)$ have disjoint supports. Now, we define \vs $$\e(P,Q):= f_P(D_Q)^{(q^k-1)/\ell} = \left( \frac{f_P(Q+R)}{f_P(R)}  \right)^ {(q^k-1)/\ell}.$$ The Tate-pairing is \textit{well-defined} in the sense that the value of $\e(P,Q)$ does not depend on the choice of $f_P$ or $R$. Furthermore, it is bilinear and non-degenerate.\\
+
+
+\noin \textbf{Miller's algorithm:} We now describe Miller's algorithm which allows us to compute pairings \textit{efficiently}. This elegant algorithm is the primary reason pairings are of practical value rather than purely of theoretical interest. 
+
+As before, let $P$ be a point on the elliptic curve $E$. The key ingredient is to determine a function $f_P$ with divisor $\ell(P)-\ell(\infty)$. For every integer $i\geq 1$, the $f_i$ be a function whose divisor is $\divv(f_i) = i(P)	- ([i]P) - (i-1)(\infty)$. Note that $f_1 = 1$ and $f_{\ell} = f_{P}$.
+
+
+\begin{Lem} Let $P\in E[\ell]$ and let $i$, $j$ be integers $\geq 1$. Let $\mc{L}$ be the line through $[i]P$ and $[j]P$ and let $\mc{V}$ be the vertical line through $[i+j]P$. Then $f_{i+j} = f_{i}f_{j}\frac{\mc{L}}{\mc{V}}$.\end{Lem}
+
+\begin{prf} To be added.  \end{prf}
+
+
+\begin{mdframed} \textbf{Miller's algorithm to compute } $\e(P,Q)$
+
+\begin{enumerate}[wide, labelwidth=!, labelindent=0pt]\vs \item Compute the binary representation $(a_0,a_1,\cdots,a_n)$ of $\ell$.
+
+\item Select a point $R\in E[\ell]\setminus \{\infty, P, -Q, P-Q \}$
+
+\item Set $f\gets 1$, $T\gets P$
+
+\item for $i$ from $n$ down to $0$ do:
+
+\noin (a) Let $\mc{L}$ be the tangent line through $T$ and $\mc{V}$ the vertical line through $2T$.
+
+\noin (b) $T \gets 2T$
+
+\noin (c) $f\gets f^2\cdot \frac{\mc{L}(Q+R)}{\mc{V}(Q+R)}\cdot \frac{\mc{V}(R)}{\mc{L}(R)}$.
+
+\noin (d) If $a_i = 0$, then:
+
+(i) Let $\mc{L}$ be the line through $T$ and $P$ and $\mc{V}$ the vertical line through $T+P$.
+
+(ii) $T\gets T+P$
+
+(iii) $f\gets f\cdot \frac{\mc{L}(Q+R)}{\mc{V}(Q+R)}\cdot \frac{\mc{V}(R)}{\mc{L}(R)}$.
+
+\item return $f^{(q^{k}-1)/\ell}$ \qed \end{enumerate} \end{mdframed}
+
+\bigskip
+
+
+
+
+
+
+
+
+    
+\bigskip
+
+
+
+\noin \textbf{The Weil pairing:} Let $P, Q \in E(\bFqk)[r]$ and let $D_P$, $D_Q$ be divisors with disjoint supports such that $D_P \sim (P) - (\infty) $, $D_Q \sim (Q) - (\infty) $. There exist rational functions $f$, $g$ such that $(f) = rD_P$, $(g) = rD_Q$. The Weil pairing is a map \vs $$w_r: E(\bFqk)[r]\times E(\bFqk)[r]\;\lra \; \mu_r(\bFqk) $$ defined by \vs $$w_r(P,Q):= \frac{f(D_Q)}{g(D_P)}. $$
+
+The Weil pairing is bilinear, non-degenerate and alternating. Furthermore, $w_r(P,Q) = 1$ if and only if $P$ and $Q$ lie in the same cyclic group of order $r$. Thus, choosing $r$-torsion points $P$, $Q$ that generate distinct cyclic groups $\mb{G}_1$, $\mb{G}_2$ of order $r$ and setting $\mb{G}_T:= \mu_r(\bFqk)$ yields a non-degerate bilinear pairing \vs $$\e: \mb{G}_1\times\mb{G}_2 \;\lra\; \mb{G}_T .$$    
+
+
+
+
+
+\subsection{\fontsize{11}{11}\selectfont Cryptographic assumptions}
+
+We state the computationally infeasible problems that the security of our constructions hinge on.
+
+\begin{Def} {\normalfont \textbf{{$n$-strong Diffie Hellman assumption:}}} Let $\mb{G}$ be a cyclic group of prime order $p$ generated by an element $g$, and let $s \in \bFp^*$. Any probabilistic polynomial-time algorithm that is given the set $\{g^{s^i}: 1\leq i\leq n \}$ can find a pair $(a, g^{1/(s+a)})\in \bFp^*\times \mb{G}$ with at most negligible probability.\end{Def}
+
+\noindent The following lemma follows immediately from the definition.
+
+\begin{Lem} Let $\al\in \bFp$ and let $f(X)$ be any polynomial in $\bFp[X]$ not divisible by $(X+\al)$. Under the $n$-strong Diffie Hellman assumption, no probabilistic polynomial time algorithm can compute an element $w$ such that $w^{s+\al} = g^{f(s)}$.\end{Lem}
+
+\begin{prf} Suppose a probabilistic polynomial time algorithm does produce an element $w\in \mb{G}$ $w^{s+\al} = g^{f(s)}$. Since the polynomials $f(X)$, $X+\al$ are relatively prime, we may compute polynomials $h_1(X)$, $h_2(X)$ such that $$f(X)h_1(X)+(X+\al)h_2(X) = 1,\; \deg h_1(X) = 0 .$$ Set $\wti{w}:= w^{h_1(s)}g^{h_2(s)}$. Then $\wti{w}^{(s+\al)f(s)} = g$, which contradicts the $n$-strong Diffie Hellman assumption.\end{prf}
+
+\begin{Def} {\normalfont \textbf{{Knowledge of exponent assumption:}}}. Let $\mb{G}$ be a cyclic group of prime order $p$ generated by an element $g$, and let $s \in \bFp^*$. Suppose there exists a PPT algorithm $\mc{A}_1$ that given the set $\{g^{s^i}, g^{s^i\al}: 1\leq i\leq n \}$, outputs a pair $(c_1, c_2)\in \mb{G}\times\mb{G}$ such that $c_2 = c_1^{\al}$. Then there exists a PPT algorithm $\mc{A}_2$ that, with overwhelming probability, outputs a polynomial $f(X)\in \bFp[X]$ of degree $\leq n$ such that $c_1 = g^{f(s)}$, $c_2 = g^{\al f(s)}$.\end{Def}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
